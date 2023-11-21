@@ -8,10 +8,12 @@ public class Parser {
         return commandType;
     }
 
+    // return argument 1 of the currently loaded command
     public String argument1() {
         return arg1;
     }
 
+    // return argument 2 of the currently loaded command
     public int argument2() {
         return arg2;
     }
@@ -39,24 +41,45 @@ public class Parser {
         return result;
     }
 
+    // parse a given line of VM code to determine the command type and extract arguments
     private void parseCommand(String codeLine) {
         String[] components = codeLine.split("\\s+");
-        if (components.length == 1) {
-            commandType = Commands.ARITHMETIC;
+        if (components.length == 1) { 
+            if (components[0].startsWith("return")) {
+                commandType = Commands.RETURN;
+            } else {
+                commandType = Commands.ARITHMETIC;
+            }
             arg1 = components[0];
             arg2 = 0;
             return;
         }
 
+        arg1 = components[1];
+        arg2 = 0;
+
+        if (components[0].startsWith("label")) {
+            commandType = Commands.LABEL;
+            return;
+        } else if (components[0].startsWith("if")) {
+            commandType = Commands.IF;
+            return;
+        } else if (components[0].startsWith("goto")) {
+            commandType = Commands.GOTO;
+            return;
+        }
+
+
         if (components[0].startsWith("push")) {
             commandType = Commands.PUSH;
-        }
-
-        if (components[0].startsWith("pop")) {
+        } else if (components[0].startsWith("pop")) {
             commandType = Commands.POP;
+        } else if (components[0].startsWith("function")) {
+            commandType = Commands.FUNCTION;
+        } else {
+            commandType = Commands.CALL;
         }
 
-        arg1 = components[1];
         arg2 = Integer.parseInt(components[2]);
     }
 }
