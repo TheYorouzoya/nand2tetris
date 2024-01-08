@@ -1,4 +1,3 @@
-package enums;
 
 // list of memory segments defined under the Jack VM implementation
 public enum MemSegments {

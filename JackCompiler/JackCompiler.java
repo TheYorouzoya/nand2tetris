@@ -1,10 +1,6 @@
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayDeque;
 
-public class JackAnalyzer {
+public class JackCompiler {
     public static void main(String[] args) {
         String filepath = args[0];
         File file = new File(filepath);
@@ -33,19 +29,11 @@ public class JackAnalyzer {
 
         for (File inputFile : files) {
             String path = inputFile.getAbsolutePath();
-            String outputFile = path.substring(0, path.lastIndexOf(".")) + ".xml";
+            String vmFile = path.substring(0, path.lastIndexOf(".")) + ".vm";
             Tokenizer tokenizer = new Tokenizer(inputFile);
-            CompilationEngine engine = new CompilationEngine(tokenizer.tokens());
-            ArrayDeque<String> lines = engine.compileProgram();
-
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
-                for (String line : lines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            
+            CompilationEngine engine = new CompilationEngine(tokenizer.tokens(), vmFile, inputFile.getName());
+            engine.compileProgram();
         }
     }
 }

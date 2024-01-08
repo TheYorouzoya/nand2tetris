@@ -1,4 +1,3 @@
-package enums;
 
 // list of Jack language Keywords
 public enum Keywords {

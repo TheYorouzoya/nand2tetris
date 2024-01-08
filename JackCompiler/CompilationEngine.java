@@ -1,44 +1,39 @@
 import java.util.ArrayDeque;
 
-import enums.Keywords;
-import enums.Tokens;
-
 public class CompilationEngine {
-    private ArrayDeque<String> lines;
     private ArrayDeque<Token> tokens;
     private Token currentToken;
+    private SymbolTable subroutineTable;
+    private SymbolTable classTable;
+    private VMWriter writer;
+    private String className;
+    private int labelCounter;
 
-    public CompilationEngine (ArrayDeque<Token> tokens) {
+    public CompilationEngine (ArrayDeque<Token> tokens, String outputFile, String fileName) {
         if (tokens == null) {
             throw new IllegalArgumentException("Given token stack is empty.");
         }
         this.tokens = tokens;
-        lines = new ArrayDeque<>();
-
+        labelCounter = 0;
+        subroutineTable = new SymbolTable();
+        classTable = new SymbolTable(); 
+        writer = new VMWriter(outputFile);
     }
 
     private void advance() {
         currentToken = tokens.removeFirst();
     }
 
-    public ArrayDeque<String> compileProgram () {
+    public void compileProgram () {
         advance();
         compileClass();
-        return lines;
+        writer.writeFile();
     }
 
     private void compileCurrentToken () {
         switch (currentToken.type()) {
             case KEYWORD:
                 compileKeyword();
-                break;
-
-            case SYMBOL:
-                compileSymbol();
-                break;
-
-            case IDENTIFIER:
-                compileIdentifier();
                 break;
 
             case INT_CONST:
@@ -97,83 +92,98 @@ public class CompilationEngine {
                 compileReturn();
                 break;
 
+            case NULL: case FALSE:
+                writer.writePush(MemSegments.CONSTANT, 0);
+                break;
+
+            case TRUE:
+                writer.writePush(MemSegments.CONSTANT, 1);
+                writer.writeArithmetic(VMCommands.NEG);
+                break;
+
+            case THIS:
+                writer.writePush(MemSegments.POINTER, 0);
+                break;
+
             default:
-                lines.add(currentToken.XMLTag());
                 break;
         }
-    }
-
-    private void compileSymbol () {
-        String openTag = "<symbol> ", closeTag = " </symbol>";
-        char symbol = currentToken.symbol();
-
-        switch (symbol) {
-                case '&':
-                lines.add(openTag + "&amp;" + closeTag);
-                break;
-
-            case '<':
-                lines.add(openTag + "&lt;" + closeTag);
-                break;
-
-            case '>':
-                lines.add(openTag + "&gt;" + closeTag);
-                break;
-            
-            default:
-                lines.add(openTag + symbol + closeTag);
-                break;
-        }
-    }
-
-    private void compileIdentifier () {
-        lines.add(currentToken.XMLTag());
     }
 
     private void compileIntegerConstant () {
-        lines.add(currentToken.XMLTag());
+        writer.writePush(MemSegments.CONSTANT, currentToken.intVal());
     }
 
     private void compileStringConstant () {
-        lines.add(currentToken.XMLTag());
+        int length = currentToken.value().length();
+        String str = currentToken.value();
+
+        writer.writePush(MemSegments.CONSTANT, length);
+        writer.writeCall("String.new", 1);
+
+        for (int i = 0; i < length; i++) {
+            writer.writePush(MemSegments.CONSTANT, str.charAt(i));
+            writer.writeCall("String.appendChar", 2);
+        }
     }
 
 
     // Class grammar: 'class' className '{' classVarDec* subroutineDec* '}'
     private void compileClass () {
-        String openTag = "<class>", closeTag = "</class>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
+        advance();
+        classTable.resetTable();
+        classTable.addVar(VarKind.CLASS, currentToken.value(), currentToken.value());
+        className = currentToken.value();
+
+        compileCurrentToken();
 
         while (!tokens.isEmpty()) {
             advance();
             compileCurrentToken();
         }
-
-        lines.add(closeTag);
     }
 
     // Class Variable Declaration: ('static'|'field') type varName (',' varName)* ';'
     private void compileClassVarDec () {
-        String openTag = "<classVarDec>", closeTag = "</classVarDec>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
+        VarKind kind;
+        if (currentToken.value().equals("static")) {
+            kind = VarKind.STATIC;
+        } else {
+            kind = VarKind.FIELD;
+        }
+        
+        advance();
+        String type = currentToken.value();
+        compileCurrentToken();
+
 
         while (!currentToken.value().equals(";")) {
             advance();
+            if (currentToken.type() == Tokens.IDENTIFIER) {
+                classTable.addVar(kind, type, currentToken.value());
+            }
             compileCurrentToken();
         }
-        
-        lines.add(closeTag);
     }
 
     // Subroutine grammar:
-    // ('constructor'|'function'|'method') ('void'|type) subroutineName '('parameterList') subroutineBody
+    // ('constructor'|'function'|'method') ('void'|type) subroutineName '('parameterList')' subroutineBody
     private void compileSubroutine () {
-        String openTag = "<subroutineDec>", closeTag = "</subroutineDec>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
+        String subroutineName, returnType;
+        Keywords subroutineKind = currentToken.keyWord();
+
+        subroutineTable.resetTable();
         advance();
+
+        returnType = currentToken.value();
+        compileCurrentToken();
+        advance();
+
+        subroutineName = currentToken.value();
+        classTable.addVar(VarKind.SUBROUTINE, returnType, subroutineName);
+        if (subroutineKind == Keywords.METHOD) {
+            subroutineTable.addVar(VarKind.ARG, className, "this");
+        }
 
         while(!currentToken.value().equals("{")) {
             if (currentToken.value().equals("(")) {
@@ -185,33 +195,48 @@ public class CompilationEngine {
             advance();
         }
 
-        compileSubroutineBody();
-
-        lines.add(closeTag);
+        compileSubroutineBody(subroutineName, subroutineKind);
     }
 
     // Parameter List Grammar: ((type varName) ',' (type varName)*)?
     private void compileParameterList () {
-        String openTag = "<parameterList>", closeTag = "</parameterList>";
-        lines.add(openTag);
-
+        // unroll the loop to process one argument at a time by reading 2-3 tokens at a time
         while(!currentToken.value().equals(")")) {
+            String type = currentToken.value();
+            
             compileCurrentToken();
             advance();
-        }
 
-        lines.add(closeTag);
+            subroutineTable.addVar(VarKind.ARG, type, currentToken.value());
+
+            compileCurrentToken();
+            advance();
+
+            if (currentToken.value().equals(",")) {
+                compileCurrentToken();
+                advance();
+            }
+        }
     }
 
     // Subroutine Body Grammar: '{' varDec* statements '}'
-    private void compileSubroutineBody () {
-        String openTag = "<subroutineBody>", closeTag = "</subroutineBody>";
-        lines.add(openTag);
-
+    private void compileSubroutineBody (String subroutineName, Keywords subroutineKind) {
         // compile all variable declarations
         while (!SymbolTable.isStatement(currentToken.value())) {
             compileCurrentToken();
             advance();
+        }
+
+        writer.writeFunction(className + "." + subroutineName, 
+                             subroutineTable.varCount(VarKind.VAR));
+        if (subroutineKind == Keywords.CONSTRUCTOR) {
+            int size = classTable.varCount(VarKind.FIELD);      // compute number of blocks
+            writer.writePush(MemSegments.CONSTANT, size);       // push block size onto stack
+            writer.writeCall("Memory.alloc", 1);     // allocate memory
+            writer.writePop(MemSegments.POINTER, 0);      // align base address of returned block
+        } else if (subroutineKind == Keywords.METHOD) {
+            writer.writePush(MemSegments.ARGUMENT, 0);
+            writer.writePop(MemSegments.POINTER, 0);
         }
 
         // compile all statements
@@ -220,52 +245,57 @@ public class CompilationEngine {
         }
 
         compileCurrentToken();
-        lines.add(closeTag);
     }
 
     // Variable Declaration grammar: 'var' type varName (',' varName)* ';'
      private void compileVarDec () {
-        String openTag = "<varDec>", closeTag = "</varDec>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
+        advance();
+
+        String type = currentToken.value();
+            
+        compileCurrentToken();
         advance();
 
         while (!currentToken.value().equals(";")) {
+            subroutineTable.addVar(VarKind.VAR, type, currentToken.value());
+
             compileCurrentToken();
             advance();
+
+            if (currentToken.value().equals(",")) {
+                compileCurrentToken();
+                advance();
+            }
         }
         
         compileCurrentToken();
-        lines.add(closeTag);
     }
 
     // Statement grammar: statements*
     // where statement can be one of: letStatement, ifStatement, whileStatement, 
     //                                doStatement, returnStatement
     private void compileStatements () {
-        String openTag = "<statements>", closeTag = "</statements>";
-        lines.add(openTag);
-
         while (SymbolTable.isStatement(currentToken.value())) {
             compileCurrentToken();
             advance();
         }
-
-        lines.add(closeTag);
     }
 
     // Let Statement Grammar: 'let' varName('['expression']')? '=' expression ';'
     private void compileLet () {
-        String openTag = "<letStatement>", closeTag = "</letStatement>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
+        boolean arrayFlag = false;
         advance();
+
+        String varName = currentToken.value();
 
         while (!currentToken.value().equals(";")) {
             if (currentToken.value().equals("[")) {
                 compileCurrentToken();
                 advance();
                 compileExpression();
+                pushIdentifier(varName);
+                writer.writeArithmetic(VMCommands.ADD);
+                arrayFlag = true;
             }
             if (currentToken.value().equals("=")) {
                 compileCurrentToken();
@@ -279,63 +309,63 @@ public class CompilationEngine {
         }
 
         compileCurrentToken();
-        lines.add(closeTag);
+
+        if (arrayFlag) {
+            writer.writePop(MemSegments.TEMP, 0);
+            writer.writePop(MemSegments.POINTER, 1);
+            writer.writePush(MemSegments.TEMP, 0);
+            writer.writePop(MemSegments.THAT, 0);
+        } else {
+            popIdentifier(varName);
+        }
     }
 
     // Do Statement Grammar: 'do' subroutineCall ';'
     // where subroutineCall is one of: subroutineName'('expressionList')'
     //                                 (className|varName)'.'subroutineName'('expressionList')'
     private void compileDo () {
-        String openTag = "<doStatement>", closeTag = "</doStatement>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
         advance();
 
-        while (!currentToken.value().equals(";")) {
-            if (currentToken.value().equals("(")) {
-                compileCurrentToken();
-                advance();
-                compileExpressionList();
-            }
-            compileCurrentToken();
-            advance();
-        }
-
+        compileExpression();
         compileCurrentToken();
-        lines.add(closeTag);
+        writer.writePop(MemSegments.TEMP, 0);
     }
 
     // Return Statement Grammar: 'return' expression? ';'
     private void compileReturn () {
-        String openTag = "<returnStatement>", closeTag = "</returnStatement>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
         advance();
 
         if (!currentToken.value().equals(";")) {
             compileExpression();
+        } else {
+            writer.writePush(MemSegments.CONSTANT, 0);
         }
 
         compileCurrentToken();
-        lines.add(closeTag);
+        writer.writeReturn();
     }
 
     // While Statement Grammar: 'while' '('expression')' '{'statements'}'
     private void compileWhile () {
-        String openTag = "<whileStatement>", closeTag = "</whileStatement>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
         advance();
+
+        String loopStart = className + "_whileStart$" + labelCounter++;
+        String loopEnd = className + "_whileEnd$" + labelCounter++;
+        writer.writeLabel(loopStart);
 
         while (!currentToken.value().equals("}")) {
             if (currentToken.value().equals("(")) {
                 compileCurrentToken();
                 advance();
                 compileExpression();
+                writer.writeArithmetic(VMCommands.NOT);
+                writer.writeIf(loopEnd);
+
             } else if (currentToken.value().equals("{")) {
                 compileCurrentToken();
                 advance();
                 compileStatements();
+                writer.writeGoto(loopStart);
                 continue;
             }
             compileCurrentToken();
@@ -343,15 +373,14 @@ public class CompilationEngine {
         }
 
         compileCurrentToken();
-        lines.add(closeTag);
+        writer.writeLabel(loopEnd);
     }
 
     // If Statement Grammar: 'if' '('expression')' '{'statements'}' ('else' '{'statements'}')?
     private void compileIf () {
-        String openTag = "<ifStatement>", closeTag = "</ifStatement>";
-        lines.add(openTag);
-        lines.add(currentToken.XMLTag());
         advance();
+
+        String falseLabel = "_ifFalse$" + labelCounter++;
 
         while (!currentToken.value().equals("{")) {
             if (currentToken.value().equals("(")) {
@@ -363,6 +392,9 @@ public class CompilationEngine {
             advance();
         }
 
+        writer.writeArithmetic(VMCommands.NOT);
+        writer.writeIf(falseLabel);
+
         compileCurrentToken();
         advance();
         compileStatements();
@@ -371,22 +403,28 @@ public class CompilationEngine {
         Token nextToken = tokens.peekFirst();
 
         if (nextToken.value().equals("else")) {
+            String elseEnd = "_elseEnd$" + labelCounter++;
+            writer.writeGoto(elseEnd);
             advance();
-            compileCurrentToken();
+            compileCurrentToken();      // compile else
             advance();
-            compileCurrentToken();
+            compileCurrentToken();      // compile '{'
             advance();
-            compileStatements();
-            compileCurrentToken();
-        }
 
-        lines.add(closeTag);
+            writer.writeLabel(falseLabel);
+
+            compileStatements();        // compile statements
+            compileCurrentToken();      // compile '}'
+
+            writer.writeLabel(elseEnd);
+        } else {
+            writer.writeLabel(falseLabel);
+        }
     }
 
     // Expression Grammar: term (op term)*
     private void compileExpression () {
-        String openTag = "<expression>", closeTag = "</expression>";
-        lines.add(openTag);
+        ArrayDeque<Character> operatorStack = new ArrayDeque<>();
         boolean unaryFlag = false;      // flag if expression is (unaryOp term)
 
         if (currentToken.value().equals("-") || currentToken.value().equals("~")) {
@@ -399,6 +437,9 @@ public class CompilationEngine {
                     compileTerm();
                 } else {
                     compileCurrentToken();
+                    if (SymbolTable.isOperator(currentToken.symbol())) {
+                        operatorStack.add(currentToken.symbol());
+                    }
                     advance();
                 }
             } else {
@@ -407,36 +448,38 @@ public class CompilationEngine {
             unaryFlag = false;
         }
 
-        lines.add(closeTag);
+        while (!operatorStack.isEmpty()) {
+            compileOperator(operatorStack.pop());
+        }
     }
 
     // Term Grammar: A term can be one of,
     //  - integerConstant
     //  - stringConstant
     //  - keywordConstant
-    //  - varName or varName'['expression']
+    //  - varName or varName'['expression']'
     //  - '('expression')'
     //  - (unaryOp term)
     //  - subroutineCall
-    // SubroutineCall grammar: a subroutineCall can be one of,
-    //  - subroutineName'('expressionList')
-    //  - (className|varName)'.'subroutineName'('expressionList')
     // Op can be one of:  '+', '-', '*', '/', '&', '|', '<', '>', '='
-    private void compileTerm () {
-        String openTag = "<term>", closeTag = "</term>";
 
+    private void compileTerm () {
         switch (currentToken.type()) {
             case SYMBOL:
                 // compile unaryOp term
                 if (currentToken.symbol() == '-' || currentToken.symbol() == '~') {
-                    lines.add(openTag);
+                    char sign = currentToken.symbol();
                     compileCurrentToken();      // compile unaryOp
                     advance();
                     compileTerm();              // compile term
+                    if (sign == '-') {
+                        writer.writeArithmetic(VMCommands.NEG);
+                    } else {
+                        writer.writeArithmetic(VMCommands.NOT);
+                    }
                 }
                 // compile '('expression')' 
                 else if (currentToken.symbol() == '(') {
-                    lines.add(openTag);
                     compileCurrentToken();      // compile '('
                     advance();
                     compileExpression();        // compile expression
@@ -446,54 +489,87 @@ public class CompilationEngine {
                     return;
                 }
                 break;
+
             case IDENTIFIER:
-                lines.add(openTag);
                 Token nextToken = tokens.peekFirst();
                 if (nextToken.type() == Tokens.SYMBOL) {
                     // compile varName'['expression']'
                     if (nextToken.symbol() == '[') {
+                        String arrBase = currentToken.value();
                         compileCurrentToken();  // compile varName
                         advance();
                         compileCurrentToken();  // compile '['
                         advance();
                         compileExpression();    // compile expression
+                        pushIdentifier(arrBase);
+                        writer.writeArithmetic(VMCommands.ADD);
+                        writer.writePop(MemSegments.POINTER, 1);
+                        writer.writePush(MemSegments.THAT, 0);
                         compileCurrentToken();  // compile ']'
                         advance();
-                    } else if (nextToken.symbol() == '.' || nextToken.symbol() == '(') {
-                        while (!currentToken.value().equals("(")) {
+                    }
+
+                    // compile subroutine call
+                    // SubroutineCall grammar: a subroutineCall can be one of,
+                    //  - subroutineName'('expressionList')
+                    //  - (className|varName)'.'subroutineName'('expressionList')'
+                    else if (nextToken.symbol() == '.' || nextToken.symbol() == '(') {
+                        String className, subroutineName;
+                        int arguments = 0;
+                        if (nextToken.symbol() == '(') {
+                            className = typeOf("this");
+                            subroutineName = currentToken.value();
+                            pushIdentifier("this");
+                            arguments++;
+                            compileCurrentToken();
+                            advance();
+                        } else {
+                            VarKind callerKind = kindOf(currentToken.value());
+                            if (callerKind == VarKind.NONE || callerKind == VarKind.CLASS) {
+                                className = currentToken.value();
+                            } else {
+                                className = typeOf(currentToken.value());
+                                pushIdentifier(currentToken.value());
+                                arguments++;
+                            }
+                            compileCurrentToken();
+                            advance();
+                            compileCurrentToken();
+                            advance();
+                            subroutineName = currentToken.value();
                             compileCurrentToken();
                             advance();
                         }
 
                         compileCurrentToken();
                         advance();
-                        compileExpressionList();
+                        arguments += compileExpressionList();
+                        // System.out.println("Writing call: " + className + "." + subroutineName + " " + arguments);
+                        writer.writeCall(className + "." + subroutineName, arguments);
                         compileCurrentToken();
-                        advance();
+                        advance();    
                     } else {
                         compileCurrentToken();
+                        pushIdentifier(currentToken.value());
                         advance();
                     }
                     break;
                 } else {
                     compileCurrentToken();
+                    pushIdentifier(currentToken.value());
                     advance();
                     break;
                 }
 
             default:
-                lines.add(openTag);
                 compileCurrentToken();
                 advance();
                 break;
         }
-
-        lines.add(closeTag);
     }
 
-    private void compileExpressionList () {
-        String openTag = "<expressionList>", closeTag = "</expressionList>";
-        lines.add(openTag);
+    private int compileExpressionList () {
+        int expressions = 0;
 
         while (!currentToken.value().equals(")")) {
             if (currentToken.value().equals(",")) {
@@ -502,12 +578,118 @@ public class CompilationEngine {
                 continue;
             }
             compileExpression();
+            expressions++;
         }
 
-        lines.add(closeTag);
+        return expressions;
     }
 
-    // compileExpression;
-    // compileTerm;
-    // int compileExpressionList;
+    private void compileOperator (char operator) {
+        switch (operator) {
+            case '+':
+                writer.writeArithmetic(VMCommands.ADD);
+                break;
+
+            case '-':
+                writer.writeArithmetic(VMCommands.SUB);
+                break;
+
+            case '*':
+                writer.writeCall("Math.multiply", 2);
+                break;
+
+            case '/':
+                writer.writeCall("Math.divide", 2);
+                break;
+
+            case '&':
+                writer.writeArithmetic(VMCommands.AND);
+                break;
+
+            case '|':
+                writer.writeArithmetic(VMCommands.OR);
+                break;
+            
+            case '<':
+                writer.writeArithmetic(VMCommands.LT);
+                break;
+            
+            case '>':
+                writer.writeArithmetic(VMCommands.GT);
+                break;
+            
+            case '=':
+                writer.writeArithmetic(VMCommands.EQ);
+                break;
+            
+            case '~':
+                writer.writeArithmetic(VMCommands.NOT);
+                break;
+            
+            default:
+                break;
+        }
+    }
+
+    private void pushIdentifier (String identifier) {
+        switch (kindOf(identifier)) {
+            case STATIC:
+                writer.writePush(MemSegments.STATIC, indexOf(identifier));
+                break;
+            case FIELD:
+                writer.writePush(MemSegments.THIS, indexOf(identifier));
+                break;
+            case VAR:
+                writer.writePush(MemSegments.LOCAL, indexOf(identifier));
+                break;
+            case ARG:
+                writer.writePush(MemSegments.ARGUMENT, indexOf(identifier));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void popIdentifier (String identifier) {
+        switch (kindOf(identifier)) {
+            case STATIC:
+                writer.writePop(MemSegments.STATIC, indexOf(identifier));
+                break;
+            case FIELD:
+                writer.writePop(MemSegments.THIS, indexOf(identifier));
+                break;
+            case VAR:
+                writer.writePop(MemSegments.LOCAL, indexOf(identifier));
+                break;
+            case ARG:
+                writer.writePop(MemSegments.ARGUMENT, indexOf(identifier));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private VarKind kindOf (String name) {
+        VarKind entry = subroutineTable.kindOf(name);
+        if (entry == VarKind.NONE) {
+            return classTable.kindOf(name);
+        }
+        return entry;
+    }
+
+    private String typeOf (String name) {
+        String entry = subroutineTable.typeOf(name);
+        if (entry == "") {
+            return classTable.typeOf(name);
+        }
+        return entry;
+    }
+
+    private int indexOf (String name) {
+        int entry = subroutineTable.indexOf(name);
+        if (entry < 0) {
+            return classTable.indexOf(name);
+        }
+        return entry;
+    }
 }

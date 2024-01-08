@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayDeque;
 
-import enums.Tokens;
-
 public class Tokenizer {
     private ArrayDeque<Token> tokens;
 

@@ -1,4 +1,3 @@
-package enums;
 
 // list of types of tokens in Jack language
 public enum Tokens {

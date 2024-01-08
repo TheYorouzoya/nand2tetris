@@ -1,6 +1,3 @@
-import enums.Keywords;
-import enums.Tokens;
-
 public class Token {
     private Tokens type;
     private String value;

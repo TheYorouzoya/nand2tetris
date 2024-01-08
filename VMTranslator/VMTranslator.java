@@ -19,7 +19,6 @@ public class VMTranslator {
 
         if (isDirectory) {
             outputFile = file.getAbsolutePath() + File.separator + file.getName() + ".asm";
-            System.out.println(outputFile);
             files = file.listFiles((dir, name) -> name.endsWith(".vm"));
         } else {
             outputFile = inputFile.substring(0, inputFile.lastIndexOf(".")) + ".asm";

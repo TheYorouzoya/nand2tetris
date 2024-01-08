@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import enums.Keywords;
-import enums.VarKind;
-
 public final class SymbolTable {
     private static final char[] SYMBOLS;
     private static final Set<Character> SYM_TABLE;
@@ -29,7 +26,7 @@ public final class SymbolTable {
 
         char[] operators = new char[] {
             '+', '-', '*', '/', '&', '|', '<',
-            '>', '='
+            '>', '=', '~'
         };
 
         Set<Character> dumDum = new HashSet<>();
@@ -70,6 +67,10 @@ public final class SymbolTable {
         public VarKind kind() { return this.kind; }
         public String type() { return this.type; }
         public int index() { return this.index; }
+
+        public String toString() {
+            return "Kind: " + kind.toString() + " Type: " + type + " Index: " + index;
+        }
     }
 
     public SymbolTable() {
@@ -89,7 +90,7 @@ public final class SymbolTable {
     }
 
     public void addVar (VarKind kind, String type, String name) {
-        int index;
+        int index = 0;
         switch (kind) {
             case STATIC:
                 index = staticCount++;
@@ -102,8 +103,9 @@ public final class SymbolTable {
                 break;
             case ARG:
                 index = argCount++;
+                break;
             default:
-                return;
+                break;
         }
         table.put(name, new Variable(kind, type, index));
     }
