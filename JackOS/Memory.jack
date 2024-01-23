@@ -1,0 +1,70 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * This library provides two services: direct access to the computer's main
+ * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
+ * consists of 32,768 words, each holding a 16-bit binary number.
+ */ 
+class Memory {
+    static Array ram, heap, freeList;
+
+    /** Initializes the class. */
+    function void init() {
+        let ram = 0;
+        let heap = 2048;
+        let freeList = heap;
+        let freeList[0] = 0;
+        let freeList[1] = 14334;
+
+        return;
+    }
+
+    /** Returns the RAM value at the given address. */
+    function int peek(int address) {
+        return ram[address];
+    }
+
+    /** Sets the RAM value at the given address to the given value. */
+    function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
+    }
+
+    /** Finds an available RAM block of the given size and returns
+     *  a reference to its base address. */
+    function int alloc(int size) {
+        var Array currentPointer;
+        let currentPointer = freeList;
+
+        // Search for approriate block using first-fit algorithm
+        while (~(currentPointer = 0)) {
+            // Found a block that's big enough
+            if (~(currentPointer[1] < (size + 2))) {
+                let currentPointer[1] = currentPointer[1] - size - 2;
+                let currentPointer = currentPointer + currentPointer[1];
+                let currentPointer[0] = 0;
+                let currentPointer[1] = size;
+                return currentPointer + 2;
+            }
+            let currentPointer = currentPointer[0];
+        }
+        return -1;
+    }
+
+    /** De-allocates the given object (cast as an array) by making
+     *  it available for future allocations. */
+    function void deAlloc(Array o) {
+        var Array current;
+        let current = freeList;
+
+        while (~(current[0] = 0)) {
+            let current = current[0];
+        }
+
+        let current = o - 2;
+        return;
+    }    
+}
