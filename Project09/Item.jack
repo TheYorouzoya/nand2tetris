@@ -1,0 +1,118 @@
+/* Class to manage the items and other collectibles in the game */
+class Item {
+    field int x, y, type, direction;
+    field Array tile;
+    field int path, distanceTraveled;
+
+    constructor Item new(int Ax, int Ay, int Atype, int dir, int pth) {
+        let x = Ax;
+        let y = Ay;
+        let type = Atype;
+        let tile = Array.new(16);
+        let direction = dir;
+        let path = pth;
+        let distanceTraveled = 0;
+
+        do loadTileType(type);
+        do Tiles.drawTile(x, y, tile);
+        
+        return this;
+    }
+
+    method void dispose() {
+        do tile.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void loadTileType(int typ) {
+        if (typ = 1) { do Tiles.loadKeyTile(tile); }
+        return;
+    }
+
+    method boolean collidesWith(int Ax, int Ay) {
+        var boolean result;
+        let result = ((x        < (Ax + 2)) &
+                      ((x + 2)  > Ax)       &
+                      (y        < (Ay + 2)) &
+                      ((y + 2)  > Ay));
+        
+        return result;
+    }
+
+    method void moveItem() {
+        if (direction = 1) { do moveUp(); }
+        if (direction = 2) { do moveDown(); }
+        if (direction = 3) { do moveLeft(); }
+        if (direction = 4) { do moveRight(); }
+        return;
+    }
+
+    method void moveUp() {
+        do Tiles.eraseTile(x, y);
+        let y = y - 1;
+        let distanceTraveled = distanceTraveled + 1;
+        do Tiles.drawTile(x, y, tile);
+
+        if (distanceTraveled = path) {
+            let distanceTraveled = 0;
+            let direction = 2;
+        }
+        return;
+    }
+    
+    method void moveDown() {
+        do Tiles.eraseTile(x, y);
+        let y = y + 1;
+        let distanceTraveled = distanceTraveled + 1;
+        do Tiles.drawTile(x, y, tile);
+
+        if (distanceTraveled = path) {
+            let distanceTraveled = 0;
+            let direction = 1;
+        }
+        return;
+    }
+    
+    method void moveLeft() {
+        do Tiles.eraseTile(x, y);
+        let x = x - 1;
+        let distanceTraveled = distanceTraveled + 1;
+        do Tiles.drawTile(x, y, tile);
+
+        if (distanceTraveled = path) {
+            let distanceTraveled = 0;
+            let direction = 4;
+        }
+        return;
+    }
+    
+    method void moveRight() {
+        do Tiles.eraseTile(x, y);
+        let x = x + 1;
+        let distanceTraveled = distanceTraveled + 1;
+        do Tiles.drawTile(x, y, tile);
+
+        if (distanceTraveled = path) {
+            let distanceTraveled = 0;
+            let direction = 3;
+        }
+        return;
+    }
+
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method int getType() {
+        return type;
+    }
+
+    method int getDirection() {
+        return direction;
+    }
+}

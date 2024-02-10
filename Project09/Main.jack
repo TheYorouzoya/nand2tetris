@@ -1,0 +1,28 @@
+/* Main driver for the game */
+class Main {
+    static int memAddress;
+
+    function void main() {
+        var Game game;
+        do Screen.clearScreen();
+        do Main.blackScreen();
+        let game = Game.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+
+    function void blackScreen() {
+        var Array screen;
+        var int index;
+
+        let screen = 16384;
+        let index = 0;
+
+        while (index < 8192) {
+            let screen[index] = -1;
+            let index = index + 1;
+        }
+        return;
+    }
+}

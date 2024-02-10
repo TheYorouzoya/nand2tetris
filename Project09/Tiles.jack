@@ -1,0 +1,147 @@
+/* Utility class to store, draw, and erase all the different tiles used in the game */
+class Tiles {
+    static int evenMask, oddMask;
+    static Array screen;
+
+    function void init() {
+        let evenMask = 255;
+        let oddMask = -256;
+        let screen = 16384;
+        return;
+    }
+
+    function void drawTile(int x, int y, Array tile) {
+        var int i, row, location;
+        let i = 0;
+        let row = 0;
+        let location = (x / 2) + (y * 256);
+
+        if ((x & 1) = 1) {
+            while (i < 16) {
+                let screen[location + row] = screen[location + row] & ((tile[i] * 256) | evenMask);
+                if (~(tile[i] = -1)) {
+                    let screen[location + row + 1] = screen[location + row + 1] & ((tile[i] / 256) | oddMask);
+                }
+                if (tile[i] < -1) {
+                    let screen[location + row + 1] = screen[location + row + 1] - 1;
+                }
+                let i = i + 1;
+                let row = row + 32;
+            }
+        }
+        else {
+                while (i < 16) {
+                let screen[location + row] = tile[i];
+                let i = i + 1;
+                let row = row + 32;
+            }
+        }
+        return;
+    }
+
+    function void eraseTile(int x, int y) {
+        var int i, row, location;
+        
+        let row = 0;
+        let location = (x / 2) + (y * 256);
+        let i = 0;
+        let row = 0;
+        
+        if ((x & 1) = 1) {
+            while (i < 16) {
+                let screen[location + row] = screen[location + row] | oddMask;
+                let screen[location + row + 1] = screen[location + row + 1] | evenMask;
+                let i = i + 1;
+                let row = row + 32;
+            }
+        }
+        else {
+            while(i < 16) {
+                let screen[location + row] = -1;
+                let i = i + 1;
+                let row = row + 32;
+            }
+        }
+        return;
+    }
+
+    function void loadBrickTile(Array tile) {
+        let tile[0] = 258;
+        let tile[1] = 258;
+        let tile[2] = 258;
+        let tile[3] = -1;
+        let tile[4] = 4104;
+        let tile[5] = 4104;
+        let tile[6] = 4104;
+        let tile[7] = -1;
+        let tile[8] = 258;
+        let tile[9] = 258;
+        let tile[10] = 258;
+        let tile[11] = -1;
+        let tile[12] = 4104;
+        let tile[13] = 4104;
+        let tile[14] = 4104;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadKeyTile(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -3841;
+        let tile[2] = -8065;
+        let tile[3] = -12737;
+        let tile[4] = -14017;
+        let tile[5] = -12993;
+        let tile[6] = -14529;
+        let tile[7] = -8065;
+        let tile[8] = -3937;
+        let tile[9] = -113;
+        let tile[10] = -57;
+        let tile[11] = -93;
+        let tile[12] = -47;
+        let tile[13] = -23;
+        let tile[14] = -9;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadClosedDoorTile(Array tile) {
+        let tile[0] = -8185;
+        let tile[1] = -16381;
+        let tile[2] = -28687;
+        let tile[3] = -28647;
+        let tile[4] = -28663;
+        let tile[5] = -28647;
+        let tile[6] = -28631;
+        let tile[7] = -28135;
+        let tile[8] = -27639;
+        let tile[9] = -27383;
+        let tile[10] = -27383;
+        let tile[11] = -27623;
+        let tile[12] = -28119;
+        let tile[13] = -28647;
+        let tile[14] = -28663;
+        let tile[15] = -28663;
+        return;
+    }
+
+    function void loadOpenDoorTile(Array tile) {
+        let tile[0] = -8185;
+        let tile[1] = -16381;
+        let tile[2] = -28687;
+        let tile[3] = -25063;
+        let tile[4] = -25079;
+        let tile[5] = -25063;
+        let tile[6] = -25047;
+        let tile[7] = -25063;
+        let tile[8] = -26359;
+        let tile[9] = -25847;
+        let tile[10] = -25847;
+        let tile[11] = -26343;
+        let tile[12] = -24791;
+        let tile[13] = -25063;
+        let tile[14] = -25079;
+        let tile[15] = -25079;
+        return;
+    }
+}

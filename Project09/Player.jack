@@ -1,0 +1,165 @@
+/* Player Character */
+class Player {
+    field int x, y, location;
+    field int oddMask, evenMask;
+    field Array screen, twoToThe, map;
+
+    constructor Player new(int Ax, int Ay, Array powArr, Array lMap) {
+        let x = Ax;
+        let y = Ay;
+        let twoToThe = powArr;
+        let map = lMap;
+        let screen = 16384;
+        let oddMask = -256;
+        let evenMask = 255;
+
+        do draw();
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method void draw() {
+        let location = (x / 2) + (y * 256);
+
+        if ((x & 1) = 1) {
+            // print first half
+            let screen[location] = screen[location] & (-1);
+            let screen[location + 32] = screen[location + 32] & (2047);
+            let screen[location + 64] = screen[location + 64] & (1023);
+            let screen[location + 96] = screen[location + 96] & (511);
+            let screen[location + 128] = screen[location + 128] & (-7681);
+            let screen[location + 160] = screen[location + 160] & (4607);
+            let screen[location + 192] = screen[location + 192] & (23039);
+            let screen[location + 224] = screen[location + 224] & (23039);
+            let screen[location + 256] = screen[location + 256] & (5119);
+            let screen[location + 288] = screen[location + 288] & (-1);
+            let screen[location + 320] = screen[location + 320] & (20479);
+            let screen[location + 352] = screen[location + 352] & (-14337);
+            let screen[location + 384] = screen[location + 384] & (10239);
+            let screen[location + 416] = screen[location + 416] & (8191);
+            let screen[location + 448] = screen[location + 448] & (-8193);
+            let screen[location + 480] = screen[location + 480] & (-1);
+
+            // print second half
+            let screen[location + 1] = screen[location + 1] & (-1);
+            let screen[location + 33] = screen[location + 33] & (-32);
+            let screen[location + 65] = screen[location + 65] & (-64);
+            let screen[location + 97] = screen[location + 97] & (-128);
+            let screen[location + 129] = screen[location + 129] & (-121);
+            let screen[location + 161] = screen[location + 161] & (-120);
+            let screen[location + 193] = screen[location + 193] & (-102);
+            let screen[location + 225] = screen[location + 225] & (-102);
+            let screen[location + 257] = screen[location + 257] & (-56);
+            let screen[location + 289] = screen[location + 289] & (-1);
+            let screen[location + 321] = screen[location + 321] & (-14);
+            let screen[location + 353] = screen[location + 353] & (-29);
+            let screen[location + 385] = screen[location + 385] & (-28);
+            let screen[location + 417] = screen[location + 417] & (-8);
+            let screen[location + 449] = screen[location + 449] & (-5);
+            let screen[location + 481] = screen[location + 481] & (-1);
+        } else {
+            let screen[location] = -1;
+            let screen[location + 32] = -8185;
+            let screen[location + 64] = -16381;
+            let screen[location + 96] = -32767;
+            let screen[location + 128] = -30751;
+            let screen[location + 160] = -30703;
+            let screen[location + 192] = -26023;
+            let screen[location + 224] = -26023;
+            let screen[location + 256] = -14317;
+            let screen[location + 288] = -1;
+            let screen[location + 320] = -3505;
+            let screen[location + 352] = -7225;
+            let screen[location + 384] = -7129;
+            let screen[location + 416] = -2017;
+            let screen[location + 448] = -1633;
+            let screen[location + 480] = -1;
+        }
+        
+        return;
+    }
+
+    method void erase() {
+        var int i, row;
+        if ((x & 1) = 1) {
+            let i = 0;
+            let row = 0;
+
+            while (i < 16) {
+                let screen[location + row] = screen[location + row] | oddMask;
+                let screen[location + row + 1] = screen[location + row + 1] | evenMask;
+                let i = i + 1;
+                let row = row + 32;
+            }
+        }
+        else {
+            let i = 0;
+            let row = 0;
+            while (i < 16) {
+                let screen[location + row] = -1;
+                let i = i + 1;
+                let row = row + 32;
+            }
+        }
+        return;
+    }
+
+    method void moveUp() {
+        if ((y > 0) & (validatePosition(x, y - 1))) {
+            do erase();
+            let y = y - 1;
+            do draw();
+        }
+        return;
+    }
+    
+    method void moveDown() {
+        if ((y < 30) & (validatePosition(x, y + 1))) {
+            do erase();
+            let y = y + 1;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveLeft() {
+        if ((x > 0) & (validatePosition(x - 1, y))) {
+            do erase();
+            let x = x - 1;
+            do draw();
+        }
+        return;
+    }
+
+    method void moveRight() {
+        if ((x < 62) & (validatePosition(x + 1, y))) {
+            do erase();
+            let x = x + 1;
+            do draw();
+        }
+        return;
+    }
+
+    method boolean validatePosition(int x, int y) {
+        var int index, bit, quot;
+        var boolean result;
+        let quot = x / 16;
+        let bit = x - (quot * 16);
+        let index = quot + (y * 4);
+
+        let result = ((map[index] & twoToThe[bit]) = 0);
+        return result;
+    }
+}

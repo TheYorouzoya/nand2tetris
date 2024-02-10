@@ -1,0 +1,76 @@
+/* Game engine */
+class Game {
+    field Player player;
+    field Level level;
+    field int direction, slowBit;
+    field Array twoToThe;
+
+    constructor Game new() {
+        let twoToThe = Array.new(16);
+        let twoToThe[0] = 1;
+        let twoToThe[1] = 2;
+        let twoToThe[2] = 4;
+        let twoToThe[3] = 8;
+        let twoToThe[4] = 16;
+        let twoToThe[5] = 32;
+        let twoToThe[6] = 64;
+        let twoToThe[7] = 128;
+        let twoToThe[8] = 256;
+        let twoToThe[9] = 512;
+        let twoToThe[10] = 1024;
+        let twoToThe[11] = 2048;
+        let twoToThe[12] = 4096;
+        let twoToThe[13] = 8192;
+        let twoToThe[14] = 16384;
+        let twoToThe[15] = 32767 + 1;
+        let slowBit = 0;
+
+        do Tiles.init();
+        let level = Level.new(1, twoToThe);
+        let player = Player.new(0, 0, twoToThe, level.getMap());
+        let direction = 0;
+        do level.setPlayer(player);
+        return this;
+    }
+
+    method void dispose() {
+        do player.dispose();
+        do level.dispose();
+        do twoToThe.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void run() {
+        var char key;
+        var boolean exit;
+
+        let exit = false;
+
+        while (~exit) {
+            let key = Keyboard.keyPressed();
+            let direction = 0;
+            if (key = 131) { let direction = 1; }   // up arrow
+            if (key = 133) { let direction = 2; }   // down arrow
+            if (key = 130) { let direction = 3; }   // left arrow
+            if (key = 132) { let direction = 4; }   // right arrow
+            do movePlayer();
+            if (slowBit = 0) {
+                do level.moveItems();
+            }
+            do level.detectCollisions(player.getX(), player.getY());
+            do Sys.wait(100);
+            let slowBit = ~slowBit;
+        }
+        return;
+    }
+
+    method void movePlayer() {
+        if (direction = 1) { do player.moveUp(); }
+        if (direction = 2) { do player.moveDown(); }
+        if (direction = 3) { do player.moveLeft(); }
+        if (direction = 4) { do player.moveRight(); }
+        return;
+    }
+
+}

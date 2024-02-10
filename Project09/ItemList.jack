@@ -1,0 +1,18 @@
+/* List of items currently active in the level */
+class ItemList {
+    field Array items;
+    field int itemCount;
+    
+    constructor ItemList new() {
+        let items = Array.new(5);
+        let itemCount = 0;
+        return this;
+    }
+
+    method void detectCollisions(int x, int y) {
+        var int i;
+        var Item item;
+        let i = 0;
+        return;
+    }
+}
