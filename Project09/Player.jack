@@ -3,6 +3,7 @@ class Player {
     field int x, y, location;
     field int oddMask, evenMask;
     field Array screen, twoToThe, map;
+    field boolean key;
 
     constructor Player new(int Ax, int Ay, Array powArr, Array lMap) {
         let x = Ax;
@@ -12,8 +13,8 @@ class Player {
         let screen = 16384;
         let oddMask = -256;
         let evenMask = 255;
+        let key = false;
 
-        do draw();
         return this;
     }
 
@@ -22,8 +23,23 @@ class Player {
         return;
     }
 
+    method boolean hasKey() {
+        return key;
+    }
+
+    method void setKey(boolean k) {
+        let key = k;
+        return;
+    }
+
     method int getX() {
         return x;
+    }
+
+    method void setPosition(int Ax, int Ay) {
+        let x = Ax;
+        let y = Ay;
+        return;
     }
 
     method int getY() {
@@ -126,7 +142,7 @@ class Player {
     }
     
     method void moveDown() {
-        if ((y < 30) & (validatePosition(x, y + 1))) {
+        if ((y < 24) & (validatePosition(x, y + 1))) {
             do erase();
             let y = y + 1;
             do draw();

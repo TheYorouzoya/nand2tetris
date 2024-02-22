@@ -1,0 +1,207 @@
+/* Level Manager */
+class LevelManager {
+    static Array tile, map, twoToThe, items;
+    static int currentLevel, itemCount;
+    static Player player;
+
+    function void init(int levelNumber, Array powArr) {
+        let currentLevel = levelNumber;
+        let map = Array.new(116);
+        let items = Array.new(5);
+        let tile = Array.new(16);
+        let twoToThe = powArr;
+        let itemCount = 0;
+
+        return;
+    }
+
+    function void dispose() {
+        do map.dispose();
+        do items.dispose();
+        do tile.dispose();
+        return;
+    }
+
+    function void setPlayer(Player pl) {
+        let player = pl;
+        return;
+    }
+
+    function Array getItems() {
+        return items;
+    }
+
+    function Array getMap() {
+        return map;
+    }
+
+    function Array getTile() {
+        return tile;
+    }
+
+    function int getItemCount() {
+        if (currentLevel = 1) { return LevelOne.getItemCount(); }
+        if (currentLevel = 2) { return LevelTwo.getItemCount(); }
+        return 0;
+    }
+
+    function void loadLevelOne() {
+        do LevelOne.init(tile, map, twoToThe, items, player);
+        do LevelOne.loadLevel();
+        let itemCount = LevelOne.getItemCount();
+
+        return;
+    }
+
+    function void loadNextLevel() {
+        if (currentLevel = 1) {
+            let currentLevel = 2;
+            do LevelTwo.init(tile, map, twoToThe, items, player);
+            do LevelTwo.loadLevel();
+        }
+        return;
+    }
+
+    function void processKeyCollision() {
+        if (currentLevel = 1) { do LevelOne.processKeyCollision(); }
+        if (currentLevel = 2) { do LevelTwo.processKeyCollision(); }
+        return;
+    }
+
+    function boolean winCondition() {
+        if (currentLevel = 1) {
+            return LevelOne.winCondition();
+        }
+        return false;
+    }
+
+    function void buildTiles(int r1, int r2, int ax, boolean flag, boolean axis) {
+        var int i;
+        let i = r1;
+
+        while (~(r2 < i)) {
+            if (axis) {
+                do Tiles.drawTile(i, ax, tile);
+                if (flag) {
+                    do LevelManager.updateMap(i, ax);
+                }
+            }
+            else {
+                do Tiles.drawTile(ax, i, tile);
+                if (flag) {
+                    do LevelManager.updateMap(ax, i);
+                }
+            }
+
+            let i = i + 2;
+        }
+        return;
+    }
+
+    function void updateMap(int x, int y) {
+        var int index, bit, quot;
+        let quot = x / 16;
+        let bit = x - (quot * 16);
+        let index = quot + (y * 4);
+
+        let map[index] = map[index] | twoToThe[bit];                        // mark tile corner (x, y)
+        
+        if ((x > 0) & (y > 0)) {
+            let map[index - 4] = map[index - 4] | twoToThe[bit];            // mark (x, y - 1)
+            let map[index + 4] = map[index + 4] | twoToThe[bit];            // mark (x, y + 1)
+            if (bit = 0) {
+                let map[index] = map[index] | twoToThe[bit + 1];            // mark (x + 1, y)
+                let map[index - 4] = map[index - 4] | twoToThe[bit + 1];    // mark (x + 1, y - 1)
+                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];    // mark (x + 1, y + 1)
+
+                let map[index - 1] = map[index - 1] | twoToThe[15];         // mark (x - 1, y)
+                let map[index - 5] = map[index - 5] | twoToThe[15];         // mark (x - 1, y - 1)
+                let map[index + 3] = map[index + 3] | twoToThe[15];         // mark (x - 1, y + 1)
+            }
+            else {
+            if (bit = 15) {
+                let map[index + 1] = map[index + 1] | twoToThe[0];
+                let map[index - 3] = map[index - 3] | twoToThe[0];
+                let map[index + 5] = map[index + 5] | twoToThe[0];
+
+                let map[index] = map[index] | twoToThe[bit - 1];            // mark (x - 1, y)
+                let map[index - 4] = map[index - 4] | twoToThe[bit - 1];    // mark (x - 1, y - 1)
+                let map[index + 4] = map[index + 4] | twoToThe[bit - 1];    // mark (x - 1, y + 1)
+            } 
+            else {
+                let map[index] = map[index] | twoToThe[bit + 1];            // mark (x + 1, y)
+                let map[index - 4] = map[index - 4] | twoToThe[bit + 1];    // mark (x + 1, y - 1)
+                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];    // mark (x + 1, y + 1)
+
+                let map[index] = map[index] | twoToThe[bit - 1];            // mark (x - 1, y)
+                let map[index - 4] = map[index - 4] | twoToThe[bit - 1];    // mark (x - 1, y - 1)
+                let map[index + 4] = map[index + 4] | twoToThe[bit - 1];    // mark (x - 1, y + 1)
+            }
+            }
+        }
+        if (x = 0) {
+            let map[index + 4] = map[index + 4] | twoToThe[bit];
+            
+            if (bit = 15) {
+                let map[index + 1] = map[index + 1] | twoToThe[0];
+                let map[index + 5] = map[index + 5] | twoToThe[0];
+            }
+            else {
+                let map[index] = map[index] | twoToThe[bit + 1];
+                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];
+            }
+        }
+        if (y = 0) {
+            let map[index + 4] = map[index + 4] | twoToThe[bit];
+            
+            if (bit = 15) {
+                let map[index + 1] = map[index + 1] | twoToThe[0];
+                let map[index + 5] = map[index + 5] | twoToThe[0];
+            }
+            else {
+                let map[index] = map[index] | twoToThe[bit + 1];
+                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];
+            }
+
+            if (x > 0) {
+                if (bit = 0) {
+                    let map[index - 1] = map[index - 1] | twoToThe[15];
+                    let map[index + 3] = map[index + 3] | twoToThe[15]; 
+                }
+                else {
+                    let map[index] = map[index] | twoToThe[bit - 1];
+                    let map[index + 4] = map[index + 4] | twoToThe[bit - 1];
+                }
+            }
+        }
+        
+        return;
+    }
+    function void unlockMap(int x, int y, boolean axis) {
+        var int index, bit, quot;
+        let quot = x / 16;
+        let bit = x - (quot * 16);
+        let index = quot + (y * 4);
+
+        let map[index] = map[index] & (~twoToThe[bit]);
+
+        if (axis) {
+            if (bit = 0) {
+                let map[index - 1] = map[index - 1] & (~twoToThe[15]);
+                let map[index] = map[index] & (~twoToThe[bit + 1]);
+            }
+            if (bit = 15) {
+                let map[index] = map[index] & (~twoToThe[bit - 1]);
+                let map[index + 1] = map[index + 1] & (~twoToThe[0]);
+            }
+            else {
+                let map[index] = map[index] & (~(twoToThe[bit + 1] | twoToThe[bit - 1]));
+            }
+        }
+        else {
+            let map[index - 4] = map[index - 4] & (~twoToThe[bit]);
+            let map[index + 4] = map[index + 4] & (~twoToThe[bit]);
+        }
+        return;
+    }
+}

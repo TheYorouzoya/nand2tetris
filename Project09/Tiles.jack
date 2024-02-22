@@ -144,4 +144,336 @@ class Tiles {
         let tile[15] = -25079;
         return;
     }
+
+    function void loadSpike(Array tile, int frame) {
+        if (frame = 15) {
+            do Tiles.loadBlankTile(tile);
+        }
+        if ((frame = 1) |
+            (frame = 14)) {
+            let tile[0] = -1;
+            let tile[1] = -1;
+            let tile[2] = -1;
+            let tile[3] = -1;
+            let tile[4] = -1;
+            let tile[5] = -1;
+            let tile[6] = -1;
+            let tile[7] = -1;
+            let tile[8] = -1;
+            let tile[9] = -1;
+            let tile[10] = -1;
+            let tile[11] = -385;
+            let tile[12] = -577;
+            let tile[13] = -1057;
+            let tile[14] = -2129;
+            let tile[15] = -4201;
+        }
+        if ((frame = 2) |
+            (frame = 13)) {
+            let tile[0] = -1;
+            let tile[1] = -1;
+            let tile[2] = -1;
+            let tile[3] = -1;
+            let tile[4] = -1;
+            let tile[5] = -385;
+            let tile[6] = -577;
+            let tile[7] = -577;
+            let tile[8] = -1057;
+            let tile[9] = -1057;
+            let tile[10] = -2129;
+            let tile[11] = -2129;
+            let tile[12] = -4201;
+            let tile[13] = -4201;
+            let tile[14] = -8309;
+            let tile[15] = -8309;
+        }
+        if ((frame = 3) |
+            (frame = 12)) {
+            let tile[0] = -1;
+            let tile[1] = -385;
+            let tile[2] = -577;
+            let tile[3] = -577;
+            let tile[4] = -1057;
+            let tile[5] = -1057;
+            let tile[6] = -1057;
+            let tile[7] = -2065;
+            let tile[8] = -2129;
+            let tile[9] = -2129;
+            let tile[10] = -4201;
+            let tile[11] = -4201;
+            let tile[12] = -4201;
+            let tile[13] = -8309;
+            let tile[14] = -8309;
+            let tile[15] = -8309;
+        }
+        if (frame = 4) {
+            let tile[0] = -385;
+            let tile[1] = -577;
+            let tile[2] = -1057;
+            let tile[3] = -1057;
+            let tile[4] = -1057;
+            let tile[5] = -2129;
+            let tile[6] = -2129;
+            let tile[7] = -2129;
+            let tile[8] = -4201;
+            let tile[9] = -4201;
+            let tile[10] = -4201;
+            let tile[11] = -8309;
+            let tile[12] = -8309;
+            let tile[13] = -8309;
+            let tile[14] = -16507;
+            let tile[15] = -16507;
+        }
+        return;
+    }
+
+    function void loadSpikeTwo(Array tile, int frame) {
+        if (frame = 11) {
+            do Tiles.loadBlankTile(tile);
+        }
+        if ((frame = 1) |
+            (frame = 10)) {
+            let tile[0] = -1;
+            let tile[1] = -1;
+            let tile[2] = -1;
+            let tile[3] = -1;
+            let tile[4] = -1;
+            let tile[5] = -1;
+            let tile[6] = -1;
+            let tile[7] = -1;
+            let tile[8] = -1;
+            let tile[9] = -1;
+            let tile[10] = -2065;
+            let tile[11] = -5161;
+            let tile[12] = -5161;
+            let tile[13] = -8773;
+            let tile[14] = -10837;
+            let tile[15] = -19867;
+        }
+        if ((frame = 2) |
+            (frame = 9)) {
+            let tile[0] = -1;
+            let tile[1] = -1;
+            let tile[2] = -1;
+            let tile[3] = -1;
+            let tile[4] = -1;
+            let tile[5] = -2065;
+            let tile[6] = -5161;
+            let tile[7] = -5161;
+            let tile[8] = -5161;
+            let tile[9] = -5161;
+            let tile[10] = -8773;
+            let tile[11] = -8773;
+            let tile[12] = -10837;
+            let tile[13] = -10837;
+            let tile[14] = -19867;
+            let tile[15] = -19867;
+        }
+        if (frame = 3) {
+            let tile[0] = -2065;
+            let tile[1] = -5161;
+            let tile[2] = -5161;
+            let tile[3] = -5161;
+            let tile[4] = -5161;
+            let tile[5] = -5161;
+            let tile[6] = -8773;
+            let tile[7] = -8773;
+            let tile[8] = -8773;
+            let tile[9] = -10837;
+            let tile[10] = -10837;
+            let tile[11] = -19867;
+            let tile[12] = -19867;
+            let tile[13] = -19867;
+            let tile[14] = -19867;
+            let tile[15] = -19867;
+        }
+        return;
+    }
+
+    function void loadDialogueBox(Array tile, int id) {
+        if (id = 1) {
+            let tile[0] = 1;
+            let tile[1] = -2;
+            let tile[2] = 2;
+            let tile[3] = 26;
+            let tile[4] = 26;
+            let tile[5] = 2;
+            let tile[6] = 2;
+            let tile[7] = 2;
+            let tile[8] = 2;
+            let tile[9] = 2;
+            let tile[10] = 2;
+            let tile[11] = 2;
+            let tile[12] = 2;
+            let tile[13] = 2;
+            let tile[14] = 2;
+            let tile[15] = 2;
+        }
+        if (id = 2) {
+            let tile[0] = 0;
+            let tile[1] = -1;
+            let tile[2] = 0;
+            let tile[3] = 0;
+            let tile[4] = 0;
+            let tile[5] = 0;
+            let tile[6] = 0;
+            let tile[7] = 0;
+            let tile[8] = 0;
+            let tile[9] = 0;
+            let tile[10] = 0;
+            let tile[11] = 0;
+            let tile[12] = 0;
+            let tile[13] = 0;
+            let tile[14] = 0;
+            let tile[15] = 0;
+        }
+        if (id = 3) {
+            let tile[0] = -32767 - 1;
+            let tile[1] = 32767;
+            let tile[2] = 16384;
+            let tile[3] = 22528;
+            let tile[4] = 22528;
+            let tile[5] = 16384;
+            let tile[6] = 16384;
+            let tile[7] = 16384;
+            let tile[8] = 16384;
+            let tile[9] = 16384;
+            let tile[10] = 16384;
+            let tile[11] = 16384;
+            let tile[12] = 16384;
+            let tile[13] = 16384;
+            let tile[14] = 16384;
+            let tile[15] = 16384;
+        }
+        if (id = 4) {
+            let tile[0] = 2;
+            let tile[1] = 2;
+            let tile[2] = 2;
+            let tile[3] = 2;
+            let tile[4] = 2;
+            let tile[5] = 2;
+            let tile[6] = 2;
+            let tile[7] = 2;
+            let tile[8] = 2;
+            let tile[9] = 2;
+            let tile[10] = 2;
+            let tile[11] = 2;
+            let tile[12] = 2;
+            let tile[13] = 2;
+            let tile[14] = 2;
+            let tile[15] = 2;
+        }
+        if (id = 5) {
+            let tile[0] = 0;
+            let tile[1] = 0;
+            let tile[2] = 0;
+            let tile[3] = 0;
+            let tile[4] = 0;
+            let tile[5] = 0;
+            let tile[6] = 0;
+            let tile[7] = 0;
+            let tile[8] = 0;
+            let tile[9] = 0;
+            let tile[10] = 0;
+            let tile[11] = 0;
+            let tile[12] = 0;
+            let tile[13] = 0;
+            let tile[14] = 0;
+            let tile[15] = 0;
+        }
+        if (id = 6) {
+            let tile[0] = 16384;
+            let tile[1] = 16384;
+            let tile[2] = 16384;
+            let tile[3] = 16384;
+            let tile[4] = 16384;
+            let tile[5] = 16384;
+            let tile[6] = 16384;
+            let tile[7] = 16384;
+            let tile[8] = 16384;
+            let tile[9] = 16384;
+            let tile[10] = 16384;
+            let tile[11] = 16384;
+            let tile[12] = 16384;
+            let tile[13] = 16384;
+            let tile[14] = 16384;
+            let tile[15] = 16384;
+        }
+        if (id = 7) {
+            let tile[0] = 2;
+            let tile[1] = 2;
+            let tile[2] = 2;
+            let tile[3] = 2;
+            let tile[4] = 2;
+            let tile[5] = 2;
+            let tile[6] = 2;
+            let tile[7] = 2;
+            let tile[8] = 2;
+            let tile[9] = 2;
+            let tile[10] = 2;
+            let tile[11] = 26;
+            let tile[12] = 26;
+            let tile[13] = 2;
+            let tile[14] = -2;
+            let tile[15] = 1;
+        }
+        if (id = 8) {
+            let tile[0] = 0;
+            let tile[1] = 0;
+            let tile[2] = 0;
+            let tile[3] = 0;
+            let tile[4] = 0;
+            let tile[5] = 0;
+            let tile[6] = 0;
+            let tile[7] = 0;
+            let tile[8] = 0;
+            let tile[9] = 0;
+            let tile[10] = 0;
+            let tile[11] = 0;
+            let tile[12] = 0;
+            let tile[13] = 0;
+            let tile[14] = -1;
+            let tile[15] = 0;
+        }
+        if (id = 9) {
+            let tile[0] = 16384;
+            let tile[1] = 16384;
+            let tile[2] = 16384;
+            let tile[3] = 16384;
+            let tile[4] = 16384;
+            let tile[5] = 16384;
+            let tile[6] = 16384;
+            let tile[7] = 16384;
+            let tile[8] = 16384;
+            let tile[9] = 16384;
+            let tile[10] = 16384;
+            let tile[11] = 22528;
+            let tile[12] = 22528;
+            let tile[13] = 16384;
+            let tile[14] = 32767;
+            let tile[15] = -32767 - 1;
+        }
+
+        return;
+    }
+
+    function void loadBlankTile(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -1;
+        let tile[2] = -1;
+        let tile[3] = -1;
+        let tile[4] = -1;
+        let tile[5] = -1;
+        let tile[6] = -1;
+        let tile[7] = -1;
+        let tile[8] = -1;
+        let tile[9] = -1;
+        let tile[10] = -1;
+        let tile[11] = -1;
+        let tile[12] = -1;
+        let tile[13] = -1;
+        let tile[14] = -1;
+        let tile[15] = -1;
+        return;
+    }
 }

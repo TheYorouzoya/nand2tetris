@@ -1,19 +1,60 @@
 /* Class to manage the items and other collectibles in the game */
+
 class Item {
-    field int x, y, type, direction;
-    field Array tile;
+
+    /* Item "id" refers to the different items' unique ID. This is used to load
+       a particular tile from the Tiles module.
+
+       Item "type" refers to the kind of an item based on how it interacts with
+       the player character. The interactions are mapped as follows:
+            1 : Key Item (opens doors, chests, etc.)
+            2 : Healing Item (heals the player)
+            3 : Damaging Item (damages the player) */
+    field int type, id;
+
+
+    /*  "x", "y", and "direction" refer to the item's (x,y) position on the screen
+        grid and the movement direction. Movement mapping:
+            0 : Stationary
+            1 : Up
+            2 : Down
+            3 : Left
+            4 : Right */
+    field int x, y, direction;
+
+
+    /*  Item movement is defined together with three quantities: "direction", "path",
+        and "distanceTraveled". "direction" defines the direction to move toward,
+        "path" defines how many units to move, and "distanceTraveled" keeps track of
+        the number of units moved so far.
+        Once an item reaches the destination, the "direction" is reversed and
+        "distanceTraveled" starts incrementing again from 0. This way, an item
+        moves back and forth between two points. */
     field int path, distanceTraveled;
 
-    constructor Item new(int Ax, int Ay, int Atype, int dir, int pth) {
+
+    /* The tile array stores the 16x16 bitmap for the item's image. */
+    field Array tile;
+
+
+    /* "animated", "frames" and "currentFrame" store whether the tile is animated,
+        how many frames it has in one animation loop, and the current frame number
+        respectively. */
+    field boolean animated;
+    field int frames, currentFrame;
+
+    constructor Item new(int Ax, int Ay, int Aid, int dir, int pth, int Atyp) {
         let x = Ax;
         let y = Ay;
-        let type = Atype;
+        let id = Aid;
+        let type = Atyp;
         let tile = Array.new(16);
         let direction = dir;
         let path = pth;
         let distanceTraveled = 0;
 
-        do loadTileType(type);
+        do loadAnimationData();
+        do loadTile();
         do Tiles.drawTile(x, y, tile);
         
         return this;
@@ -25,17 +66,54 @@ class Item {
         return;
     }
 
-    method void loadTileType(int typ) {
-        if (typ = 1) { do Tiles.loadKeyTile(tile); }
+
+    /* loads an item's animation parameters based on ID */
+    method void loadAnimationData() {
+        if (id = 3) {
+            let animated = true;
+            let frames = 24;
+            let currentFrame = 1;
+        }
+        if (id = 4) {
+            let animated = true;
+            let frames = 15;
+            let currentFrame = 1;
+        }
         return;
     }
 
+
+    /* loads a particular tile/ tile frame from the tiles module based on the
+       item's ID */
+    method void loadTile() {
+        if (id = 1) { do Tiles.loadKeyTile(tile); }
+        if (id = 3) { do Tiles.loadSpike(tile, currentFrame); }
+        if (id = 4) { do Tiles.loadSpikeTwo(tile, currentFrame); }
+        return;
+    }
+
+    /* Draws the item on the screen. If the item is animated, draw the next frame
+       in the animation loop */
+    method void draw() {
+        if (animated) {
+            do Tiles.eraseTile(x, y);
+            let currentFrame = currentFrame + 1;
+            do loadTile();
+            if (currentFrame = frames) {
+                let currentFrame = 0;
+            }
+        }
+        do Tiles.drawTile(x, y, tile);
+        return;
+    }
+
+    /* Detect whether the item collides with another item at the given (x, y) location */
     method boolean collidesWith(int Ax, int Ay) {
         var boolean result;
-        let result = ((x        < (Ax + 2)) &
-                      ((x + 2)  > Ax)       &
-                      (y        < (Ay + 2)) &
-                      ((y + 2)  > Ay));
+        let result = ((x       < (Ax + 2)) &
+                     ((x + 2)  >  Ax)      &
+                     (y        < (Ay + 2)) &
+                     ((y + 2)  >  Ay));
         
         return result;
     }
@@ -114,5 +192,9 @@ class Item {
 
     method int getDirection() {
         return direction;
+    }
+
+    method boolean isAnimated() {
+        return animated;
     }
 }

@@ -1,9 +1,8 @@
 /* Game engine */
 class Game {
     field Player player;
-    field Level level;
-    field int direction, slowBit;
-    field Array twoToThe;
+    field int direction, slowBit, itemCount;
+    field Array twoToThe, items;
 
     constructor Game new() {
         let twoToThe = Array.new(16);
@@ -26,16 +25,18 @@ class Game {
         let slowBit = 0;
 
         do Tiles.init();
-        let level = Level.new(1, twoToThe);
-        let player = Player.new(0, 0, twoToThe, level.getMap());
+        do LevelManager.init(1, twoToThe);
+        do DialogueManager.init();
+        let player = Player.new(0, 0, twoToThe, LevelManager.getMap());
         let direction = 0;
-        do level.setPlayer(player);
+        do LevelManager.setPlayer(player);
+        let items = LevelManager.getItems();
         return this;
     }
 
     method void dispose() {
         do player.dispose();
-        do level.dispose();
+        do LevelManager.dispose();
         do twoToThe.dispose();
         do Memory.deAlloc(this);
         return;
@@ -47,6 +48,12 @@ class Game {
 
         let exit = false;
 
+        do blackScreen();
+        do LevelManager.loadLevelOne();
+        let itemCount = LevelManager.getItemCount();
+        do player.draw();
+        do DialogueManager.drawUI();
+
         while (~exit) {
             let key = Keyboard.keyPressed();
             let direction = 0;
@@ -56,9 +63,16 @@ class Game {
             if (key = 132) { let direction = 4; }   // right arrow
             do movePlayer();
             if (slowBit = 0) {
-                do level.moveItems();
+                do moveItems();
             }
-            do level.detectCollisions(player.getX(), player.getY());
+            do animateItems();
+            do detectCollisions(player.getX(), player.getY());
+            if (LevelManager.winCondition()) {
+                do blackScreen();
+                do LevelManager.loadNextLevel();
+                let itemCount = LevelManager.getItemCount();
+                do player.draw();
+            }
             do Sys.wait(100);
             let slowBit = ~slowBit;
         }
@@ -70,6 +84,76 @@ class Game {
         if (direction = 2) { do player.moveDown(); }
         if (direction = 3) { do player.moveLeft(); }
         if (direction = 4) { do player.moveRight(); }
+        return;
+    }
+
+    method void moveItems() {
+        var int i;
+        var Item item;
+
+        let i = 0;
+        while (i < itemCount) {
+            let item = items[i];
+            do item.moveItem();
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void animateItems() {
+        var int i;
+        var Item item;
+
+        let i = 0;
+        while (i < itemCount) {
+            let item = items[i];
+            if (item.isAnimated()) {
+                do item.draw();
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void detectCollisions(int x, int y) {
+        var int i;
+        var Item item;
+
+        let i = 0;
+        while (i < itemCount) {
+            let item = items[i];
+            if(item.collidesWith(x, y)) {
+                do processCollision(item);
+                do item.dispose();
+                let items[i] = items[itemCount - 1];
+                let itemCount = itemCount - 1;
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void processCollision(Item item) {
+        do Tiles.eraseTile(item.getX(), item.getY());
+        do player.draw();
+        if (item.getType() = 1) {
+            do player.setKey(true);
+            do LevelManager.processKeyCollision();
+        }
+        return;
+    }
+
+    method void blackScreen() {
+        var Array screen;
+        var int index;
+
+        let screen = 16384;
+        let index = 0;
+
+        while (index < 6656) {
+            let screen[index] = -1;
+            let index = index + 1;
+        }
         return;
     }
 

@@ -1,0 +1,70 @@
+/* First Level in the game */
+class LevelOne {
+    static Array tile, map, twoToThe, items;
+    static int itemCount;
+    static Player player;
+
+    function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Player Aplr) {
+        let tile = Atile;
+        let map = Amap;
+        let twoToThe = AtwoToThe;
+        let items = Aitems;
+        let player = Aplr;
+        let itemCount = 0;
+        return;
+    }
+
+    function void loadLevel() {
+        let itemCount = 0;
+
+        do player.setPosition(0, 0);
+
+        do Tiles.loadBrickTile(tile);
+        do LevelManager.buildTiles(35, 53, 16, true, true);
+        do LevelManager.buildTiles(18, 24, 35, true, false);
+        do LevelManager.buildTiles(18, 24, 53, true, false);
+        do LevelManager.buildTiles(37, 51, 24, true, true);
+
+        do Tiles.loadClosedDoorTile(tile);
+        do Tiles.eraseTile(47, 16);
+        do Tiles.drawTile(47, 16, tile);
+
+        let items[itemCount] = Item.new(26, 16, 4, 0, 0, 3);
+        let itemCount = itemCount + 1;
+
+        let items[itemCount] = Item.new(20, 16, 1, 1, 9, 1);
+        let itemCount = itemCount + 1;
+
+        let items[itemCount] = Item.new(14, 20, 3, 0, 0, 3);
+        let itemCount = itemCount + 1;
+
+        let items[itemCount] = Item.new(17, 20, 3, 0, 0, 3);
+        let itemCount = itemCount + 1;
+        return;
+    }
+
+    function boolean winCondition() {
+        var int x, y;
+
+        if (player.hasKey()) {
+            let x = player.getX();
+            let y = player.getY();
+            if ((x = 47) & (y = 20)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function void processKeyCollision() {
+        // do Tiles.loadOpenDoorTile(tile);
+        do Tiles.eraseTile(47, 16);
+        do LevelManager.unlockMap(47, 16, false);
+        // do Tiles.drawTile(47, 16, tile);
+        return;
+    }
+
+    function int getItemCount() {
+        return itemCount;
+    }
+}
