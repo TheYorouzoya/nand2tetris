@@ -39,11 +39,11 @@ class LevelOne {
         do Tiles.loadClosedChestTile(tile);
         do Tiles.drawTile(58, 0, tile);
 
-        do Characters.loadEngineer(tile);
+        do Tiles.loadEngineer(tile);
         do Tiles.drawTile(36, 14, tile);
         do LevelManager.updateMap(36, 14);
 
-        do Characters.loadDoorKeeper(tile);
+        do Tiles.loadDoorKeeper(tile);
         do Tiles.drawTile(8, 18, tile);
         do LevelManager.updateMap(8, 18);
 
@@ -112,7 +112,7 @@ class LevelOne {
 
     function void drawPipes() {
         // Load the horizontal pipe tile and draw all pipes
-        do Pipes.loadPipeTile(tile, 2);
+        do Pipe.loadPipeTile(tile, 2);
         do Tiles.buildTiles(0, 6, 0, false, true, tile);
         
         do Tiles.drawTile(0, 2, tile);
@@ -129,7 +129,7 @@ class LevelOne {
         do Tiles.drawTile(50, 10, tile);
 
         // Load the vertical pipe tile and draw all pipes
-        do Pipes.loadPipeTile(tile, 4);
+        do Pipe.loadPipeTile(tile, 4);
         do Tiles.drawTile(22, 0, tile);
         do Tiles.drawTile(30, 0, tile);
         do Tiles.drawTile(38, 0, tile);
@@ -147,14 +147,14 @@ class LevelOne {
         do Tiles.drawTile(52, 8, tile);
 
         // Load the botton-to-right pipe connector and draw all pipes
-        do Pipes.loadPipeTile(tile, 1);
+        do Pipe.loadPipeTile(tile, 1);
         do Tiles.drawTile(28, 2, tile);
         do Tiles.drawTile(36, 2, tile);
         do Tiles.drawTile(32, 4, tile);
         do Tiles.drawTile(14, 6, tile);
 
         // Load the bottom-to-left pipe connector and draw all pipes
-        do Pipes.loadPipeTile(tile, 3);
+        do Pipe.loadPipeTile(tile, 3);
         do Tiles.drawTile(8, 0, tile);
         do Tiles.drawTile(2, 2, tile);
         do Tiles.drawTile(52, 2, tile);
@@ -162,14 +162,14 @@ class LevelOne {
         do Tiles.drawTile(18, 6, tile);
 
         // Load the top-to-right pipe connector and draw all pipes
-        do Pipes.loadPipeTile(tile, 7);
+        do Pipe.loadPipeTile(tile, 7);
         do Tiles.drawTile(46, 2, tile);
         do Tiles.drawTile(2, 4, tile);
         do Tiles.drawTile(8, 8, tile);
         do Tiles.drawTile(18, 8, tile);
 
         // Load the top-to-left pipe connector and draw all pipes
-        do Pipes.loadPipeTile(tile, 9);
+        do Pipe.loadPipeTile(tile, 9);
         do Tiles.drawTile(30, 2, tile);
         do Tiles.drawTile(38, 2, tile);
         do Tiles.drawTile(16, 4, tile);
@@ -179,14 +179,14 @@ class LevelOne {
         do Tiles.drawTile(52, 10, tile);
 
         // Load the vertical cracked pipe tile and draw all pipes
-        do Pipes.loadPipeTile(tile, 6);
+        do Pipe.loadPipeTile(tile, 6);
         do Tiles.drawTile(16, 0, tile);
         do Tiles.drawTile(46, 0, tile);
         do Tiles.drawTile(36, 4, tile);
         do Tiles.drawTile(52, 6, tile);
 
         // Load the horizontal cracked pipe tile and draw all pipes
-        do Pipes.loadPipeTile(tile, 8);
+        do Pipe.loadPipeTile(tile, 8);
         do Tiles.drawTile(4, 4, tile);
         do Tiles.drawTile(10, 8, tile);
         do Tiles.drawTile(32, 8, tile);

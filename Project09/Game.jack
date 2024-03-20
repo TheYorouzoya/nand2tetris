@@ -54,6 +54,7 @@ class Game {
         
         do LevelManager.loadNextLevel();
         do LevelManager.loadNextLevel();
+        do LevelManager.loadNextLevel();
 
         do blackScreen();
         do LevelManager.loadNextLevel();

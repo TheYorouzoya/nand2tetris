@@ -91,8 +91,8 @@ class Item {
     /* loads a particular tile/ tile frame from the tiles module based on the
        item's ID */
     method void loadTile() {
-        if (id = 1) { do Tiles.loadKeyTile(tile); }
-        if (id = 3) { do Tiles.loadSpike(tile, currentFrame); }
+        //if (id = 1) { do Tiles.loadKeyTile(tile); }
+        //if (id = 3) { do Tiles.loadSpike(tile, currentFrame); }
         if (id = 4) { do Tiles.loadSpikeTwo(tile, currentFrame); }
         if (id = 5) { do Tiles.loadSmallFan(tile, currentFrame); }
         if (id = 6) { do GeneratorTiles.loadEnergyOrb(tile); }

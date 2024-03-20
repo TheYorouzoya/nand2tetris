@@ -122,42 +122,6 @@ class Skull {
     }
 
     method void loadSkullClose() {
-        if (direction = 1) {
-            let tile[0] = -1;
-            let tile[1] = -169;
-            let tile[2] = -453;
-            let tile[3] = -7851;
-            let tile[4] = -16327;
-            let tile[5] = -29095;
-            let tile[6] = 5461;
-            let tile[7] = 4409;
-            let tile[8] = 4409;
-            let tile[9] = 3697;
-            let tile[10] = 67;
-            let tile[11] = 39;
-            let tile[12] = 95;
-            let tile[13] = -32705;
-            let tile[14] = -16321;
-            let tile[15] = -8065;
-        }
-        if (direction = 2) {
-            let tile[0] = -505;
-            let tile[1] = -1021;
-            let tile[2] = -1023;
-            let tile[3] = -1536;
-            let tile[4] = -7168;
-            let tile[5] = -15872;
-            let tile[6] = -29072;
-            let tile[7] = -25464;
-            let tile[8] = -25464;
-            let tile[9] = -21848;
-            let tile[10] = -25999;
-            let tile[11] = -25597;
-            let tile[12] = -21881;
-            let tile[13] = -9089;
-            let tile[14] = -5377;
-            let tile[15] = -1;
-        }
         if (direction = 3) {
             let tile[0] = -8129;
             let tile[1] = -16353;
@@ -199,42 +163,6 @@ class Skull {
     }
 
     method void loadSkullOpen() {
-        if (direction = 1) {
-            let tile[0] = -1;
-            let tile[1] = -161;
-            let tile[2] = -449;
-            let tile[3] = -7841;
-            let tile[4] = -16321;
-            let tile[5] = -29089;
-            let tile[6] = 5470;
-            let tile[7] = 4415;
-            let tile[8] = 4410;
-            let tile[9] = 3708;
-            let tile[10] = 88;
-            let tile[11] = 33;
-            let tile[12] = 71;
-            let tile[13] = -32705;
-            let tile[14] = -16321;
-            let tile[15] = -8065;
-        }
-        if (direction = 2) {
-            let tile[0] = -505;
-            let tile[1] = -1021;
-            let tile[2] = -1023;
-            let tile[3] = -7680;
-            let tile[4] = -31744;
-            let tile[5] = 6656;
-            let tile[6] = 15984;
-            let tile[7] = 23688;
-            let tile[8] = -888;
-            let tile[9] = 31400;
-            let tile[10] = -1423;
-            let tile[11] = -1021;
-            let tile[12] = -1401;
-            let tile[13] = -897;
-            let tile[14] = -1281;
-            let tile[15] = -1;
-        }
         if (direction = 3) {
             let tile[0] = -8129;
             let tile[1] = -16353;
@@ -275,42 +203,6 @@ class Skull {
     }
 
     function void loadFireball(Array tile, int dir) {
-        if (dir = 1) {
-            let tile[0] = -1;
-            let tile[1] = -993;
-            let tile[2] = -1041;
-            let tile[3] = -2505;
-            let tile[4] = -2665;
-            let tile[5] = -2665;
-            let tile[6] = -3049;
-            let tile[7] = -2505;
-            let tile[8] = -1041;
-            let tile[9] = -1041;
-            let tile[10] = -545;
-            let tile[11] = -865;
-            let tile[12] = -449;
-            let tile[13] = -449;
-            let tile[14] = -129;
-            let tile[15] = -129;
-        }
-        if (dir = 2) {
-            let tile[0] = -257;
-            let tile[1] = -257;
-            let tile[2] = -897;
-            let tile[3] = -897;
-            let tile[4] = -1729;
-            let tile[5] = -1089;
-            let tile[6] = -2081;
-            let tile[7] = -2081;
-            let tile[8] = -5009;
-            let tile[9] = -6097;
-            let tile[10] = -5713;
-            let tile[11] = -5713;
-            let tile[12] = -5009;
-            let tile[13] = -2081;
-            let tile[14] = -1985;
-            let tile[15] = -1;
-        }
         if (dir = 3) {
             let tile[0] = -1;
             let tile[1] = -1;

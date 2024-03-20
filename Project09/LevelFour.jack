@@ -100,9 +100,9 @@ class LevelFour {
         let items[6] = Item.new(38, 16, 4, 0, 0, 3, true, 5);
         let items[7] = Item.new(38, 18, 4, 0, 0, 3, true, 5);
         
-        let items[8] = Item.new(38, 2, 3, 0, 0, 3, true, 12);
-        let items[9] = Item.new(38, 6, 3, 0, 0, 3, true, 12);
-        let items[10] = Item.new(38, 10, 3, 0, 0, 3, true, 12);
+        let items[8] = Item.new(38, 2, 4, 0, 0, 3, true, 12);
+        let items[9] = Item.new(38, 6, 4, 0, 0, 3, true, 12);
+        let items[10] = Item.new(38, 10, 4, 0, 0, 3, true, 12);
 
         let items[11] = Item.new(14, 12, 4, 0, 0, 3, true, 10);
         let items[12] = Item.new(16, 12, 4, 0, 0, 3, true, 1);

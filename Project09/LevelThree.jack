@@ -69,7 +69,7 @@ class LevelThree {
     }
 
     function void loadPipes() {
-        do Pipes.loadPipeTile(tile, 1);
+        do Pipe.loadPipeTile(tile, 1);
         do Tiles.drawTile(6, 6, tile);
         do Tiles.drawTile(2, 14, tile);
         do Tiles.drawTile(12, 16, tile);
@@ -77,7 +77,7 @@ class LevelThree {
         do Tiles.drawTile(10, 22, tile);
 
 
-        do Pipes.loadPipeTile(tile, 2);
+        do Pipe.loadPipeTile(tile, 2);
 
         do Tiles.drawTile(0, 4, tile);
         do Tiles.drawTile(2, 4, tile);
@@ -113,12 +113,12 @@ class LevelThree {
         do Tiles.drawTile(14, 22, tile);
 
         
-        do Pipes.loadPipeTile(tile, 3);
+        do Pipe.loadPipeTile(tile, 3);
         do Tiles.drawTile(46, 4, tile);
         do Tiles.drawTile(44, 6, tile);
 
 
-        do Pipes.loadPipeTile(tile, 4);
+        do Pipe.loadPipeTile(tile, 4);
 
         do Tiles.buildTiles(16, 20, 2, false, false, tile);
         do Tiles.drawTile(2, 24, tile);
@@ -144,12 +144,12 @@ class LevelThree {
         do Tiles.drawTile(46, 16, tile);
 
 
-        do Pipes.loadPipeTile(tile, 7);
+        do Pipe.loadPipeTile(tile, 7);
         do Tiles.drawTile(8, 4, tile);
         do Tiles.drawTile(12, 8, tile);
 
 
-        do Pipes.loadPipeTile(tile, 9);
+        do Pipe.loadPipeTile(tile, 9);
         do Tiles.drawTile(4, 10, tile);
         do Tiles.drawTile(6, 14, tile);
         do Tiles.drawTile(44, 16, tile);

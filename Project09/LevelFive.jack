@@ -1,0 +1,45 @@
+class LevelFive {
+    static Array tile, map, twoToThe, items;
+    static int itemCount;
+    static Player player;
+    static Golem golem;
+
+    function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Array Aplr) {
+        let tile = Atile;
+        let map = Amap;
+        let twoToThe = AtwoToThe;
+        let items = Aitems;
+        let player = Aplr;
+        let itemCount = 0;
+        let golem = Golem.new(44, 8);
+
+        return;
+    }
+
+    function void loadLevel() {
+        do golem.draw();
+        do LevelManager.resetMap();
+        return;
+    }
+
+    function void animateTiles() {
+        return;
+    }
+
+    function boolean winCondition() {
+        return false;
+    }
+
+    function void processEvents(int key) {
+        return;
+    }
+
+    function void processKeyCollision(Item item) {
+        return;
+    }
+
+    function int getItemCount() {
+        return itemCount;
+    }
+
+}
