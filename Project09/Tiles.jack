@@ -11,7 +11,7 @@ class Tiles {
     }
 
     function void drawTile(int x, int y, Array tile) {
-        var int i, row, location;
+        var int i, row, location, halfTile;
         let i = 0;
         let row = 0;
         let location = (x / 2) + (y * 256);
@@ -19,11 +19,15 @@ class Tiles {
         if ((x & 1) = 1) {
             while (i < 16) {
                 let screen[location + row] = screen[location + row] & ((tile[i] * 256) | evenMask);
-                if (~(tile[i] = -1)) {
-                    let screen[location + row + 1] = screen[location + row + 1] & ((tile[i] / 256) | oddMask);
+                if (tile[i] = -1) {
+                    let screen[location + row + 1] = screen[location + row + 1] | evenMask;
                 }
-                if (tile[i] < -1) {
-                    let screen[location + row + 1] = screen[location + row + 1] - 1;
+                else {
+                    let halfTile = tile[i] / 256;
+                    if (tile[i] < -1) {
+                        let halfTile = halfTile - 1;
+                    }
+                    let screen[location + row + 1] = screen[location + row + 1] & (halfTile | oddMask);
                 }
                 let i = i + 1;
                 let row = row + 32;
@@ -35,6 +39,29 @@ class Tiles {
                 let i = i + 1;
                 let row = row + 32;
             }
+        }
+        return;
+    }
+
+    function void buildTiles(int r1, int r2, int ax, boolean flag, boolean axis, Array tile) {
+        var int i;
+        let i = r1;
+
+        while (~(r2 < i)) {
+            if (axis) {
+                do Tiles.drawTile(i, ax, tile);
+                if (flag) {
+                    do LevelManager.updateMap(i, ax);
+                }
+            }
+            else {
+                do Tiles.drawTile(ax, i, tile);
+                if (flag) {
+                    do LevelManager.updateMap(ax, i);
+                }
+            }
+
+            let i = i + 2;
         }
         return;
     }
@@ -85,6 +112,106 @@ class Tiles {
         return;
     }
 
+    function void loadHeartTile(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -1;
+        let tile[2] = -3697;
+        let tile[3] = -4489;
+        let tile[4] = -11893;
+        let tile[5] = -23547;
+        let tile[6] = -22011;
+        let tile[7] = -23547;
+        let tile[8] = -12277;
+        let tile[9] = -6121;
+        let tile[10] = -3025;
+        let tile[11] = -1441;
+        let tile[12] = -577;
+        let tile[13] = -385;
+        let tile[14] = -1;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadVentTile(Array tile) {
+        let tile[0] = -32767 - 1;
+        let tile[1] = -16386;
+        let tile[2] = -32766;
+        let tile[3] = -28662;
+        let tile[4] = -30750;
+        let tile[5] = -32766;
+        let tile[6] = -30750;
+        let tile[7] = -32766;
+        let tile[8] = -30750;
+        let tile[9] = -32766;
+        let tile[10] = -30750;
+        let tile[11] = -32766;
+        let tile[12] = -28662;
+        let tile[13] = -32762;
+        let tile[14] = -32767 - 1;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadQuadWallTile(Array tile) {
+        let tile[0] = 257;
+        let tile[1] = 32125;
+        let tile[2] = 17733;
+        let tile[3] = 17733;
+        let tile[4] = 17733;
+        let tile[5] = 32125;
+        let tile[6] = 257;
+        let tile[7] = -1;
+        let tile[8] = 257;
+        let tile[9] = 32125;
+        let tile[10] = 17733;
+        let tile[11] = 17733;
+        let tile[12] = 17733;
+        let tile[13] = 32125;
+        let tile[14] = 257;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadConsoleTile(Array tile) {
+        let tile[0] = -12285;
+        let tile[1] = -20483;
+        let tile[2] = -22523;
+        let tile[3] = -22523;
+        let tile[4] = -20483;
+        let tile[5] = -20483;
+        let tile[6] = -22235;
+        let tile[7] = -22235;
+        let tile[8] = -20483;
+        let tile[9] = -22235;
+        let tile[10] = -22235;
+        let tile[11] = -20483;
+        let tile[12] = -22235;
+        let tile[13] = -22235;
+        let tile[14] = -20483;
+        let tile[15] = -12285;
+        return;
+    }
+
+    function void loadWaterTile(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -1029;
+        let tile[2] = -515;
+        let tile[3] = -258;
+        let tile[4] = -1;
+        let tile[5] = -4113;
+        let tile[6] = -8225;
+        let tile[7] = -16449;
+        let tile[8] = -1;
+        let tile[9] = -1029;
+        let tile[10] = -515;
+        let tile[11] = -258;
+        let tile[12] = -1;
+        let tile[13] = -4113;
+        let tile[14] = -8225;
+        let tile[15] = -16449;
+        return;
+    }
+
     function void loadKeyTile(Array tile) {
         let tile[0] = -1;
         let tile[1] = -3841;
@@ -102,6 +229,26 @@ class Tiles {
         let tile[13] = -23;
         let tile[14] = -9;
         let tile[15] = -1;
+        return;
+    }
+
+    function void loadTorchTile(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -129;
+        let tile[2] = -257;
+        let tile[3] = -385;
+        let tile[4] = -961;
+        let tile[5] = -577;
+        let tile[6] = -385;
+        let tile[7] = -1057;
+        let tile[8] = -961;
+        let tile[9] = -1;
+        let tile[10] = -385;
+        let tile[11] = -257;
+        let tile[12] = -129;
+        let tile[13] = -385;
+        let tile[14] = -1;
+        let tile[15] = -577;
         return;
     }
 
@@ -126,22 +273,122 @@ class Tiles {
     }
 
     function void loadOpenDoorTile(Array tile) {
-        let tile[0] = -8185;
+        let tile[0] = -1;
         let tile[1] = -16381;
-        let tile[2] = -28687;
-        let tile[3] = -25063;
-        let tile[4] = -25079;
-        let tile[5] = -25063;
-        let tile[6] = -25047;
-        let tile[7] = -25063;
-        let tile[8] = -26359;
-        let tile[9] = -25847;
-        let tile[10] = -25847;
-        let tile[11] = -26343;
-        let tile[12] = -24791;
-        let tile[13] = -25063;
-        let tile[14] = -25079;
-        let tile[15] = -25079;
+        let tile[2] = -32767;
+        let tile[3] = -24583;
+        let tile[4] = -24631;
+        let tile[5] = -24631;
+        let tile[6] = -24631;
+        let tile[7] = -24631;
+        let tile[8] = -24631;
+        let tile[9] = -24631;
+        let tile[10] = -24695;
+        let tile[11] = -24631;
+        let tile[12] = -24631;
+        let tile[13] = -24631;
+        let tile[14] = -25911;
+        let tile[15] = -27319;
+        return;
+    }
+
+    function void loadClosedChestTile(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -1;
+        let tile[2] = -1;
+        let tile[3] = -1;
+        let tile[4] = -16381;
+        let tile[5] = -16387;
+        let tile[6] = 27306;
+        let tile[7] = 21846;
+        let tile[8] = 16386;
+        let tile[9] = 16386;
+        let tile[10] = 32190;
+        let tile[11] = 16770;
+        let tile[12] = 24582;
+        let tile[13] = 16386;
+        let tile[14] = 32766;
+        let tile[15] = 0;
+        return;
+    }
+
+    function void loadOpenChestTile(Array tile) {
+        let tile[0] = -16381;
+        let tile[1] = -16963;
+        let tile[2] = 16386;
+        let tile[3] = 23610;
+        let tile[4] = 24570;
+        let tile[5] = 24570;
+        let tile[6] = 24570;
+        let tile[7] = 24570;
+        let tile[8] = 24570;
+        let tile[9] = 32190;
+        let tile[10] = 16770;
+        let tile[11] = 16386;
+        let tile[12] = 24582;
+        let tile[13] = 16386;
+        let tile[14] = 32766;
+        let tile[15] = 0;
+        return;
+    }
+
+    function void loadFenceTile(Array tile) {
+        let tile[0] = -258;
+        let tile[1] = 32125;
+        let tile[2] = -17477;
+        let tile[3] = -10281;
+        let tile[4] = -4113;
+        let tile[5] = -10249;
+        let tile[6] = -17477;
+        let tile[7] = 32125;
+        let tile[8] = -258;
+        let tile[9] = 32253;
+        let tile[10] = -17477;
+        let tile[11] = -10281;
+        let tile[12] = -4113;
+        let tile[13] = -2089;
+        let tile[14] = -17477;
+        let tile[15] = 32125;
+        return;
+    }
+
+    function void loadSmallFan(Array tile, int frame) {
+        if (frame = 1) {
+            let tile[0] = -1;
+            let tile[1] = -961;
+            let tile[2] = -3121;
+            let tile[3] = -4105;
+            let tile[4] = -11317;
+            let tile[5] = -11893;
+            let tile[6] = -18019;
+            let tile[7] = -16771;
+            let tile[8] = -16771;
+            let tile[9] = -18019;
+            let tile[10] = -11893;
+            let tile[11] = -11317;
+            let tile[12] = -4105;
+            let tile[13] = -3121;
+            let tile[14] = -961;
+            let tile[15] = -1;
+        }
+        if (frame = 3) {
+            let tile[0] = -1;
+            let tile[1] = -961;
+            let tile[2] = -3121;
+            let tile[3] = -4489;
+            let tile[4] = -8581;
+            let tile[5] = -8581;
+            let tile[6] = -16387;
+            let tile[7] = -23995;
+            let tile[8] = -23995;
+            let tile[9] = -16387;
+            let tile[10] = -8581;
+            let tile[11] = -8581;
+            let tile[12] = -4489;
+            let tile[13] = -3121;
+            let tile[14] = -961;
+            let tile[15] = -1;
+        }
         return;
     }
 
@@ -474,6 +721,18 @@ class Tiles {
         let tile[13] = -1;
         let tile[14] = -1;
         let tile[15] = -1;
+        return;
+    }
+
+    function void loadWhiteTile(Array tile) {
+        var int i;
+
+        let i = 0;
+
+        while(i < 16) {
+            let tile[i] = 0;
+            let i = i + 1;
+        }
         return;
     }
 }

@@ -49,10 +49,16 @@ class Game {
         let exit = false;
 
         do blackScreen();
-        do LevelManager.loadLevelOne();
-        let itemCount = LevelManager.getItemCount();
-        do player.draw();
         do DialogueManager.drawUI();
+        do LevelManager.loadLevelOne();
+        
+        do LevelManager.loadNextLevel();
+        do LevelManager.loadNextLevel();
+
+        do blackScreen();
+        do LevelManager.loadNextLevel();
+        let itemCount = LevelManager.getItemCount();    
+        do player.draw();
 
         while (~exit) {
             let key = Keyboard.keyPressed();
@@ -66,7 +72,9 @@ class Game {
                 do moveItems();
             }
             do animateItems();
+            do LevelManager.animateTiles();
             do detectCollisions(player.getX(), player.getY());
+            do LevelManager.processEvents(key);
             if (LevelManager.winCondition()) {
                 do blackScreen();
                 do LevelManager.loadNextLevel();
@@ -116,29 +124,39 @@ class Game {
     }
 
     method void detectCollisions(int x, int y) {
-        var int i;
+        var int i, type;
         var Item item;
 
         let i = 0;
         while (i < itemCount) {
             let item = items[i];
             if(item.collidesWith(x, y)) {
-                do processCollision(item);
-                do item.dispose();
-                let items[i] = items[itemCount - 1];
-                let itemCount = itemCount - 1;
+                let type = item.getType();
+                do processCollision(item, type);
+                if (~(type = 3)) {
+                    do item.dispose();
+                    let items[i] = items[itemCount - 1];
+                    let itemCount = itemCount - 1;
+                }
             }
             let i = i + 1;
         }
         return;
     }
 
-    method void processCollision(Item item) {
+    method void processCollision(Item item, int typ) {
         do Tiles.eraseTile(item.getX(), item.getY());
         do player.draw();
-        if (item.getType() = 1) {
+        if (typ = 1) {
             do player.setKey(true);
-            do LevelManager.processKeyCollision();
+            do LevelManager.processKeyCollision(item);
+        }
+        if ((typ = 3) & (item.isActive())) {
+            do player.takeDamage();
+            do player.respawn();
+        }
+        if (typ = 2) {
+            do player.heal();
         }
         return;
     }

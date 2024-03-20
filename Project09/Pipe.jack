@@ -1,0 +1,55 @@
+class Pipe {
+    field int x, y;
+    field Array tileP;
+    field int currentOrientation;
+
+    constructor Pipe new(int Ax, int Ay, int orientation) {
+        let x = Ax;
+        let y = Ay;
+        let currentOrientation = orientation;
+        let tileP = Array.new(16);
+        do loadTile(currentOrientation);
+        do Tiles.drawTile(x, y, tileP);
+
+        return this;
+    }
+
+    method void draw() {
+        do Tiles.drawTile(x, y, tileP);
+        return;
+    }
+
+    method void rotate() {
+        let currentOrientation = currentOrientation + 1;
+        if (currentOrientation = 5) {
+            let currentOrientation = 1;
+        }
+        do loadTile(currentOrientation);
+        do Tiles.eraseTile(x, y);
+        do Tiles.drawTile(x, y, tileP);
+        
+        return;
+    }
+
+    method void loadTile(int orientation) {
+        if (orientation = 1) {
+            do Pipes.loadPipeTile(tileP, 1);
+        }
+        if (orientation = 2) {
+            do Pipes.loadPipeTile(tileP, 3);
+        }
+        if (orientation = 3) {
+            do Pipes.loadPipeTile(tileP, 9);
+        }
+        if (orientation = 4) {
+            do Pipes.loadPipeTile(tileP, 7);
+        }
+        return;
+    }
+
+    method int getOrientation() {
+        return currentOrientation;
+    }
+
+    
+}

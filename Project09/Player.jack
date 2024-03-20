@@ -1,9 +1,10 @@
 /* Player Character */
 class Player {
-    field int x, y, location;
+    field int x, y, location, hp;
     field int oddMask, evenMask;
-    field Array screen, twoToThe, map;
-    field boolean key;
+    field int spawnX, spawnY;
+    field Array screen, twoToThe, map, tile;
+    field boolean key, alive;
 
     constructor Player new(int Ax, int Ay, Array powArr, Array lMap) {
         let x = Ax;
@@ -14,12 +15,46 @@ class Player {
         let oddMask = -256;
         let evenMask = 255;
         let key = false;
+        let alive = true;
+        let hp = 3;
+        let tile = Array.new(16);
 
         return this;
     }
 
     method void dispose() {
         do Memory.deAlloc(this);
+        return;
+    }
+
+    method void takeDamage() {
+        let hp = hp - 1;
+        if (hp = 0) {
+            let alive = false;
+        }
+        do DialogueManager.updateStatusBox(hp);
+        return;
+    }
+
+    method void heal() {
+        let hp = hp + 1;
+        if (hp > 3) {
+            let hp = 3;
+        }
+        do DialogueManager.updateStatusBox(hp);
+        return;
+    }
+
+    method void setSpawn(int xPos, int yPos) {
+        let spawnX = xPos;
+        let spawnY = yPos;
+        return;
+    }
+
+    method void respawn() {
+        do erase();
+        do setPosition(spawnX, spawnY);
+        do draw();
         return;
     }
 
@@ -36,14 +71,18 @@ class Player {
         return x;
     }
 
+    method int getY() {
+        return y;
+    }
+
+    method int getHP() {
+        return hp;
+    }
+
     method void setPosition(int Ax, int Ay) {
         let x = Ax;
         let y = Ay;
         return;
-    }
-
-    method int getY() {
-        return y;
     }
 
     method void draw() {

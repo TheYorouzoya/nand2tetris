@@ -1,0 +1,41 @@
+class Characters {
+    function void loadEngineer(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -2041;
+        let tile[2] = -4093;
+        let tile[3] = -8191;
+        let tile[4] = -4111;
+        let tile[5] = -6135;
+        let tile[6] = -5051;
+        let tile[7] = -5051;
+        let tile[8] = 10249;
+        let tile[9] = 8191;
+        let tile[10] = -32221;
+        let tile[11] = 8641;
+        let tile[12] = -1015;
+        let tile[13] = -545;
+        let tile[14] = -673;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadDoorKeeper(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -1;
+        let tile[2] = -2017;
+        let tile[3] = -4081;
+        let tile[4] = -8185;
+        let tile[5] = -8121;
+        let tile[6] = -8025;
+        let tile[7] = -7897;
+        let tile[8] = -401;
+        let tile[9] = -6121;
+        let tile[10] = -14365;
+        let tile[11] = -32507;
+        let tile[12] = -32767;
+        let tile[13] = -14061;
+        let tile[14] = -1;
+        let tile[15] = -1633;
+        return;
+    }
+}

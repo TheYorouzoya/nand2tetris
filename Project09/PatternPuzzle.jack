@@ -1,0 +1,157 @@
+class PatternPuzzle {
+    field int x, y, solution, current;
+    field Array grid, twoToThe, tile;
+
+    constructor PatternPuzzle new(int Ax, int Ay, Array AtwoToThe) {
+        let x = Ax;
+        let y = Ay;
+        let grid = Array.new(9);
+        let tile = Array.new(16);
+        let twoToThe = AtwoToThe;
+        
+        do loadStageOne();
+
+        return this;
+    }
+
+    method void dispose() {
+        do grid.dispose();
+        do tile.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void loadStageOne() {
+        let current = 0;
+        let solution = 4;
+
+        do drawPattern(x, y, 1);
+        do drawPattern(x + 6, y, 2);
+        do drawPattern(x + 12, y, 2);
+
+        do drawPattern(x, y + 6, 2);
+        do drawPattern(x + 6, y + 6, 1);
+        do drawPattern(x + 12, y + 6, 2);
+
+        do drawPattern(x, y + 12, 2);
+        do drawPattern(x + 6, y + 12, 2);
+        do drawPattern(x + 12, y + 12, 1);
+
+        do drawPattern(x + 24, y + 6, 4);
+
+        return;
+    }
+
+    method void loadStageTwo() {
+        let current = 0;
+        let solution = 3;
+
+        do drawPattern(x, y, 1);
+        do drawPattern(x + 6, y, 2);
+        do drawPattern(x + 12, y, 1);
+
+        do drawPattern(x, y + 6, 4);
+        do drawPattern(x + 6, y + 6, 1);
+        do drawPattern(x + 12, y + 6, 3);
+
+        do drawPattern(x, y + 12, 3);
+        do drawPattern(x + 6, y + 12, 1);
+        do drawPattern(x + 12, y + 12, 2);
+
+        do drawPattern(x + 24, y + 6, 3);
+
+        return;
+    }
+
+        method void loadStageThree() {
+        let current = 0;
+        let solution = 1;
+
+        do drawPattern(x, y, 4);
+        do drawPattern(x + 6, y, 4);
+        do drawPattern(x + 12, y, 4);
+
+        do drawPattern(x, y + 6, 2);
+        do drawPattern(x + 6, y + 6, 2);
+        do drawPattern(x + 12, y + 6, 4);
+
+        do drawPattern(x, y + 12, 2);
+        do drawPattern(x + 6, y + 12, 4);
+        do drawPattern(x + 12, y + 12, 4);
+
+        do drawPattern(x + 24, y + 6, 1);
+
+        return;
+    }
+
+    method boolean isSolved() {
+        return (current = 511);
+    }
+
+    method void flipPatterns(int key) {
+        var int row, col;
+
+        let row = key / 3;
+        let col = key - (row * 3);
+
+        do flipPattern(0, row);
+        do flipPattern(1, row);
+        do flipPattern(2, row);
+        do flipPattern(col, 0);
+        do flipPattern(col, 1);
+        do flipPattern(col, 2);
+
+        do rollBack(col, row);
+
+        return;
+    }
+
+    method void flipPattern(int pX, int pY) {
+        var int index;
+        let index = pX + (3 * pY);
+        let grid[index] = grid[index] + 1;
+        if (grid[index] = 5) {
+            let grid[index] = 1;
+        }
+        
+        if (grid[index] = solution) {
+            let current = current | twoToThe[index];
+        }
+        else {
+            let current = current & (~twoToThe[index]);
+        }
+
+        do drawPattern(x + (6 * pX), y + (6 * pY), grid[index]);
+        
+        return;
+    }
+
+    method void rollBack(int pX, int pY) {
+        var int index;
+        let index = pX + (3 * pY);
+        let grid[index] = grid[index] - 1;
+        if (grid[index] = 0) {
+            let grid[index] = 4;
+        }
+
+        if (grid[index] = solution) {
+            let current = current | twoToThe[index];
+        }
+        else {
+            let current = current & (~twoToThe[index]);
+        }
+
+        do drawPattern(x + (6 * pX), y + (6 * pY), grid[index]);
+        return;
+    }
+
+    method void drawPattern(int pX, int pY, int pattern) {
+        do GeneratorTiles.loadPatternTile(tile, pattern);
+
+        do Tiles.drawTile(pX, pY, tile);
+        do Tiles.drawTile(pX + 2, pY, tile);
+        do Tiles.drawTile(pX, pY + 2, tile);
+        do Tiles.drawTile(pX + 2, pY + 2, tile);
+        return;
+    }
+}

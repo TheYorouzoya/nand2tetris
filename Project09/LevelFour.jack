@@ -1,0 +1,116 @@
+class LevelFour {
+    static Array tile, map, twoToThe, items, skulls;
+    static int itemCount;
+    static Player player;
+
+    function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Array Aplr) {
+        let tile = Atile;
+        let map = Amap;
+        let twoToThe = AtwoToThe;
+        let items = Aitems;
+        let player = Aplr;
+        let itemCount = 0;
+        let skulls = Array.new(5);
+
+        return;
+    }
+
+    function void loadLevel() {
+        do LevelManager.resetMap();
+        do LevelFour.loadWalls();
+        do LevelFour.loadSkulls();
+        do LevelFour.loadSpikes();
+        do Tiles.loadOpenDoorTile(tile);
+        do Tiles.drawTile(4, 0, tile);
+
+        let items[16] = Item.new(4, 6, 8, 0, 0, 2, false, 1);
+        let itemCount = itemCount + 1;
+
+        do player.setPosition(30, 24);
+        do player.setSpawn(30, 24);
+
+        return;
+    }
+
+    function void animateTiles() {
+        return;
+    }
+
+    function boolean winCondition() {
+        return false;
+    }
+
+    function void processEvents(int key) {
+        var int i;
+        var Skull skull;
+        var int playerX, playerY;
+
+        let playerX = player.getX();
+        let playerY = player.getY();
+        let i = 0;
+
+        while (i < 3) {
+            let skull = skulls[i];
+            do skull.tick(playerX, playerY, player);
+            let i = i + 1;
+        }
+        return;
+
+    }
+
+    function void processKeyCollision(Item item) {
+        return;
+    }
+
+    function int getItemCount() {
+        return itemCount;
+    }
+
+    function void loadWalls() {
+        do Tiles.loadBrickTile(tile);
+
+        do Tiles.buildTiles(0, 62, 0, true, true, tile);
+        do Tiles.buildTiles(2, 20, 10, true, false, tile);
+        do Tiles.buildTiles(2, 20, 12, true, false, tile);
+        do Tiles.buildTiles(2, 24, 62, true, false, tile);
+
+        do Tiles.buildTiles(24, 50, 12, true, true, tile);
+        do Tiles.buildTiles(14, 24, 24, true, false, tile);
+        do Tiles.buildTiles(20, 24, 38, true, false, tile);
+        do Tiles.buildTiles(14, 20, 50, true, false, tile);
+
+        return;
+    }
+
+    function void loadSkulls() {
+        let skulls[0] = Skull.new(62, 18, 3, 51);
+        let skulls[1] = Skull.new(12, 4, 4, 61);
+        let skulls[2] = Skull.new(12, 8, 4, 61);
+        return;
+    }
+
+    function void loadSpikes() {
+        let items[0] = Item.new(52, 12, 4, 0, 0, 3, true, 1);
+        let items[1] = Item.new(54, 12, 4, 0, 0, 3, true, 15);
+        let items[2] = Item.new(56, 12, 4, 0, 0, 3, true, 1);
+        let items[3] = Item.new(58, 12, 4, 0, 0, 3, true, 15);
+        let items[4] = Item.new(60, 12, 4, 0, 0, 3, true, 1);
+
+        let items[5] = Item.new(38, 14, 4, 0, 0, 3, true, 5);
+        let items[6] = Item.new(38, 16, 4, 0, 0, 3, true, 5);
+        let items[7] = Item.new(38, 18, 4, 0, 0, 3, true, 5);
+        
+        let items[8] = Item.new(38, 2, 3, 0, 0, 3, true, 12);
+        let items[9] = Item.new(38, 6, 3, 0, 0, 3, true, 12);
+        let items[10] = Item.new(38, 10, 3, 0, 0, 3, true, 12);
+
+        let items[11] = Item.new(14, 12, 4, 0, 0, 3, true, 10);
+        let items[12] = Item.new(16, 12, 4, 0, 0, 3, true, 1);
+        let items[13] = Item.new(18, 12, 4, 0, 0, 3, true, 10);
+        let items[14] = Item.new(20, 12, 4, 0, 0, 3, true, 1);
+        let items[15] = Item.new(22, 12, 4, 0, 0, 3, true, 10);
+
+        let itemCount = itemCount + 16;
+        return;
+    }
+}

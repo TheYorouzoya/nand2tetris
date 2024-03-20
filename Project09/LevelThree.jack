@@ -1,0 +1,285 @@
+class LevelThree {
+    static Array tile, map, twoToThe, items;
+    static int itemCount;
+    static Player player;
+    static PatternPuzzle puzzle;
+
+    function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Player Aplr) {
+        let tile = Atile;
+        let map = Amap;
+        let twoToThe = AtwoToThe;
+        let items = Aitems;
+        let player = Aplr;
+        let itemCount = 0;
+        let puzzle = PatternPuzzle.new(20, 4, twoToThe);
+
+        return;
+    }
+
+    function void loadLevel() {
+        let itemCount = 0;
+
+        do player.setPosition(56, 24);
+
+        do LevelThree.loadPipes();
+        do LevelThree.loadFences();
+        do LevelThree.loadReactor();
+        do LevelThree.updateMap();
+
+        do DialogueManager.clearDialogueBox();
+
+        return;
+    }
+
+    function void animateTiles() {
+        return;
+    }
+
+    function boolean winCondition() {
+        return false;
+    }
+
+    function void processEvents(int key) {
+        var int playerX, playerY;
+        var String s;
+
+        let playerX = player.getX();
+        let playerY = player.getY();
+
+        if ((playerX = 52) & (playerY = 11)) {
+            if ((key < 58) & (key > 48)) {
+                do puzzle.flipPatterns(key - 49);
+            }
+        }
+        if (puzzle.isSolved()) {
+            let s = "Solved!";
+            do DialogueManager.printDialogueLineOne(s);
+            do s.dispose();
+        }
+
+        return;
+    }
+
+    function void processKeyCollision(Item item) {
+        return;
+    }
+
+    function int getItemCount() {
+        return itemCount;
+    }
+
+    function void loadPipes() {
+        do Pipes.loadPipeTile(tile, 1);
+        do Tiles.drawTile(6, 6, tile);
+        do Tiles.drawTile(2, 14, tile);
+        do Tiles.drawTile(12, 16, tile);
+        do Tiles.drawTile(6, 18, tile);
+        do Tiles.drawTile(10, 22, tile);
+
+
+        do Pipes.loadPipeTile(tile, 2);
+
+        do Tiles.drawTile(0, 4, tile);
+        do Tiles.drawTile(2, 4, tile);
+        do Tiles.buildTiles(10, 14, 4, false, true, tile);
+        do Tiles.buildTiles(40, 44, 4, true, true, tile);
+        
+        do Tiles.drawTile(8, 6, tile);
+        do Tiles.drawTile(10, 6, tile);
+        do Tiles.drawTile(14, 6, tile);
+        do Tiles.drawTile(40, 6, tile);
+        do Tiles.drawTile(42, 6, tile);
+
+        do Tiles.drawTile(14, 8, tile);
+
+        do Tiles.drawTile(0, 10, tile);
+        do Tiles.drawTile(2, 10, tile);
+        do Tiles.drawTile(40, 10, tile);
+
+        do Tiles.buildTiles(0, 14, 12, false, true, tile);
+        do Tiles.drawTile(40, 12, tile);
+
+        do Tiles.drawTile(4, 14, tile);
+
+        do Tiles.drawTile(14, 16, tile);
+        do Tiles.drawTile(40, 16, tile);
+        do Tiles.drawTile(42, 16, tile);
+
+        do Tiles.buildTiles(8, 14, 18, false, true, tile);
+        do Tiles.buildTiles(40, 44, 18, true, true, tile);
+
+        do Tiles.buildTiles(0, 4, 22, false, true, tile);
+        do Tiles.drawTile(12, 22, tile);
+        do Tiles.drawTile(14, 22, tile);
+
+        
+        do Pipes.loadPipeTile(tile, 3);
+        do Tiles.drawTile(46, 4, tile);
+        do Tiles.drawTile(44, 6, tile);
+
+
+        do Pipes.loadPipeTile(tile, 4);
+
+        do Tiles.buildTiles(16, 20, 2, false, false, tile);
+        do Tiles.drawTile(2, 24, tile);
+
+        do Tiles.buildTiles(0, 8, 4, false, false, tile);
+
+        do Tiles.drawTile(6, 8, tile);
+        do Tiles.drawTile(6, 10, tile);
+        do Tiles.drawTile(6, 20, tile);
+
+        do Tiles.drawTile(8, 0, tile);
+        do Tiles.drawTile(8, 2, tile);
+
+        do Tiles.drawTile(10, 24, tile);
+
+        do Tiles.drawTile(12, 0, tile);
+        do Tiles.drawTile(12, 2, tile);
+        do Tiles.drawTile(12, 6, tile);
+        do Tiles.drawTile(12, 20, tile);
+        do Tiles.drawTile(12, 24, tile);
+
+        do Tiles.drawTile(46, 6, tile);
+        do Tiles.drawTile(46, 16, tile);
+
+
+        do Pipes.loadPipeTile(tile, 7);
+        do Tiles.drawTile(8, 4, tile);
+        do Tiles.drawTile(12, 8, tile);
+
+
+        do Pipes.loadPipeTile(tile, 9);
+        do Tiles.drawTile(4, 10, tile);
+        do Tiles.drawTile(6, 14, tile);
+        do Tiles.drawTile(44, 16, tile);
+        do Tiles.drawTile(46, 18, tile);
+        do Tiles.drawTile(6, 22, tile);
+
+
+        do Tiles.loadVentTile(tile);
+        do Tiles.drawTile(4, 4, tile);
+        do Tiles.drawTile(6, 12, tile);
+
+        return;
+    }
+
+    function void loadFences() {
+        do Tiles.loadFenceTile(tile);
+
+        do Tiles.drawTile(0, 0, tile);
+        do Tiles.drawTile(2, 0, tile);
+        do Tiles.buildTiles(0, 4, 6, false, false, tile);
+        do Tiles.drawTile(10, 0, tile);
+        do Tiles.drawTile(14, 0, tile);
+
+        do Tiles.drawTile(0, 2, tile);
+        do Tiles.drawTile(2, 2, tile);
+        do Tiles.drawTile(10, 2, tile);
+        do Tiles.drawTile(14, 2, tile);
+
+        do Tiles.drawTile(0, 6, tile);
+        do Tiles.drawTile(2, 6, tile);
+        do Tiles.drawTile(0, 8, tile);
+        do Tiles.drawTile(2, 8, tile);
+
+        do Tiles.drawTile(8, 8, tile);
+        do Tiles.drawTile(10, 8, tile);
+        do Tiles.buildTiles(8, 14, 10, false, true, tile);
+
+        do Tiles.buildTiles(14, 20, 0, false, false, tile);
+        do Tiles.buildTiles(8, 14, 14, false, true, tile);
+        do Tiles.buildTiles(4, 10, 16, false, true, tile);
+
+        do Tiles.drawTile(4, 18, tile);
+        do Tiles.drawTile(4, 20, tile);
+        do Tiles.drawTile(8, 20, tile);
+        do Tiles.drawTile(10, 20, tile);
+        do Tiles.drawTile(14, 20, tile);
+        do Tiles.drawTile(8, 22, tile);
+
+        do Tiles.drawTile(0, 24, tile);
+        do Tiles.buildTiles(4, 8, 24, false, true, tile);
+        do Tiles.drawTile(14, 24, tile);
+
+        return;
+    }
+
+    function void loadReactor() {
+        do GeneratorTiles.loadWallTile(tile, 1);
+        do Tiles.drawTile(16, 0, tile);
+        do Tiles.drawTile(42, 8, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 2);
+        do Tiles.buildTiles(18, 36, 0, false, true, tile);
+        do Tiles.drawTile(44, 8, tile);
+        do Tiles.drawTile(46, 8, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 3);
+        do Tiles.drawTile(38, 0, tile);
+        do Tiles.drawTile(48, 8, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 4);
+        do Tiles.buildTiles(2, 22, 16, false, false, tile);
+        do Tiles.drawTile(42, 10, tile);
+        do Tiles.drawTile(42, 12, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 6);
+        do Tiles.buildTiles(2, 22, 38, false, false, tile);
+        do Tiles.drawTile(48, 10, tile);
+        do Tiles.drawTile(48, 12, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 7);
+        do Tiles.drawTile(16, 24, tile);
+        do Tiles.drawTile(42, 14, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 8);
+        do Tiles.buildTiles(18, 36, 24, false, true, tile);
+        do Tiles.drawTile(44, 14, tile);
+        do Tiles.drawTile(46, 14, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 9);
+        do Tiles.drawTile(38, 24, tile);
+        do Tiles.drawTile(48, 14, tile);
+
+        do GeneratorTiles.loadSquareBlockTile(tile);
+        do Tiles.drawTile(18, 2, tile);
+        do Tiles.drawTile(36, 2, tile);
+        do Tiles.drawTile(18, 22, tile);
+        do Tiles.drawTile(36, 22, tile);
+
+        do GeneratorTiles.loadCautionWall(tile, 1);
+        do Tiles.buildTiles(4, 20, 18, false, false, tile);
+
+        do GeneratorTiles.loadCautionWall(tile, 2);
+        do Tiles.buildTiles(20, 34, 2, false, true, tile);
+
+        do GeneratorTiles.loadCautionWall(tile, 3);
+        do Tiles.buildTiles(4, 20, 36, false, false, tile);
+
+        do GeneratorTiles.loadSmallWireTile(tile);
+        do Tiles.buildTiles(20, 34, 22, false, true, tile);
+
+        do GeneratorTiles.loadCircleTop(tile);
+        do Tiles.drawTile(26, 22, tile);
+        do Tiles.drawTile(28, 22, tile);
+
+        do Tiles.loadConsoleTile(tile);
+        do Tiles.drawTile(50, 11, tile);
+
+        return;
+    }
+
+    function void updateMap() {
+        do LevelManager.resetMap();
+        do LevelManager.updateMapBulk(0, 24, 38, false);
+        do LevelManager.updateMapBulk(40, 46, 4, true);
+        do LevelManager.updateMap(46, 6);
+        do LevelManager.updateMapBulk(8, 14, 48, false);
+        do LevelManager.updateMap(46, 16);
+        do LevelManager.updateMapBulk(40, 46, 18, true);
+        do LevelManager.updateMap(50, 11);
+        return;
+    }
+
+}

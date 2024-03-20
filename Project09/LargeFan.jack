@@ -1,0 +1,218 @@
+class LargeFan {
+    field int x, y, frame;
+    field boolean animated;
+    field Array tileA, tileB, tileC, tileD;
+
+    constructor LargeFan new(int Ax, int Ay, boolean anim) {
+        let x = Ax;
+        let y = Ay;
+        let tileA = Array.new(16);
+        let tileB = Array.new(16);
+        let tileC = Array.new(16);
+        let tileD = Array.new(16);
+
+        let animated = anim;
+        let frame = 1;
+
+        do loadFanTile(tileA, 1);
+        do loadFanTile(tileB, 2);
+        do loadFanTile(tileC, 3);
+        do loadFanTile(tileD, 4);
+        return this;
+    }
+
+    method void dispose() {
+        do tileA.dispose();
+        do tileB.dispose();
+        do tileC.dispose();
+        do tileD.dispose();
+        do Memory.deAlloc(this);
+
+        return;
+    }
+
+    method void draw() {
+        if (animated) {
+            do Tiles.eraseTile(x, y);
+            do Tiles.eraseTile(x + 2, y);
+            do Tiles.eraseTile(x, y + 2);
+            do Tiles.eraseTile(x + 2, y + 2);
+
+            let frame = frame + 1;
+            do loadFanTile(tileA, 1);
+            do loadFanTile(tileB, 2);
+            do loadFanTile(tileC, 3);
+            do loadFanTile(tileD, 4);
+
+            if (frame = 4) {
+                let frame = 0;
+            }
+        }
+        do Tiles.drawTile(x, y, tileA);
+        do Tiles.drawTile(x + 2, y, tileB);
+        do Tiles.drawTile(x, y + 2, tileC);
+        do Tiles.drawTile(x + 2, y + 2, tileD);
+        return;
+    }
+
+    method void setAnimated(boolean value) {
+        let animated = value;
+        return;
+    }
+
+    method void loadFanTile(Array tile, int tileId) {
+        if (tileId = 1) {
+            if (frame = 1) {
+                let tile[0] = -1;
+                let tile[1] = -1;
+                let tile[2] = 4095;
+                let tile[3] = -3609;
+                let tile[4] = 3687;
+                let tile[5] = -3649;
+                let tile[6] = 7775;
+                let tile[7] = 1967;
+                let tile[8] = 8111;
+                let tile[9] = 8151;
+                let tile[10] = 16343;
+                let tile[11] = 16343;
+                let tile[12] = 32555;
+                let tile[13] = 31787;
+                let tile[14] = -20437;
+                let tile[15] = 16427;
+            }
+            if (frame = 3) {
+                let tile[0] = -1;
+                let tile[1] = -1;
+                let tile[2] = 4095;
+                let tile[3] = -3609;
+                let tile[4] = 3687;
+                let tile[5] = -3649;
+                let tile[6] = -417;
+                let tile[7] = -3665;
+                let tile[8] = -8017;
+                let tile[9] = -8105;
+                let tile[10] = -16297;
+                let tile[11] = -16297;
+                let tile[12] = -16149;
+                let tile[13] = -31765;
+                let tile[14] = -24597;
+                let tile[15] = 32747;
+            }
+        }
+        if (tileId = 2) {
+            if (frame = 1) {
+                let tile[0] = -1;
+                let tile[1] = -1;
+                let tile[2] = -16;
+                let tile[3] = -6257;
+                let tile[4] = -6544;
+                let tile[5] = -625;
+                let tile[6] = -1424;
+                let tile[7] = -2576;
+                let tile[8] = -2568;
+                let tile[9] = -5128;
+                let tile[10] = -5124;
+                let tile[11] = -5380;
+                let tile[12] = -10498;
+                let tile[13] = -11202;
+                let tile[14] = -11251;
+                let tile[15] = -11262;
+            }
+            if (frame = 3) {
+                let tile[0] = -1;
+                let tile[1] = -1;
+                let tile[2] = -16;
+                let tile[3] = -6257;
+                let tile[4] = -6544;
+                let tile[5] = -625;
+                let tile[6] = -1409;
+                let tile[7] = -2673;
+                let tile[8] = -2809;
+                let tile[9] = -5625;
+                let tile[10] = -5629;
+                let tile[11] = -5629;
+                let tile[12] = -10493;
+                let tile[13] = -10303;
+                let tile[14] = -10247;
+                let tile[15] = -10242;
+            }
+        }
+        if (tileId = 3) {
+            if (frame = 1) {
+                let tile[0] = 16427;
+                let tile[1] = -20437;
+                let tile[2] = 31787;
+                let tile[3] = 32619;
+                let tile[4] = 16215;
+                let tile[5] = 16343;
+                let tile[6] = 8151;
+                let tile[7] = 8111;
+                let tile[8] = 4015;
+                let tile[9] = 3679;
+                let tile[10] = -3649;
+                let tile[11] = 3687;
+                let tile[12] = -3609;
+                let tile[13] = 4095;
+                let tile[14] = -1;
+                let tile[15] = -1;
+            }
+            if (frame = 3) {
+                let tile[0] = 32747;
+                let tile[1] = -24597;
+                let tile[2] = -31765;
+                let tile[3] = -16149;
+                let tile[4] = -16297;
+                let tile[5] = -16297;
+                let tile[6] = -8105;
+                let tile[7] = -8017;
+                let tile[8] = -3665;
+                let tile[9] = -417;
+                let tile[10] = -3649;
+                let tile[11] = 3687;
+                let tile[12] = -3609;
+                let tile[13] = 4095;
+                let tile[14] = -1;
+                let tile[15] = -1;
+            }
+        }
+        if (tileId = 4) {
+            if (frame = 1) {
+                let tile[0] = -11262;
+                let tile[1] = -11251;
+                let tile[2] = -11202;
+                let tile[3] = -11010;
+                let tile[4] = -5124;
+                let tile[5] = -5124;
+                let tile[6] = -5128;
+                let tile[7] = -2568;
+                let tile[8] = -2592;
+                let tile[9] = -1416;
+                let tile[10] = -625;
+                let tile[11] = -6544;
+                let tile[12] = -6257;
+                let tile[13] = -16;
+                let tile[14] = -1;
+                let tile[15] = -1;
+            }
+            if (frame = 3) {
+                let tile[0] = -10242;
+                let tile[1] = -10247;
+                let tile[2] = -10303;
+                let tile[3] = -10493;
+                let tile[4] = -5629;
+                let tile[5] = -5629;
+                let tile[6] = -5625;
+                let tile[7] = -2809;
+                let tile[8] = -2673;
+                let tile[9] = -1409;
+                let tile[10] = -625;
+                let tile[11] = -6544;
+                let tile[12] = -6257;
+                let tile[13] = -16;
+                let tile[14] = -1;
+                let tile[15] = -1;
+            }
+        }
+        return;
+    }
+}

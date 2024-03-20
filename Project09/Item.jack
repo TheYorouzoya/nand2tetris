@@ -7,6 +7,7 @@ class Item {
 
        Item "type" refers to the kind of an item based on how it interacts with
        the player character. The interactions are mapped as follows:
+            0 : Non-interactive item
             1 : Key Item (opens doors, chests, etc.)
             2 : Healing Item (heals the player)
             3 : Damaging Item (damages the player) */
@@ -43,19 +44,23 @@ class Item {
     field boolean animated;
     field int frames, currentFrame;
 
-    constructor Item new(int Ax, int Ay, int Aid, int dir, int pth, int Atyp) {
+    constructor Item new(int Ax, int Ay, int Aid, int dir, int pth, int Atyp, boolean anim, int animationOffset) {
         let x = Ax;
         let y = Ay;
         let id = Aid;
         let type = Atyp;
+        let animated = anim;
         let tile = Array.new(16);
         let direction = dir;
         let path = pth;
         let distanceTraveled = 0;
 
-        do loadAnimationData();
+        do loadAnimationData(animationOffset);
+        do Tiles.loadBlankTile(tile);
         do loadTile();
-        do Tiles.drawTile(x, y, tile);
+        if (~animated) {
+            do draw();
+        }
         
         return this;
     }
@@ -68,17 +73,17 @@ class Item {
 
 
     /* loads an item's animation parameters based on ID */
-    method void loadAnimationData() {
+    method void loadAnimationData(int offset) {
         if (id = 3) {
-            let animated = true;
-            let frames = 24;
-            let currentFrame = 1;
+            let frames = 30;
         }
         if (id = 4) {
-            let animated = true;
-            let frames = 15;
-            let currentFrame = 1;
+            let frames = 30;
         }
+        if (id = 5) {
+            let frames = 4;
+        }
+        let currentFrame = offset;
         return;
     }
 
@@ -89,6 +94,10 @@ class Item {
         if (id = 1) { do Tiles.loadKeyTile(tile); }
         if (id = 3) { do Tiles.loadSpike(tile, currentFrame); }
         if (id = 4) { do Tiles.loadSpikeTwo(tile, currentFrame); }
+        if (id = 5) { do Tiles.loadSmallFan(tile, currentFrame); }
+        if (id = 6) { do GeneratorTiles.loadEnergyOrb(tile); }
+        if (id = 7) { do Skull.loadFireball(tile, direction); }
+        if (id = 8) { do Tiles.loadHeartTile(tile); }
         return;
     }
 
@@ -104,6 +113,11 @@ class Item {
             }
         }
         do Tiles.drawTile(x, y, tile);
+        return;
+    }
+
+    method void erase() {
+        do Tiles.eraseTile(x, y);
         return;
     }
 
@@ -182,6 +196,12 @@ class Item {
         return x;
     }
 
+    method void setPosition(int newX, int newY) {
+        let x = newX;
+        let y = newY;
+        return;
+    }
+
     method int getY() {
         return y;
     }
@@ -196,5 +216,24 @@ class Item {
 
     method boolean isAnimated() {
         return animated;
+    }
+
+    method boolean isActive() {
+        if ((id = 4) & (currentFrame > 12)) {
+            return false;
+        }
+        if ((id = 3) & (currentFrame > 10)) {
+            return false;
+        }
+        return true;
+    }
+
+    method void setAnimated(boolean value) {
+        let animated = value;
+        return;
+    }
+
+    method Array getTile() {
+        return tile;
     }
 }

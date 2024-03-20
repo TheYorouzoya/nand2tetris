@@ -1,0 +1,352 @@
+class Skull {
+    field int x, y, direction;
+    field boolean fireballActive;
+    field int wallX, wallY, counter;
+    field Array tile;
+    field Item fireball;
+
+    constructor Skull new(int Ax, int Ay, int Adirection, int fireballBound) {
+        let x = Ax;
+        let y = Ay;
+        let direction = Adirection;
+        let fireballActive = false;
+        let counter = 0;
+        let tile = Array.new(16);
+
+        do loadSkullClose();
+        do drawSkull();
+        do initializeFireball(fireballBound);
+        do attack();
+        return this;
+    }
+
+    method void initializeFireball(int bound) {
+        var int iX, iY;
+        let wallX = x;
+        let wallY = y;
+        let iX = x;
+        let iY = y;
+
+        if (direction = 1) {
+            let iY = y - 2;
+            let wallY = bound;
+        }
+        if (direction = 2) {
+            let iY = y + 2;
+            let wallY = bound;
+        }
+        if (direction = 3) {
+            let iX = x - 2;
+            let wallX = bound;
+        }
+        if (direction = 4) {
+            let iX = x + 2;
+            let wallX = bound;
+        }
+        let fireball = Item.new(iX, iY, 7, direction, 0, 3, false, 1);
+        return;
+    }
+
+    method void tick(int playerX, int playerY, Player player) {
+        if (counter = 4) {
+            do loadSkullClose();
+            do drawSkull();
+        }
+        if (fireballActive) {
+            do fireball.moveItem();
+            if (fireball.collidesWith(playerX, playerY)) {
+                do player.takeDamage();
+                do fireball.erase();
+                let fireballActive = false;
+                do player.respawn();
+            }
+            if (fireball.collidesWith(wallX, wallY)) {
+                do fireball.erase();
+                if (counter > 25) {
+                    do attack();
+                } 
+                else {
+                    let fireballActive = false;
+                }
+            }
+        }
+        if ((~fireballActive) & (counter > 25)) {
+            do attack();
+        }
+        let counter = counter + 1;
+        return;
+    }
+
+    method void drawSkull() {
+        do Tiles.drawTile(x, y, tile);
+        return;
+    }
+
+    method void attack() {
+        // skull's mouth opens
+        let counter = 0;
+        do loadSkullOpen();
+        do drawSkull();
+
+        // skull fires fireball
+        do spawnFireball();
+
+        return;
+    }
+
+    method void spawnFireball() {
+        let fireballActive = true;
+
+        if (direction = 1) {
+            do fireball.setPosition(x, y - 2);
+        }
+        if (direction = 2) {
+            do fireball.setPosition(x, y + 2);
+        }
+        if (direction = 3) {
+            do fireball.setPosition(x - 2, y);
+        }
+        if (direction = 4) {
+            do fireball.setPosition(x + 2, y);
+        }
+        do fireball.draw();
+        return;
+    }
+
+    method void moveFireball() {
+        if (direction = 1) { do fireball.moveUp(); }
+        if (direction = 2) { do fireball.moveDown(); }
+        if (direction = 3) { do fireball.moveLeft(); }
+        if (direction = 4) { do fireball.moveRight(); }
+        return;
+    }
+
+    method void loadSkullClose() {
+        if (direction = 1) {
+            let tile[0] = -1;
+            let tile[1] = -169;
+            let tile[2] = -453;
+            let tile[3] = -7851;
+            let tile[4] = -16327;
+            let tile[5] = -29095;
+            let tile[6] = 5461;
+            let tile[7] = 4409;
+            let tile[8] = 4409;
+            let tile[9] = 3697;
+            let tile[10] = 67;
+            let tile[11] = 39;
+            let tile[12] = 95;
+            let tile[13] = -32705;
+            let tile[14] = -16321;
+            let tile[15] = -8065;
+        }
+        if (direction = 2) {
+            let tile[0] = -505;
+            let tile[1] = -1021;
+            let tile[2] = -1023;
+            let tile[3] = -1536;
+            let tile[4] = -7168;
+            let tile[5] = -15872;
+            let tile[6] = -29072;
+            let tile[7] = -25464;
+            let tile[8] = -25464;
+            let tile[9] = -21848;
+            let tile[10] = -25999;
+            let tile[11] = -25597;
+            let tile[12] = -21881;
+            let tile[13] = -9089;
+            let tile[14] = -5377;
+            let tile[15] = -1;
+        }
+        if (direction = 3) {
+            let tile[0] = -8129;
+            let tile[1] = -16353;
+            let tile[2] = -32753;
+            let tile[3] = 455;
+            let tile[4] = 551;
+            let tile[5] = 615;
+            let tile[6] = 551;
+            let tile[7] = 459;
+            let tile[8] = 1;
+            let tile[9] = -27029;
+            let tile[10] = -5227;
+            let tile[11] = -3073;
+            let tile[12] = -3659;
+            let tile[13] = -1973;
+            let tile[14] = -1017;
+            let tile[15] = -1;
+           
+        }
+        if (direction = 4) {
+            let tile[0] = -1017;
+            let tile[1] = -2045;
+            let tile[2] = -4095;
+            let tile[3] = -7296;
+            let tile[4] = -7104;
+            let tile[5] = -6592;
+            let tile[6] = -7104;
+            let tile[7] = -11392;
+            let tile[8] = -32767 - 1;
+            let tile[9] = -10647;
+            let tile[10] = -22057;
+            let tile[11] = -49;
+            let tile[12] = -21105;
+            let tile[13] = -11745;
+            let tile[14] = -8129;
+            let tile[15] = -1;
+        }
+        return;
+    }
+
+    method void loadSkullOpen() {
+        if (direction = 1) {
+            let tile[0] = -1;
+            let tile[1] = -161;
+            let tile[2] = -449;
+            let tile[3] = -7841;
+            let tile[4] = -16321;
+            let tile[5] = -29089;
+            let tile[6] = 5470;
+            let tile[7] = 4415;
+            let tile[8] = 4410;
+            let tile[9] = 3708;
+            let tile[10] = 88;
+            let tile[11] = 33;
+            let tile[12] = 71;
+            let tile[13] = -32705;
+            let tile[14] = -16321;
+            let tile[15] = -8065;
+        }
+        if (direction = 2) {
+            let tile[0] = -505;
+            let tile[1] = -1021;
+            let tile[2] = -1023;
+            let tile[3] = -7680;
+            let tile[4] = -31744;
+            let tile[5] = 6656;
+            let tile[6] = 15984;
+            let tile[7] = 23688;
+            let tile[8] = -888;
+            let tile[9] = 31400;
+            let tile[10] = -1423;
+            let tile[11] = -1021;
+            let tile[12] = -1401;
+            let tile[13] = -897;
+            let tile[14] = -1281;
+            let tile[15] = -1;
+        }
+        if (direction = 3) {
+            let tile[0] = -8129;
+            let tile[1] = -16353;
+            let tile[2] = -32753;
+            let tile[3] = 455;
+            let tile[4] = 551;
+            let tile[5] = 615;
+            let tile[6] = 551;
+            let tile[7] = 459;
+            let tile[8] = 1;
+            let tile[9] = -27029;
+            let tile[10] = -5227;
+            let tile[11] = -6145;
+            let tile[12] = -6145;
+            let tile[13] = -3329;
+            let tile[14] = -3585;
+            let tile[15] = -1857;
+        }
+        if (direction = 4) {
+            let tile[0] = -1017;
+            let tile[1] = -2045;
+            let tile[2] = -4095;
+            let tile[3] = -7296;
+            let tile[4] = -7104;
+            let tile[5] = -6592;
+            let tile[6] = -7104;
+            let tile[7] = -11392;
+            let tile[8] = -32767 - 1;
+            let tile[9] = -10647;
+            let tile[10] = -22057;
+            let tile[11] = -25;
+            let tile[12] = -25;
+            let tile[13] = -177;
+            let tile[14] = -113;
+            let tile[15] = -737;
+        }
+        return;
+    }
+
+    function void loadFireball(Array tile, int dir) {
+        if (dir = 1) {
+            let tile[0] = -1;
+            let tile[1] = -993;
+            let tile[2] = -1041;
+            let tile[3] = -2505;
+            let tile[4] = -2665;
+            let tile[5] = -2665;
+            let tile[6] = -3049;
+            let tile[7] = -2505;
+            let tile[8] = -1041;
+            let tile[9] = -1041;
+            let tile[10] = -545;
+            let tile[11] = -865;
+            let tile[12] = -449;
+            let tile[13] = -449;
+            let tile[14] = -129;
+            let tile[15] = -129;
+        }
+        if (dir = 2) {
+            let tile[0] = -257;
+            let tile[1] = -257;
+            let tile[2] = -897;
+            let tile[3] = -897;
+            let tile[4] = -1729;
+            let tile[5] = -1089;
+            let tile[6] = -2081;
+            let tile[7] = -2081;
+            let tile[8] = -5009;
+            let tile[9] = -6097;
+            let tile[10] = -5713;
+            let tile[11] = -5713;
+            let tile[12] = -5009;
+            let tile[13] = -2081;
+            let tile[14] = -1985;
+            let tile[15] = -1;
+        }
+        if (dir = 3) {
+            let tile[0] = -1;
+            let tile[1] = -1;
+            let tile[2] = -1;
+            let tile[3] = -1;
+            let tile[4] = -249;
+            let tile[5] = -773;
+            let tile[6] = -3187;
+            let tile[7] = -14539;
+            let tile[8] = 3893;
+            let tile[9] = -14587;
+            let tile[10] = -3187;
+            let tile[11] = -773;
+            let tile[12] = -249;
+            let tile[13] = -1;
+            let tile[14] = -1;
+            let tile[15] = -1;
+        }
+        if (dir = 4) {
+            let tile[0] = -1;
+            let tile[1] = -1;
+            let tile[2] = -1;
+            let tile[3] = -1;
+            let tile[4] = -7937;
+            let tile[5] = -8385;
+            let tile[6] = -20017;
+            let tile[7] = -21277;
+            let tile[8] = -21264;
+            let tile[9] = -24349;
+            let tile[10] = -20017;
+            let tile[11] = -8385;
+            let tile[12] = -7937;
+            let tile[13] = -1;
+            let tile[14] = -1;
+            let tile[15] = -1;
+        }
+        return;
+    }
+}

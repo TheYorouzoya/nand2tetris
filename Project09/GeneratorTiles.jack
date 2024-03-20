@@ -1,0 +1,692 @@
+class GeneratorTiles {
+    function void loadPatternTile(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = -14365;
+            let tile[1] = -29071;
+            let tile[2] = 7224;
+            let tile[3] = 14364;
+            let tile[4] = 29070;
+            let tile[5] = -7225;
+            let tile[6] = -14749;
+            let tile[7] = -29647;
+            let tile[8] = -29647;
+            let tile[9] = -14749;
+            let tile[10] = -7225;
+            let tile[11] = 29070;
+            let tile[12] = 14364;
+            let tile[13] = 7224;
+            let tile[14] = -29071;
+            let tile[15] = -14365;
+        }
+        if (tileId = 2) {
+            let tile[0] = -4105;
+            let tile[1] = -8197;
+            let tile[2] = -16771;
+            let tile[3] = 32190;
+            let tile[4] = -1057;
+            let tile[5] = -2065;
+            let tile[6] = -4489;
+            let tile[7] = -9157;
+            let tile[8] = -9157;
+            let tile[9] = -4489;
+            let tile[10] = -2065;
+            let tile[11] = -1057;
+            let tile[12] = 32190;
+            let tile[13] = -16771;
+            let tile[14] = -8197;
+            let tile[15] = -4105;
+        }
+        if (tileId = 3) {
+            let tile[0] = -19557;
+            let tile[1] = -9929;
+            let tile[2] = -5010;
+            let tile[3] = 30429;
+            let tile[4] = -17477;
+            let tile[5] = -8842;
+            let tile[6] = 28396;
+            let tile[7] = 14297;
+            let tile[8] = -25677;
+            let tile[9] = 14297;
+            let tile[10] = 28396;
+            let tile[11] = -8842;
+            let tile[12] = -17477;
+            let tile[13] = 30429;
+            let tile[14] = -5010;
+            let tile[15] = -9929;
+        }
+        if (tileId = 4) {
+            let tile[0] = -2057;
+            let tile[1] = -5141;
+            let tile[2] = -10795;
+            let tile[3] = -21846;
+            let tile[4] = -10795;
+            let tile[5] = -5141;
+            let tile[6] = -2057;
+            let tile[7] = -1;
+            let tile[8] = -2057;
+            let tile[9] = -5141;
+            let tile[10] = -10795;
+            let tile[11] = -21846;
+            let tile[12] = -10795;
+            let tile[13] = -5141;
+            let tile[14] = -2057;
+            let tile[15] = -1;
+        }
+        return;
+    }
+
+    function void loadSmallWireTile(Array tile) {
+        let tile[0] = -4113;
+        let tile[1] = 10280;
+        let tile[2] = -4113;
+        let tile[3] = -4113;
+        let tile[4] = 40;
+        let tile[5] = -17;
+        let tile[6] = 40;
+        let tile[7] = -17;
+        let tile[8] = -17;
+        let tile[9] = -8177;
+        let tile[10] = -4097;
+        let tile[11] = -4097;
+        let tile[12] = 10248;
+        let tile[13] = -4113;
+        let tile[14] = 10280;
+        let tile[15] = -4113;
+        return;
+    }
+    
+    function void loadSquareBlockTile(Array tile) {
+        let tile[0] = 0;
+        let tile[1] = 1;
+        let tile[2] = 4101;
+        let tile[3] = 12301;
+        let tile[4] = 1;
+        let tile[5] = 1985;
+        let tile[6] = 1025;
+        let tile[7] = 1025;
+        let tile[8] = 1025;
+        let tile[9] = 1025;
+        let tile[10] = 1;
+        let tile[11] = 1;
+        let tile[12] = 4101;
+        let tile[13] = 12301;
+        let tile[14] = 1;
+        let tile[15] = 32767;
+        return;
+    }
+
+    function void loadCautionWall(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = -34;
+            let tile[1] = -50;
+            let tile[2] = -58;
+            let tile[3] = -62;
+            let tile[4] = -62;
+            let tile[5] = -46;
+            let tile[6] = -38;
+            let tile[7] = -34;
+            let tile[8] = -34;
+            let tile[9] = -50;
+            let tile[10] = -58;
+            let tile[11] = -62;
+            let tile[12] = -62;
+            let tile[13] = -46;
+            let tile[14] = -38;
+            let tile[15] = -34;
+        }
+        if (tileId = 2) {
+            let tile[0] = 0;
+            let tile[1] = -1;
+            let tile[2] = -7711;
+            let tile[3] = -15421;
+            let tile[4] = -30841;
+            let tile[5] = 0;
+            let tile[6] = -1;
+            let tile[7] = -1;
+            let tile[8] = -1;
+            let tile[9] = -1;
+            let tile[10] = -1;
+            let tile[11] = -1;
+            let tile[12] = -1;
+            let tile[13] = -1;
+            let tile[14] = -1;
+            let tile[15] = -1;
+        }
+        if (tileId = 3) {
+            let tile[0] = 31743;
+            let tile[1] = 23551;
+            let tile[2] = 19455;
+            let tile[3] = 17407;
+            let tile[4] = 17407;
+            let tile[5] = 25599;
+            let tile[6] = 29695;
+            let tile[7] = 31743;
+            let tile[8] = 31743;
+            let tile[9] = 23551;
+            let tile[10] = 19455;
+            let tile[11] = 17407;
+            let tile[12] = 17407;
+            let tile[13] = 25599;
+            let tile[14] = 29695;
+            let tile[15] = 31743;
+        }
+        return;
+    }
+    
+    function void loadSquareWallTile(Array tile) {
+        let tile[0] = -32767;
+        let tile[1] = -16382;
+        let tile[2] = -4;
+        let tile[3] = -8188;
+        let tile[4] = -8188;
+        let tile[5] = -8188;
+        let tile[6] = -8188;
+        let tile[7] = -8188;
+        let tile[8] = -8188;
+        let tile[9] = -8188;
+        let tile[10] = -8188;
+        let tile[11] = -8188;
+        let tile[12] = -8188;
+        let tile[13] = -4;
+        let tile[14] = -2;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadComponentOne(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = 16385;
+            let tile[1] = 20485;
+            let tile[2] = 20473;
+            let tile[3] = 19657;
+            let tile[4] = 18841;
+            let tile[5] = 19257;
+            let tile[6] = 20073;
+            let tile[7] = 19657;
+            let tile[8] = 18841;
+            let tile[9] = 19257;
+            let tile[10] = 20073;
+            let tile[11] = 19657;
+            let tile[12] = 18841;
+            let tile[13] = 19241;
+            let tile[14] = -12295;
+            let tile[15] = 20485;
+        }
+        if (tileId = 2) {
+            let tile[0] = -24576;
+            let tile[1] = -1;
+            let tile[2] = -24575;
+            let tile[3] = -22523;
+            let tile[4] = -22535;
+            let tile[5] = -23559;
+            let tile[6] = -24567;
+            let tile[7] = -22551;
+            let tile[8] = -23575;
+            let tile[9] = -24471;
+            let tile[10] = -24471;
+            let tile[11] = -24575;
+            let tile[12] = -22527;
+            let tile[13] = -24515;
+            let tile[14] = -16409;
+            let tile[15] = -32735;
+        }
+        if (tileId = 3) {
+            let tile[0] = -16383;
+            let tile[1] = -1;
+            let tile[2] = -14943;
+            let tile[3] = -385;
+            let tile[4] = -23805;
+            let tile[5] = -20477;
+            let tile[6] = -18429;
+            let tile[7] = -29;
+            let tile[8] = -26015;
+            let tile[9] = -26015;
+            let tile[10] = -1049;
+            let tile[11] = -18397;
+            let tile[12] = -16397;
+            let tile[13] = -16389;
+            let tile[14] = -16385;
+            let tile[15] = -32767;
+        }
+        if (tileId = 4) {
+            let tile[0] = -25;
+            let tile[1] = -25;
+            let tile[2] = -3133;
+            let tile[3] = -28099;
+            let tile[4] = -25;
+            let tile[5] = -27709;
+            let tile[6] = -3523;
+            let tile[7] = -24601;
+            let tile[8] = -3133;
+            let tile[9] = -3523;
+            let tile[10] = -24601;
+            let tile[11] = -3133;
+            let tile[12] = -28099;
+            let tile[13] = -8217;
+            let tile[14] = -28057;
+            let tile[15] = -385;
+        }
+
+        return;
+    }
+
+    function void loadComponentTwo(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = 3968;
+            let tile[1] = 446;
+            let tile[2] = -15998;
+            let tile[3] = 410;
+            let tile[4] = -3712;
+            let tile[5] = 12799;
+            let tile[6] = 12698;
+            let tile[7] = -3686;
+            let tile[8] = 4607;
+            let tile[9] = -1648;
+            let tile[10] = -517;
+            let tile[11] = 32543;
+            let tile[12] = 16880;
+            let tile[13] = -170;
+            let tile[14] = 10514;
+            let tile[15] = 14672;
+        }
+        if (tileId = 2) {
+            let tile[0] = -2;
+            let tile[1] = 337;
+            let tile[2] = 440;
+            let tile[3] = 14684;
+            let tile[4] = 6655;
+            let tile[5] = 10749;
+            let tile[6] = 14685;
+            let tile[7] = 6589;
+            let tile[8] = 10588;
+            let tile[9] = 14847;
+            let tile[10] = 6655;
+            let tile[11] = 10657;
+            let tile[12] = 14783;
+            let tile[13] = 6655;
+            let tile[14] = 10530;
+            let tile[15] = 14654;
+        }
+        if (tileId = 3) {
+            let tile[0] = -1;
+            let tile[1] = 3;
+            let tile[2] = 5;
+            let tile[3] = 15601;
+            let tile[4] = 1041;
+            let tile[5] = 13521;
+            let tile[6] = 13393;
+            let tile[7] = 1;
+            let tile[8] = 1;
+            let tile[9] = 15601;
+            let tile[10] = 1041;
+            let tile[11] = 13521;
+            let tile[12] = 5329;
+            let tile[13] = 5;
+            let tile[14] = 3;
+            let tile[15] = -1;
+        }
+        if (tileId = 4) {
+            let tile[0] = 6655;
+            let tile[1] = 10688;
+            let tile[2] = 416;
+            let tile[3] = 399;
+            let tile[4] = -127;
+            let tile[5] = -115;
+            let tile[6] = 389;
+            let tile[7] = -32384;
+            let tile[8] = -1664;
+            let tile[9] = -13937;
+            let tile[10] = -13951;
+            let tile[11] = 2445;
+            let tile[12] = 2437;
+            let tile[13] = -608;
+            let tile[14] = 28608;
+            let tile[15] = -1;
+        }
+        return;
+    }
+
+    function void loadWires(Array tile) {
+        let tile[0] = 18469;
+        let tile[1] = -1;
+        let tile[2] = 18469;
+        let tile[3] = -1;
+        let tile[4] = 18469;
+        let tile[5] = -1;
+        let tile[6] = 18469;
+        let tile[7] = -1;
+        let tile[8] = 18469;
+        let tile[9] = -1;
+        let tile[10] = 18469;
+        let tile[11] = -1;
+        let tile[12] = 18469;
+        let tile[13] = -1;
+        let tile[14] = 18469;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadEnergyOrb(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -961;
+        let tile[2] = -3121;
+        let tile[3] = -4105;
+        let tile[4] = -8453;
+        let tile[5] = -8581;
+        let tile[6] = -16835;
+        let tile[7] = -16867;
+        let tile[8] = -18307;
+        let tile[9] = -17283;
+        let tile[10] = -8581;
+        let tile[11] = -8325;
+        let tile[12] = -4105;
+        let tile[13] = -3121;
+        let tile[14] = -961;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadWallTile(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = 1;
+            let tile[1] = 0;
+            let tile[2] = -8;
+            let tile[3] = 12;
+            let tile[4] = -12;
+            let tile[5] = -76;
+            let tile[6] = -172;
+            let tile[7] = -588;
+            let tile[8] = -1804;
+            let tile[9] = -3980;
+            let tile[10] = -7948;
+            let tile[11] = -15884;
+            let tile[12] = -31756;
+            let tile[13] = 18420;
+            let tile[14] = 12276;
+            let tile[15] = 8180;
+        }
+        if (tileId = 2) {
+            let tile[0] = 0;
+            let tile[1] = 0;
+            let tile[2] = -1;
+            let tile[3] = 0;
+            let tile[4] = -1;
+            let tile[5] = -1;
+            let tile[6] = -1;
+            let tile[7] = -1;
+            let tile[8] = -1;
+            let tile[9] = -1;
+            let tile[10] = -1;
+            let tile[11] = -1;
+            let tile[12] = -1;
+            let tile[13] = 0;
+            let tile[14] = 0;
+            let tile[15] = -1;
+        }
+        if (tileId = 3) {
+            let tile[0] = -32767 - 1;
+            let tile[1] = 0;
+            let tile[2] = 8191;
+            let tile[3] = 12288;
+            let tile[4] = 12287;
+            let tile[5] = 11775;
+            let tile[6] = 11007;
+            let tile[7] = 11711;
+            let tile[8] = 12063;
+            let tile[9] = 11791;
+            let tile[10] = 12039;
+            let tile[11] = 12163;
+            let tile[12] = 12225;
+            let tile[13] = 12258;
+            let tile[14] = 12276;
+            let tile[15] = 12280;
+        }
+        if (tileId = 4) {
+            let tile[0] = -24588;
+            let tile[1] = -24588;
+            let tile[2] = -24588;
+            let tile[3] = -24588;
+            let tile[4] = -24588;
+            let tile[5] = -24588;
+            let tile[6] = -24588;
+            let tile[7] = -24588;
+            let tile[8] = -24588;
+            let tile[9] = -24588;
+            let tile[10] = -24588;
+            let tile[11] = -24588;
+            let tile[12] = -24588;
+            let tile[13] = -24588;
+            let tile[14] = -24588;
+            let tile[15] = -24588;
+        }
+        if (tileId = 6) {
+            let tile[0] = 12281;
+            let tile[1] = 12281;
+            let tile[2] = 12281;
+            let tile[3] = 12281;
+            let tile[4] = 12281;
+            let tile[5] = 12281;
+            let tile[6] = 12281;
+            let tile[7] = 12281;
+            let tile[8] = 12281;
+            let tile[9] = 12281;
+            let tile[10] = 12281;
+            let tile[11] = 12281;
+            let tile[12] = 12281;
+            let tile[13] = 12281;
+            let tile[14] = 12281;
+            let tile[15] = 12281;
+        }
+        if (tileId = 7) {
+            let tile[0] = 8180;
+            let tile[1] = 12276;
+            let tile[2] = 18420;
+            let tile[3] = -31756;
+            let tile[4] = -15884;
+            let tile[5] = -7948;
+            let tile[6] = -3980;
+            let tile[7] = -1804;
+            let tile[8] = -588;
+            let tile[9] = -172;
+            let tile[10] = -76;
+            let tile[11] = -12;
+            let tile[12] = 12;
+            let tile[13] = -8;
+            let tile[14] = 0;
+            let tile[15] = 1;
+        }
+        if (tileId = 8) {
+            let tile[0] = -1;
+            let tile[1] = 0;
+            let tile[2] = 0;
+            let tile[3] = -1;
+            let tile[4] = -1;
+            let tile[5] = -1;
+            let tile[6] = -1;
+            let tile[7] = -1;
+            let tile[8] = -1;
+            let tile[9] = -1;
+            let tile[10] = -1;
+            let tile[11] = -1;
+            let tile[12] = 0;
+            let tile[13] = -1;
+            let tile[14] = 0;
+            let tile[15] = 0;
+        }
+        if (tileId = 9) {
+            let tile[0] = 12280;
+            let tile[1] = 12276;
+            let tile[2] = 12258;
+            let tile[3] = 12225;
+            let tile[4] = 12163;
+            let tile[5] = 12039;
+            let tile[6] = 11791;
+            let tile[7] = 12063;
+            let tile[8] = 11711;
+            let tile[9] = 11007;
+            let tile[10] = 11775;
+            let tile[11] = 12287;
+            let tile[12] = 12288;
+            let tile[13] = 8191;
+            let tile[14] = 0;
+            let tile[15] = -32767 - 1;
+        }
+        return;
+    }
+
+    function void loadTubeTile(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = -1;
+            let tile[1] = -2017;
+            let tile[2] = -3601;
+            let tile[3] = -7305;
+            let tile[4] = -6665;
+            let tile[5] = -7305;
+            let tile[6] = -6793;
+            let tile[7] = -7305;
+            let tile[8] = -6793;
+            let tile[9] = -7305;
+            let tile[10] = -6793;
+            let tile[11] = -7305;
+            let tile[12] = -16381;
+            let tile[13] = -16381;
+            let tile[14] = -1;
+            let tile[15] = -7305;
+        }
+        if (tileId = 2) {
+            let tile[0] = -6793;
+            let tile[1] = -7305;
+            let tile[2] = -6793;
+            let tile[3] = -7305;
+            let tile[4] = -6793;
+            let tile[5] = -7305;
+            let tile[6] = -6793;
+            let tile[7] = -7305;
+            let tile[8] = -6793;
+            let tile[9] = -7305;
+            let tile[10] = -6793;
+            let tile[11] = -7305;
+            let tile[12] = -6793;
+            let tile[13] = -7305;
+            let tile[14] = -6793;
+            let tile[15] = -7305;
+        }
+        if (tileId = 3) {
+            let tile[0] = -6793;
+            let tile[1] = -16381;
+            let tile[2] = -16381;
+            let tile[3] = -1;
+            let tile[4] = -6793;
+            let tile[5] = -7305;
+            let tile[6] = -6793;
+            let tile[7] = -7305;
+            let tile[8] = -6793;
+            let tile[9] = -7305;
+            let tile[10] = -6793;
+            let tile[11] = -7177;
+            let tile[12] = -6793;
+            let tile[13] = -3089;
+            let tile[14] = -2017;
+            let tile[15] = -1;
+        }
+        return;
+    }
+    
+    function void loadBeltTile(Array tile, int tileId) {
+        if (tileId = 1) {
+            let tile[0] = 26215;
+            let tile[1] = -26213;
+            let tile[2] = 5;
+            let tile[3] = -6;
+            let tile[4] = -13108;
+            let tile[5] = -30539;
+            let tile[6] = 4533;
+            let tile[7] = 13260;
+            let tile[8] = -6;
+            let tile[9] = 5;
+            let tile[10] = -26213;
+            let tile[11] = 26215;
+            let tile[12] = -1;
+            let tile[13] = -1;
+            let tile[14] = -1;
+            let tile[15] = -1;
+        }
+        if (tileId = 2) {
+            let tile[0] = 26214;
+            let tile[1] = -26215;
+            let tile[2] = 0;
+            let tile[3] = -1;
+            let tile[4] = -13108;
+            let tile[5] = -30584;
+            let tile[6] = 4369;
+            let tile[7] = 13107;
+            let tile[8] = -1;
+            let tile[9] = 0;
+            let tile[10] = -26215;
+            let tile[11] = 26214;
+            let tile[12] = -1;
+            let tile[13] = -1;
+            let tile[14] = -1;
+            let tile[15] = -1;
+        }
+        if (tileId = 3) {
+            let tile[0] = -6554;
+            let tile[1] = -9831;
+            let tile[2] = -24576;
+            let tile[3] = 24575;
+            let tile[4] = 13260;
+            let tile[5] = -21112;
+            let tile[6] = -21231;
+            let tile[7] = 13107;
+            let tile[8] = 24575;
+            let tile[9] = -24576;
+            let tile[10] = -9831;
+            let tile[11] = -6554;
+            let tile[12] = -1;
+            let tile[13] = -1;
+            let tile[14] = -1;
+            let tile[15] = -1;
+        }
+        return;
+    }
+
+    function void loadCircleTop(Array tile) {
+        let tile[0] = -1;
+        let tile[1] = -8057;
+        let tile[2] = -8221;
+        let tile[3] = -17519;
+        let tile[4] = -16439;
+        let tile[5] = -16731;
+        let tile[6] = -17515;
+        let tile[7] = -43;
+        let tile[8] = -21931;
+        let tile[9] = -22123;
+        let tile[10] = -23515;
+        let tile[11] = -27703;
+        let tile[12] = -30703;
+        let tile[13] = -14365;
+        let tile[14] = -8185;
+        let tile[15] = -1;
+        return;
+    }
+
+    function void loadCircleBottom(Array tile) {
+        let tile[0] = -2017;
+        let tile[1] = -6169;
+        let tile[2] = -8197;
+        let tile[3] = -16387;
+        let tile[4] = -16387;
+        let tile[5] = 31806;
+        let tile[6] = 30750;
+        let tile[7] = 30750;
+        let tile[8] = 30750;
+        let tile[9] = 30750;
+        let tile[10] = 31806;
+        let tile[11] = -16387;
+        let tile[12] = -16387;
+        let tile[13] = -8197;
+        let tile[14] = -6169;
+        let tile[15] = -2017;
+        return;
+    }
+}

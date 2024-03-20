@@ -7,7 +7,7 @@ class LevelManager {
     function void init(int levelNumber, Array powArr) {
         let currentLevel = levelNumber;
         let map = Array.new(116);
-        let items = Array.new(5);
+        let items = Array.new(20);
         let tile = Array.new(16);
         let twoToThe = powArr;
         let itemCount = 0;
@@ -42,6 +42,9 @@ class LevelManager {
     function int getItemCount() {
         if (currentLevel = 1) { return LevelOne.getItemCount(); }
         if (currentLevel = 2) { return LevelTwo.getItemCount(); }
+        if (currentLevel = 3) { return LevelThree.getItemCount(); }
+        if (currentLevel = 4) { return LevelFour.getItemCount(); }
+        if (currentLevel = 5) { return LevelFive.getItemCount(); }
         return 0;
     }
 
@@ -55,16 +58,61 @@ class LevelManager {
 
     function void loadNextLevel() {
         if (currentLevel = 1) {
-            let currentLevel = 2;
+            do LevelManager.resetMap();
             do LevelTwo.init(tile, map, twoToThe, items, player);
             do LevelTwo.loadLevel();
+        }
+        if (currentLevel = 2) {
+            do DialogueManager.printDialogueLineOne("Loading next level.");
+            do LevelThree.init(tile, map, twoToThe, items, player);
+            do LevelThree.loadLevel();
+        }
+        if (currentLevel = 3) {
+            do LevelFour.init(tile, map, twoToThe, items, player);
+            do LevelFour.loadLevel();
+        }
+        if (currentLevel = 4) {
+            do LevelFive.init(tile, map, twoToThe, items, player);
+            do LevelFive.loadLevel();
+        }
+        let currentLevel = currentLevel + 1;
+        return;
+    }
+
+    function void animateTiles() {
+        if (currentLevel = 1) {
+            do LevelOne.animateTiles();
+        }
+        if (currentLevel = 2) {
+            do LevelTwo.animateTiles();
+        }
+        if (currentLevel = 3) {
+            do LevelThree.animateTiles();
+        }
+        if (currentLevel = 4) {
+            do LevelFour.animateTiles();
+        }
+        if (currentLevel = 5) {
+            do LevelFive.animateTiles();
         }
         return;
     }
 
-    function void processKeyCollision() {
-        if (currentLevel = 1) { do LevelOne.processKeyCollision(); }
-        if (currentLevel = 2) { do LevelTwo.processKeyCollision(); }
+    function void processEvents(int key) {
+        if (currentLevel = 1) { do LevelOne.processEvents(key); }
+        if (currentLevel = 2) { do LevelTwo.processEvents(key); }
+        if (currentLevel = 3) { do LevelThree.processEvents(key); }
+        if (currentLevel = 4) { do LevelFour.processEvents(key); }
+        if (currentLevel = 5) { do LevelFive.processEvents(key); }
+        return;
+    }
+
+    function void processKeyCollision(Item item) {
+        if (currentLevel = 1) { do LevelOne.processKeyCollision(item); }
+        if (currentLevel = 2) { do LevelTwo.processKeyCollision(item); }
+        if (currentLevel = 3) { do LevelThree.processKeyCollision(item); }
+        if (currentLevel = 4) { do LevelFour.processKeyCollision(item); }
+        if (currentLevel = 5) { do LevelFive.processKeyCollision(item); }
         return;
     }
 
@@ -72,30 +120,19 @@ class LevelManager {
         if (currentLevel = 1) {
             return LevelOne.winCondition();
         }
-        return false;
-    }
-
-    function void buildTiles(int r1, int r2, int ax, boolean flag, boolean axis) {
-        var int i;
-        let i = r1;
-
-        while (~(r2 < i)) {
-            if (axis) {
-                do Tiles.drawTile(i, ax, tile);
-                if (flag) {
-                    do LevelManager.updateMap(i, ax);
-                }
-            }
-            else {
-                do Tiles.drawTile(ax, i, tile);
-                if (flag) {
-                    do LevelManager.updateMap(ax, i);
-                }
-            }
-
-            let i = i + 2;
+        if (currentLevel = 2) {
+            return LevelTwo.winCondition();
         }
-        return;
+        if (currentLevel = 3) {
+            return LevelThree.winCondition();
+        }
+        if (currentLevel = 4) {
+            return LevelFour.winCondition();
+        }
+        if (currentLevel = 5) {
+            return LevelFive.winCondition();
+        }
+        return false;
     }
 
     function void updateMap(int x, int y) {
@@ -177,6 +214,24 @@ class LevelManager {
         
         return;
     }
+
+    function void updateMapBulk(int start, int end, int const, boolean axis) {
+        var int i;
+
+        let i = start;
+
+        while (~(i > end)) {
+            if (axis) {
+                do LevelManager.updateMap(i, const);
+            }
+            else {
+                do LevelManager.updateMap(const, i);
+            }
+            let i = i + 2;
+        }
+        return;
+    }
+
     function void unlockMap(int x, int y, boolean axis) {
         var int index, bit, quot;
         let quot = x / 16;
@@ -201,6 +256,17 @@ class LevelManager {
         else {
             let map[index - 4] = map[index - 4] & (~twoToThe[bit]);
             let map[index + 4] = map[index + 4] & (~twoToThe[bit]);
+        }
+        return;
+    }
+
+    function void resetMap() {
+        var int i;
+        let i = 0;
+
+        while (i < 116) {
+            let map[i] = 0;
+            let i = i + 1;
         }
         return;
     }
