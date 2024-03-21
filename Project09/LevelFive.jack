@@ -11,14 +11,23 @@ class LevelFive {
         let items = Aitems;
         let player = Aplr;
         let itemCount = 0;
-        let golem = Golem.new(44, 8);
+        let golem = Golem.new(44, 4, 2, 12);
 
         return;
     }
 
     function void loadLevel() {
-        do golem.draw();
         do LevelManager.resetMap();
+        do player.setPosition(0, 12);
+        do golem.draw();
+        do LevelFive.loadPipes();
+        do LevelFive.loadWalls();
+        do LevelFive.loadBox();
+        do LevelFive.updateMap();
+
+        let items[itemCount] = Item.new(58, 12, 5, 0, 0, 0, true, 1);
+        let itemCount = itemCount + 1;
+        
         return;
     }
 
@@ -31,6 +40,10 @@ class LevelFive {
     }
 
     function void processEvents(int key) {
+        if (golem.isRunning()) {
+            do golem.move();
+        }
+        
         return;
     }
 
@@ -42,4 +55,121 @@ class LevelFive {
         return itemCount;
     }
 
+    function void loadPipes() {
+        do Pipe.loadPipeTile(tile, 1);
+        do Tiles.drawTile(50, 20, tile);
+        do Tiles.drawTile(46, 22, tile);
+
+        do Pipe.loadPipeTile(tile, 2);
+        do Tiles.buildTiles(48, 52, 2, false, true, tile);
+        do Tiles.buildTiles(48, 52, 22, false, true, tile);
+        do Tiles.drawTile(52, 4, tile);
+        do Tiles.drawTile(52, 20, tile);
+        do Tiles.buildTiles(10, 14, 62, false, false, tile);
+
+        do Pipe.loadPipeTile(tile, 4);
+        do Tiles.drawTile(46, 0, tile);
+        do Tiles.drawTile(50, 0, tile);
+        do Tiles.buildTiles(56, 60, 8, false, true, tile);
+        do Tiles.buildTiles(56, 60, 16, false, true, tile);
+        do Tiles.drawTile(46, 24, tile);
+        do Tiles.drawTile(50, 24, tile);
+
+        do Pipe.loadPipeTile(tile, 7);
+        do Tiles.drawTile(46, 2, tile);
+        do Tiles.drawTile(50, 4, tile);
+
+        return;
+    }
+
+    function void loadWalls() {
+        do DungeonTiles.loadWallTile(tile, 1);
+        do Tiles.drawTile(54, 0, tile);
+        do Tiles.drawTile(54, 18, tile);
+
+        do DungeonTiles.loadWallTile(tile, 2);
+        do Tiles.buildTiles(56, 62, 0, false, true, tile);
+        do Tiles.buildTiles(56, 62, 18, false, true, tile);
+        do Tiles.buildTiles(0, 42, 22, false, true, tile);
+
+        do DungeonTiles.loadWallTile(tile, 3);
+        do Tiles.drawTile(44, 22, tile);
+
+        do DungeonTiles.loadWallTile(tile, 4);
+        do Tiles.drawTile(54, 2, tile);
+        do Tiles.drawTile(54, 4, tile);
+        do Tiles.drawTile(54, 20, tile);
+        do Tiles.drawTile(54, 22, tile);
+
+        do DungeonTiles.loadWallTile(tile, 6);
+        do Tiles.drawTile(44, 0, tile);
+        do Tiles.drawTile(44, 24, tile);
+
+        do DungeonTiles.loadWallTile(tile, 7);
+        do Tiles.drawTile(54, 6, tile);
+        do Tiles.drawTile(54, 24, tile);
+
+        do DungeonTiles.loadWallTile(tile, 8);
+        do Tiles.buildTiles(0, 42, 2, false, true, tile);
+        do Tiles.buildTiles(56, 62, 6, false, true, tile);
+        do Tiles.buildTiles(56, 62, 24, false, true, tile);
+
+        do DungeonTiles.loadWallTile(tile, 9);
+        do Tiles.drawTile(44, 2, tile);
+
+        do Tiles.loadWhiteTile(tile);
+        do Tiles.buildTiles(0, 42, 0, false, true, tile);
+        do Tiles.buildTiles(0, 42, 24, false, true, tile);
+        do Tiles.buildTiles(56, 62, 2, false, true, tile);
+        do Tiles.buildTiles(56, 62, 4, false, true, tile);
+        do Tiles.buildTiles(56, 62, 20, false, true, tile);
+        do Tiles.buildTiles(56, 62, 22, false, true, tile);
+
+        return;
+    }
+
+    function void loadBox() {
+        do GeneratorTiles.loadWallTile(tile, 1);
+        do Tiles.drawTile(56, 10, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 2);
+        do Tiles.drawTile(58, 10, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 3);
+        do Tiles.drawTile(60, 10, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 4);
+        do Tiles.drawTile(56, 12, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 6);
+        do Tiles.drawTile(60, 12, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 7);
+        do Tiles.drawTile(56, 14, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 8);
+        do Tiles.drawTile(58, 14, tile);
+
+        do GeneratorTiles.loadWallTile(tile, 9);
+        do Tiles.drawTile(60, 14, tile);
+
+        do Tiles.loadConsoleTile(tile);
+        do Tiles.drawTile(54, 12, tile);
+        
+        return;
+    }
+
+    function void updateMap() {
+        do LevelManager.updateMapBulk(0, 50, 2, true);
+        do LevelManager.updateMapBulk(0, 50, 22, true);
+        do LevelManager.updateMap(50, 20);
+        do LevelManager.updateMap(52, 20);
+        do LevelManager.updateMap(54, 18);
+        do LevelManager.updateMap(50, 4);
+        do LevelManager.updateMap(52, 4);
+        do LevelManager.updateMap(54, 6);
+        do LevelManager.updateMapBulk(6, 18, 56, false);
+        do LevelManager.updateMap(54, 12);
+        return;
+    }
 }

@@ -1,13 +1,30 @@
 class Golem {
     field int x, y;
+    field int direction, path, distanceTraveled;
     field Array tile;
+    field Array fireballs;
+    field boolean running;
 
-    constructor Golem new(int Ax, int Ay) {
+    constructor Golem new(int Ax, int Ay, int dir, int pth) {
         let x = Ax;
         let y = Ay;
         let tile = Array.new(16);
+        let direction = dir;
+        let path = pth;
+        let distanceTraveled = 0;
+        let fireballs = Array.new(3);
+        let running = true;
 
         return this;
+    }
+
+    method boolean isRunning() {
+        return running;
+    }
+
+    method void stopRunning() {
+        let running = false;
+        return;
     }
 
     method void draw() {
@@ -28,6 +45,66 @@ class Golem {
 
         return;
     }
+
+    method void erase() {
+        var int i, j;
+
+        let i = 0;
+
+        while (i < 3) {
+            let j = 0;
+            while (j < 3) {
+                do Tiles.eraseTile(x + (j * 2), y + (i * 2));
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method boolean collidesWith(int Ax, int Ay) {
+        var boolean result;
+
+        let result = ((x        < (Ax + 2)) &
+                     ((x + 6)   > Ax)       &
+                     (y         < (Ay + 2)) &
+                     ((y + 6)   > Ay));
+
+        return result;
+    }
+
+    method void move() {
+        if (direction = 1) { do moveUp(); }
+        if (direction = 2) { do moveDown(); }
+        return;
+    }
+
+    method void moveUp() {
+        do erase();
+        let y = y - 1;
+        let distanceTraveled = distanceTraveled + 1;
+        do draw();
+
+        if (distanceTraveled = path) {
+            let distanceTraveled = 0;
+            let direction = 2;
+        }
+        return;
+    }
+
+    method void moveDown() {
+        do erase();
+        let y = y + 1;
+        let distanceTraveled = distanceTraveled + 1;
+        do draw();
+
+        if (distanceTraveled = path) {
+            let distanceTraveled = 0;
+            let direction = 1;
+        }
+        return;
+    }
+
 
     method void loadTile(int tileId) {
         if (tileId = 1) {

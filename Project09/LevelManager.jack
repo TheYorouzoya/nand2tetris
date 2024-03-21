@@ -178,6 +178,7 @@ class LevelManager {
         }
         if (x = 0) {
             let map[index + 4] = map[index + 4] | twoToThe[bit];
+            let map[index - 4] = map[index - 4] | twoToThe[bit];
             
             if (bit = 15) {
                 let map[index + 1] = map[index + 1] | twoToThe[0];
