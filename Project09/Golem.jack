@@ -1,6 +1,6 @@
 class Golem {
     field int x, y;
-    field int direction, path, distanceTraveled;
+    field int direction, path, distanceTraveled, counter;
     field Array tile;
     field Array fireballs;
     field boolean running;
@@ -12,17 +12,73 @@ class Golem {
         let direction = dir;
         let path = pth;
         let distanceTraveled = 0;
-        let fireballs = Array.new(3);
+        let fireballs = Array.new(5);
+        let fireballs[0] = Item.new(x - 2, y, 7, 3, 0, 3, false, 1);
+        let fireballs[1] = Item.new(x - 2, y + 2, 7, 3, 0, 3, false, 1);
+        let fireballs[2] = Item.new(x - 2, y + 4, 7, 3, 0, 3, false, 1);
+        let fireballs[3] = Item.new(x - 2, y + 4, 7, 3, 0, 3, false, 1);
+        let fireballs[4] = Item.new(x - 2, y + 4, 7, 3, 0, 3, false, 1);
         let running = true;
+        let counter = 0;
 
         return this;
+    }
+
+    method void tick(int playerX, int playerY, Player player) {
+        var int i;
+        var Item fireball;
+        let i = 0;
+
+        do move();
+        
+        while(i < 5) {
+            let fireball = fireballs[i];
+            if (fireball.isActive()) {
+                do fireball.moveLeft();
+                if (fireball.collidesWith(playerX, playerY)) {
+                    do player.takeDamage();
+                    do fireball.erase();
+                    do fireball.setActive(false);
+                    do player.respawn();
+                }
+                if (fireball.getX() < 2) {
+                    do fireball.erase();
+                    do fireball.setActive(false);
+                }
+            } 
+            if (~(fireball.isActive()) & (counter > 16)) {
+                if ((y < (playerY + 2)) & ((y + 6) > playerY)) {
+                    do fireball.setPosition(x - 2, playerY);
+                    do fireball.setActive(true);
+                    let counter = 0;
+                }
+            }
+            if (collidesWith(playerX, playerY)) {
+                do player.takeDamage();
+                do player.respawn();
+            }
+            let i = i + 1;
+            let counter = counter + 1;
+        }
+        return;
     }
 
     method boolean isRunning() {
         return running;
     }
 
-    method void stopRunning() {
+    method void stop() {
+        var Item fireball;
+        var int i;
+
+        let i = 0;
+
+        while (i < 5) {
+            let fireball = fireballs[i];
+            do fireball.erase();
+            do fireball.setActive(false);
+            let i = i + 1;
+        }
         let running = false;
         return;
     }

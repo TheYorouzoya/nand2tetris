@@ -3,6 +3,9 @@ class LevelThree {
     static int itemCount;
     static Player player;
     static PatternPuzzle puzzle;
+    static int puzzleCount;
+    static boolean end, dialogueEvent;
+    static Item engineer;
 
     function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Player Aplr) {
         let tile = Atile;
@@ -12,11 +15,15 @@ class LevelThree {
         let player = Aplr;
         let itemCount = 0;
         let puzzle = PatternPuzzle.new(20, 4, twoToThe);
+        let puzzleCount = 0;
+        let end = false;
+        let dialogueEvent = false;
 
         return;
     }
 
     function void loadLevel() {
+        var String s;
         let itemCount = 0;
 
         do player.setPosition(56, 24);
@@ -28,6 +35,10 @@ class LevelThree {
 
         do DialogueManager.clearDialogueBox();
 
+        let engineer = Item.new(50, 14, 9, 0, 0, 0, false, 1);
+        do engineer.draw();
+        do LevelManager.updateMap(50, 14);
+
         return;
     }
 
@@ -36,6 +47,37 @@ class LevelThree {
     }
 
     function boolean winCondition() {
+        var String s;
+        if (end) {
+            do engineer.moveRight();
+            do Sys.wait(300);
+            do engineer.moveRight();
+            do Sys.wait(300);
+            do engineer.moveUp();
+            do Sys.wait(1000);
+
+            let s = "Great! You've stabilized the reactor. The dungeon";
+            do DialogueManager.printDialogueLineOne(s);
+            do s.dispose();
+
+            let s = "doors should be operational again.";
+            do DialogueManager.printDialogueLineTwo(s);
+            do s.dispose();
+
+            do Sys.wait(4000);
+
+            let s = "Let's head back to the entrance and see what's";
+            do DialogueManager.printDialogueLineOne(s);
+            do s.dispose();
+
+            let s = "going on.";
+            do DialogueManager.printDialogueLineTwo(s);
+            do s.dispose();
+            
+            do Sys.wait(4000);
+            
+            return true;
+        }
         return false;
     }
 
@@ -51,11 +93,73 @@ class LevelThree {
                 do puzzle.flipPatterns(key - 49);
             }
         }
-        if (puzzle.isSolved()) {
-            let s = "Solved!";
+        if ((playerX = 52) & (playerY = 14)) {
+            if (~dialogueEvent) {
+                let s = "The reactor needs to be stabilized.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+
+                do Sys.wait(2000);
+
+                let s = "The patterns on the grid need to match with";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+
+                let s = "the one on the main control unit.";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+
+                do Sys.wait(5000);
+                let dialogueEvent = true;
+            }
+
+            let s = "Get to the console and use [1-9] on the numpad";
             do DialogueManager.printDialogueLineOne(s);
             do s.dispose();
+            
+            let s = "to cycle between different patterns.";
+            do DialogueManager.printDialogueLineTwo(s);
+            do s.dispose();
+
         }
+        if (puzzle.isSolved()) {
+            let puzzleCount = puzzleCount + 1;
+            if (puzzleCount = 1) {
+                let s = "Completed phase one!";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+                do Sys.wait(2000);
+                let s = "Loading next phase...";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+                do Sys.wait(2000);
+                do puzzle.loadStageTwo();
+                let s = "Next phase loaded.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+                let end = true;
+            }
+            if (puzzleCount = 2) {
+                let s = "Completed phase two!";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+                do Sys.wait(2000);
+
+                let s = "Loading next phase...";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+                do Sys.wait(2000);
+                do puzzle.loadStageThree();
+                
+                let s = "Final phase loaded.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+            }
+            if (puzzleCount = 3) {
+                let end = true;
+            }
+        }
+        
 
         return;
     }
@@ -271,7 +375,6 @@ class LevelThree {
     }
 
     function void updateMap() {
-        do LevelManager.resetMap();
         do LevelManager.updateMapBulk(0, 24, 38, false);
         do LevelManager.updateMapBulk(40, 46, 4, true);
         do LevelManager.updateMap(46, 6);

@@ -3,6 +3,7 @@ class LevelManager {
     static Array tile, map, twoToThe, items;
     static int currentLevel, itemCount;
     static Player player;
+    static boolean end;
 
     function void init(int levelNumber, Array powArr) {
         let currentLevel = levelNumber;
@@ -11,6 +12,7 @@ class LevelManager {
         let tile = Array.new(16);
         let twoToThe = powArr;
         let itemCount = 0;
+        let end = false;
 
         return;
     }
@@ -39,12 +41,22 @@ class LevelManager {
         return tile;
     }
 
+    function boolean gameOver() {
+        return end;
+    }
+
+    function void endGame() {
+        let end = true;
+        return;
+    }
+
     function int getItemCount() {
         if (currentLevel = 1) { return LevelOne.getItemCount(); }
         if (currentLevel = 2) { return LevelTwo.getItemCount(); }
         if (currentLevel = 3) { return LevelThree.getItemCount(); }
-        if (currentLevel = 4) { return LevelFour.getItemCount(); }
-        if (currentLevel = 5) { return LevelFive.getItemCount(); }
+        if (currentLevel = 4) { return LevelOne.getItemCount(); }
+        if (currentLevel = 5) { return LevelFour.getItemCount(); }
+        if (currentLevel = 6) { return LevelFive.getItemCount(); }
         return 0;
     }
 
@@ -57,21 +69,24 @@ class LevelManager {
     }
 
     function void loadNextLevel() {
+        do LevelManager.resetMap();
         if (currentLevel = 1) {
-            do LevelManager.resetMap();
             do LevelTwo.init(tile, map, twoToThe, items, player);
             do LevelTwo.loadLevel();
         }
         if (currentLevel = 2) {
-            do DialogueManager.printDialogueLineOne("Loading next level.");
             do LevelThree.init(tile, map, twoToThe, items, player);
             do LevelThree.loadLevel();
         }
         if (currentLevel = 3) {
+            do LevelOne.init(tile, map, twoToThe, items, player);
+            do LevelOne.loadLevelCompleted();
+        }
+        if (currentLevel = 4) {
             do LevelFour.init(tile, map, twoToThe, items, player);
             do LevelFour.loadLevel();
         }
-        if (currentLevel = 4) {
+        if (currentLevel = 5) {
             do LevelFive.init(tile, map, twoToThe, items, player);
             do LevelFive.loadLevel();
         }
@@ -90,9 +105,12 @@ class LevelManager {
             do LevelThree.animateTiles();
         }
         if (currentLevel = 4) {
-            do LevelFour.animateTiles();
+            do LevelOne.animateTiles();
         }
         if (currentLevel = 5) {
+            do LevelFour.animateTiles();
+        }
+        if (currentLevel = 6) {
             do LevelFive.animateTiles();
         }
         return;
@@ -102,8 +120,9 @@ class LevelManager {
         if (currentLevel = 1) { do LevelOne.processEvents(key); }
         if (currentLevel = 2) { do LevelTwo.processEvents(key); }
         if (currentLevel = 3) { do LevelThree.processEvents(key); }
-        if (currentLevel = 4) { do LevelFour.processEvents(key); }
-        if (currentLevel = 5) { do LevelFive.processEvents(key); }
+        if (currentLevel = 4) { do LevelOne.processEvents(key); }
+        if (currentLevel = 5) { do LevelFour.processEvents(key); }
+        if (currentLevel = 6) { do LevelFive.processEvents(key); }
         return;
     }
 
@@ -111,8 +130,9 @@ class LevelManager {
         if (currentLevel = 1) { do LevelOne.processKeyCollision(item); }
         if (currentLevel = 2) { do LevelTwo.processKeyCollision(item); }
         if (currentLevel = 3) { do LevelThree.processKeyCollision(item); }
-        if (currentLevel = 4) { do LevelFour.processKeyCollision(item); }
-        if (currentLevel = 5) { do LevelFive.processKeyCollision(item); }
+        if (currentLevel = 4) { do LevelOne.processKeyCollision(item); }
+        if (currentLevel = 5) { do LevelFour.processKeyCollision(item); }
+        if (currentLevel = 6) { do LevelFive.processKeyCollision(item); }
         return;
     }
 
@@ -127,9 +147,12 @@ class LevelManager {
             return LevelThree.winCondition();
         }
         if (currentLevel = 4) {
-            return LevelFour.winCondition();
+            return LevelOne.newWinCondition();
         }
         if (currentLevel = 5) {
+            return LevelFour.winCondition();
+        }
+        if (currentLevel = 6) {
             return LevelFive.winCondition();
         }
         return false;
@@ -178,7 +201,10 @@ class LevelManager {
         }
         if (x = 0) {
             let map[index + 4] = map[index + 4] | twoToThe[bit];
-            let map[index - 4] = map[index - 4] | twoToThe[bit];
+            
+            if (y > 0) {
+                let map[index - 4] = map[index - 4] | twoToThe[bit];
+            }
             
             if (bit = 15) {
                 let map[index + 1] = map[index + 1] | twoToThe[0];

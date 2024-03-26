@@ -16,7 +16,7 @@ class Player {
         let evenMask = 255;
         let key = false;
         let alive = true;
-        let hp = 3;
+        let hp = 2;
         let tile = Array.new(16);
 
         return this;
@@ -65,6 +65,10 @@ class Player {
     method void setKey(boolean k) {
         let key = k;
         return;
+    }
+
+    method boolean isAlive() {
+        return alive;
     }
 
     method int getX() {

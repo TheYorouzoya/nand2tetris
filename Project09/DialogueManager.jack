@@ -46,27 +46,6 @@ class DialogueManager {
         return;
     }
 
-    function void eraseHeart(int row, int col) {
-        var int index;
-        var Array screen;
-
-        let index = col + (row * 352);
-        let screen = 16384;
-
-        let screen[index] = screen[index] | 792;
-        let screen[index + 32] = screen[index + 32] | (1980);
-        let screen[index + 64] = screen[index + 64] | (4094);
-        let screen[index + 96] = screen[index + 96] | (8191);
-        let screen[index + 128] = screen[index + 128] | (8191);
-        let screen[index + 160] = screen[index + 160] | (4094);
-        let screen[index + 192] = screen[index + 192] | (2044);
-        let screen[index + 224] = screen[index + 224] | (1016);
-        let screen[index + 256] = screen[index + 256] | (496);
-        let screen[index + 288] = screen[index + 288] | (224);
-        let screen[index + 320] = screen[index + 320] | (64);
-        return;
-    }
-
     function void printDialogueLineOne(String dialogue) {
         do DialogueManager.clearDialogueBox();
         do Output.moveCursor(dialogueY, dialogueX);
@@ -132,6 +111,44 @@ class DialogueManager {
     function void drawUI() {
         do DialogueManager.drawStatusBox();
         do DialogueManager.drawDialogueBox();
+        return;
+    }
+
+    function void drawEndScreen() {
+        do Tiles.loadDialogueBox(tile, 1);
+        do Tiles.drawTile(8, 6, tile);
+
+        do Tiles.loadDialogueBox(tile, 2);
+        do Tiles.buildTiles(10, 52, 6, false, true, tile);
+
+        do Tiles.loadDialogueBox(tile, 3);
+        do Tiles.drawTile(54, 6, tile);
+
+        do Tiles.loadDialogueBox(tile, 4);
+        do Tiles.buildTiles(8, 22, 8, false, false, tile);
+
+        do Tiles.loadDialogueBox(tile, 6);
+        do Tiles.buildTiles(8, 22, 54, false, false, tile);
+
+        do Tiles.loadDialogueBox(tile, 7);
+        do Tiles.drawTile(8, 24, tile);
+
+        do Tiles.loadDialogueBox(tile, 8);
+        do Tiles.buildTiles(10, 52, 24, false, true, tile);
+
+        do Tiles.loadDialogueBox(tile, 9);
+        do Tiles.drawTile(54, 24, tile);
+
+        do Tiles.loadWhiteTile(tile);
+        do Tiles.buildTiles(10, 52, 8, false, true, tile);
+        do Tiles.buildTiles(10, 52, 10, false, true, tile);
+        do Tiles.buildTiles(10, 52, 12, false, true, tile);
+        do Tiles.buildTiles(10, 52, 14, false, true, tile);
+        do Tiles.buildTiles(10, 52, 16, false, true, tile);
+        do Tiles.buildTiles(10, 52, 18, false, true, tile);
+        do Tiles.buildTiles(10, 52, 20, false, true, tile);
+        do Tiles.buildTiles(10, 52, 22, false, true, tile);
+
         return;
     }
 

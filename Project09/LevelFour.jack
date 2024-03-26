@@ -2,6 +2,7 @@ class LevelFour {
     static Array tile, map, twoToThe, items, skulls;
     static int itemCount;
     static Player player;
+    static boolean end;
 
     function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Array Aplr) {
         let tile = Atile;
@@ -10,13 +11,16 @@ class LevelFour {
         let items = Aitems;
         let player = Aplr;
         let itemCount = 0;
+        let end = false;
         let skulls = Array.new(5);
 
         return;
     }
 
     function void loadLevel() {
-        do LevelManager.resetMap();
+        var Item heart;
+        var String s;
+        
         do LevelFour.loadWalls();
         do LevelFour.loadSkulls();
         do LevelFour.loadSpikes();
@@ -25,9 +29,21 @@ class LevelFour {
 
         let items[16] = Item.new(4, 6, 8, 0, 0, 2, false, 1);
         let itemCount = itemCount + 1;
+        let heart = items[16];
+        do heart.draw();
+
+        do Tiles.loadTorchTile(tile);
+        do Tiles.drawTile(2, 2, tile);
+        do Tiles.drawTile(6, 2, tile);
+        do LevelManager.updateMap(2, 2);
+        do LevelManager.updateMap(6, 2);
 
         do player.setPosition(30, 24);
         do player.setSpawn(30, 24);
+
+        let s = "Get to the core chamber at the end.";
+        do DialogueManager.printDialogueLineOne(s);
+        do s.dispose();
 
         return;
     }
@@ -37,7 +53,7 @@ class LevelFour {
     }
 
     function boolean winCondition() {
-        return false;
+        return end;
     }
 
     function void processEvents(int key) {
@@ -54,6 +70,11 @@ class LevelFour {
             do skull.tick(playerX, playerY, player);
             let i = i + 1;
         }
+
+        if ((playerX = 4) & (playerY = 2)) {
+            let end = true;
+        }
+
         return;
 
     }

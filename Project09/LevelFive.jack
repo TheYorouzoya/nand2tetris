@@ -17,8 +17,9 @@ class LevelFive {
     }
 
     function void loadLevel() {
-        do LevelManager.resetMap();
+        var String s;
         do player.setPosition(0, 12);
+        do player.setSpawn(0, 12);
         do golem.draw();
         do LevelFive.loadPipes();
         do LevelFive.loadWalls();
@@ -27,6 +28,13 @@ class LevelFive {
 
         let items[itemCount] = Item.new(58, 12, 5, 0, 0, 0, true, 1);
         let itemCount = itemCount + 1;
+
+        let s = "Deactivate the core by pressing the button";
+        do DialogueManager.printDialogueLineOne(s);
+        do s.dispose();
+        let s = "on the console behind the golem.";
+        do DialogueManager.printDialogueLineTwo(s);
+        do s.dispose();
         
         return;
     }
@@ -40,9 +48,21 @@ class LevelFive {
     }
 
     function void processEvents(int key) {
+        var int playerX, playerY;
+        let playerX = player.getX();
+        let playerY = player.getY();
+
         if (golem.isRunning()) {
-            do golem.move();
+            do golem.tick(playerX, playerY, player);
         }
+
+        if (key = 69) {
+            if ((playerX = 52) & (playerY = 12)) {
+                do golem.stop();
+                do LevelFive.endScene();
+                do LevelManager.endGame();
+            }
+        }    
         
         return;
     }
@@ -53,6 +73,38 @@ class LevelFive {
 
     function int getItemCount() {
         return itemCount;
+    }
+
+    function void endScene() {
+        var Item engineer;
+        var int i;
+        var String s;
+
+        let engineer = Item.new(0, 11, 9, 4, 0, 4, false, 1);
+        let i = 0;
+        do Sys.wait(2000);
+        do engineer.draw();
+        do Sys.wait(2000);
+
+        while(i < 22) {
+            do engineer.moveRight();
+            let i = i + 1;
+            do Sys.wait(150);
+        }
+
+        do Sys.wait(1500);
+
+        let s = "Thank you for taking care of the golem.";
+        do DialogueManager.printDialogueLineOne(s);
+        do s.dispose();
+        let s = "You have saved the village from destruction.";
+        do DialogueManager.printDialogueLineTwo(s);
+        do s.dispose();
+
+        do Sys.wait(3000);
+
+        return;
+
     }
 
     function void loadPipes() {

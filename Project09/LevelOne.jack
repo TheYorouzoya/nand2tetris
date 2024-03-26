@@ -4,6 +4,7 @@ class LevelOne {
     static int itemCount;
     static Player player;
     static Gear left, right;
+    static boolean cleared;
 
     function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Player Aplr) {
         let tile = Atile;
@@ -12,22 +13,9 @@ class LevelOne {
         let items = Aitems;
         let player = Aplr;
         let itemCount = 0;
+        let cleared = false;
         let left = Gear.new(40, 6, 1, 1, false);
         let right = Gear.new(46, 6, 1, 1, false);
-        return;
-    }
-
-    function void loadLevel() {
-        let itemCount = 0;
-
-        do player.setPosition(0, 22);
-        do DialogueManager.updateStatusBox(player.getHP());
-
-        do LevelOne.drawPipes();
-        do LevelOne.drawFences();
-        do LevelOne.drawDungeon();
-        do LevelOne.drawWalls();
-        do LevelOne.drawGenerator();
 
         let items[itemCount] = Item.new(42, 10, 5, 0, 0, 0, false, 1);
         let itemCount = itemCount + 1;
@@ -35,6 +23,16 @@ class LevelOne {
         let itemCount = itemCount + 1;
         let items[itemCount] = Item.new(46, 10, 5, 0, 0, 0, false, 1);
         let itemCount = itemCount + 1;
+
+        return;
+    }
+
+    function void loadLevel() {
+        let itemCount = 0;
+
+        do player.setPosition(0, 22);
+
+        do LevelOne.loadMap();
 
         do Tiles.loadClosedChestTile(tile);
         do Tiles.drawTile(58, 0, tile);
@@ -46,6 +44,43 @@ class LevelOne {
         do Tiles.loadDoorKeeper(tile);
         do Tiles.drawTile(8, 18, tile);
         do LevelManager.updateMap(8, 18);
+
+        return;
+    }
+
+    function void loadLevelCompleted() {
+        do LevelOne.loadMap();
+        do player.setPosition(0, 22);
+
+        do LevelOne.animateFans();
+        do left.setAnimated(true);
+        do right.setAnimated(true);
+
+        do Tiles.loadEngineer(tile);
+        do Tiles.drawTile(36, 14, tile);
+        do LevelManager.updateMap(36, 14);
+
+        do Tiles.loadDoorKeeper(tile);
+        do Tiles.drawTile(22, 14, tile);
+        do LevelManager.updateMap(22, 14);
+
+        return;
+    }
+
+    function void loadMap() {
+        do LevelOne.drawPipes();
+        do LevelOne.drawFences();
+        do LevelOne.drawDungeon();
+        do LevelOne.drawWalls();
+        do LevelOne.drawGenerator();
+
+        do DungeonTiles.loadLeftGateClosed(tile);
+        do Tiles.drawTile(24, 10, tile);
+        do LevelManager.updateMap(24, 10);
+
+        do DungeonTiles.loadRightGateClosed(tile);
+        do Tiles.drawTile(26, 10, tile);
+        do LevelManager.updateMap(26, 10);
 
         return;
     }
@@ -67,24 +102,68 @@ class LevelOne {
         return false;
     }
 
+    function boolean newWinCondition() {
+        return false;
+    }
+
     function void processEvents(int key) {
         var int x, y;
         var String s;
         let x = player.getX();
         let y = player.getY();
         if ((x = 34) & (y = 14)) {
-            let s = "The generator is broken. We must fix it.";
-            do DialogueManager.printDialogueLineOne(s);
-            do s.dispose();
-            let s = "Go talk to the engineer over there.";
-            do DialogueManager.printDialogueLineTwo(s);
-            do s.dispose();
+            if (~cleared) {
+                let s = "The generator is broken. We must fix it.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+                let s = "Go talk to the engineer over there.";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+            }
+            else {
+                let s = "Thank you for fixing the generator.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+            }
         }
-        if ((x = 24) & (y = 12)) {
-            do LevelOne.animateFans();
-            do left.setAnimated(true);
-            do right.setAnimated(true);
+
+        if (cleared) {
+            if ((y = 14) & (x > 23) & (x < 27)) {
+                let s = "Due to the generator being down for so long, the";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+
+                let s = "dungeon core has destabilized.";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+
+                do Sys.wait(3000);
+
+                let s = "The trap mechanisms inside have been reactivated";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+
+                let s = "along with the guardian golem.";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+
+                do Sys.wait(3000);
+
+                let s = "Go inside and reboot the control device.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+
+                
+                do DungeonTiles.loadLeftGateOpen(tile);
+                do Tiles.drawTile(24, 10, tile);
+                do LevelManager.updateMap(24, 10);
+
+                do DungeonTiles.loadRightGateOpen(tile);
+                do Tiles.drawTile(26, 10, tile);
+                do LevelManager.updateMap(26, 10);
+            }
         }
+
         return;
     }
 
@@ -284,14 +363,6 @@ class LevelOne {
         do DungeonTiles.loadWallTile(tile, 9);
         do Tiles.drawTile(30, 10, tile);
 
-        do DungeonTiles.loadLeftGateClosed(tile);
-        do Tiles.drawTile(24, 10, tile);
-        do LevelManager.updateMap(24, 10);
-
-        do DungeonTiles.loadRightGateClosed(tile);
-        do Tiles.drawTile(26, 10, tile);
-        do LevelManager.updateMap(26, 10);
-
         do Tiles.loadTorchTile(tile);
         do Tiles.drawTile(22, 12, tile);
         do Tiles.drawTile(28, 12, tile);
@@ -356,10 +427,18 @@ class LevelOne {
         do GeneratorTiles.loadTubeTile(tile, 3);
         do Tiles.drawTile(38, 12, tile);
 
-        do GeneratorTiles.loadCircleBottom(tile);
-        do Tiles.drawTile(38, 14, tile);
-        do LevelManager.updateMap(38, 14);
+        if (~cleared) {
+            do GeneratorTiles.loadCircleBottom(tile);
+            do Tiles.drawTile(38, 14, tile);
+            do LevelManager.updateMap(38, 14);
+        }
+        else {
+            do GeneratorTiles.loadEnergyOrb(tile);
+            do Tiles.drawTile(38, 14, tile);
+            do LevelManager.updateMap(38, 14);
 
+        }
+        
         do GeneratorTiles.loadBeltTile(tile, 1);
         do Tiles.drawTile(40, 14, tile);
         do LevelManager.updateMap(40, 14);

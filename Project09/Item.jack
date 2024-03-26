@@ -44,6 +44,8 @@ class Item {
     field boolean animated;
     field int frames, currentFrame;
 
+    field boolean active;
+
     constructor Item new(int Ax, int Ay, int Aid, int dir, int pth, int Atyp, boolean anim, int animationOffset) {
         let x = Ax;
         let y = Ay;
@@ -54,13 +56,11 @@ class Item {
         let direction = dir;
         let path = pth;
         let distanceTraveled = 0;
+        let active = false;
 
         do loadAnimationData(animationOffset);
         do Tiles.loadBlankTile(tile);
         do loadTile();
-        if (~animated) {
-            do draw();
-        }
         
         return this;
     }
@@ -98,6 +98,8 @@ class Item {
         if (id = 6) { do GeneratorTiles.loadEnergyOrb(tile); }
         if (id = 7) { do Skull.loadFireball(tile, direction); }
         if (id = 8) { do Tiles.loadHeartTile(tile); }
+        if (id = 9) { do Tiles.loadDoorKeeper(tile); }
+        if (id = 10) { do Tiles.loadEngineer(tile); }
         return;
     }
 
@@ -218,12 +220,20 @@ class Item {
         return animated;
     }
 
+    method void setActive(boolean value) {
+        let active = value;
+        return;
+    }
+
     method boolean isActive() {
         if ((id = 4) & (currentFrame > 12)) {
             return false;
         }
         if ((id = 3) & (currentFrame > 10)) {
             return false;
+        }
+        if (id = 7) {
+            return active;
         }
         return true;
     }

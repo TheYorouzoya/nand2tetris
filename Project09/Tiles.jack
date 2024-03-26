@@ -92,59 +92,53 @@ class Tiles {
         return;
     }
 
+    function void loadTile(Array tile, int r1, int r2, int r3, int r4, int r5, int r6,
+                           int r7, int r8, int r9, int r10, int r11, int r12, int r13,
+                           int r14, int r15, int r16) {
+        let tile[0] = r1;
+        let tile[1] = r2;
+        let tile[2] = r3;
+        let tile[3] = r4;
+        let tile[4] = r5;
+        let tile[5] = r6;
+        let tile[6] = r7;
+        let tile[7] = r8;
+        let tile[8] = r9;
+        let tile[9] = r10;
+        let tile[10] = r11;
+        let tile[11] = r12;
+        let tile[12] = r13;
+        let tile[13] = r14;
+        let tile[14] = r15;
+        let tile[15] = r16;
+        return;
+    }
+
     function void loadBrickTile(Array tile) {
-        let tile[0] = 258;
-        let tile[1] = 258;
-        let tile[2] = 258;
-        let tile[3] = -1;
-        let tile[4] = 4104;
-        let tile[5] = 4104;
-        let tile[6] = 4104;
-        let tile[7] = -1;
-        let tile[8] = 258;
-        let tile[9] = 258;
-        let tile[10] = 258;
-        let tile[11] = -1;
-        let tile[12] = 4104;
-        let tile[13] = 4104;
-        let tile[14] = 4104;
-        let tile[15] = -1;
+        do Tiles.loadTile(tile, 258, 258, 258, -1, 4104, 4104, 4104,
+                          -1, 258, 258, 258, -1, 4104, 4104, 4104, -1);
         return;
     }
 
     function void loadHeartTile(Array tile) {
-        let tile[0] = -1;
-        let tile[1] = -1;
-        let tile[2] = -3697;
-        let tile[3] = -4489;
-        let tile[4] = -11893;
-        let tile[5] = -23547;
-        let tile[6] = -22011;
-        let tile[7] = -23547;
-        let tile[8] = -12277;
-        let tile[9] = -6121;
-        let tile[10] = -3025;
-        let tile[11] = -1441;
-        let tile[12] = -577;
-        let tile[13] = -385;
-        let tile[14] = -1;
-        let tile[15] = -1;
+        do Tiles.loadTile(tile, -1, -1, -3697, -4489, -11893, -23547, -22011,
+                          -23547, -12277, -6121, -3025, -1441, -577, -385, -1, -1);
         return;
     }
 
     function void loadVentTile(Array tile) {
-        let tile[0] = -32767 - 1;
-        let tile[1] = -16386;
-        let tile[2] = -32766;
-        let tile[3] = -28662;
-        let tile[4] = -30750;
-        let tile[5] = -32766;
-        let tile[6] = -30750;
-        let tile[7] = -32766;
-        let tile[8] = -30750;
-        let tile[9] = -32766;
-        let tile[10] = -30750;
-        let tile[11] = -32766;
+-32767 - 1, 
+-16386, 
+-32766, 
+-28662, 
+-30750, 
+-32766, 
+-30750, 
+-32766, 
+-30750, 
+-32766, 
+-30750, 
+-32766, 
         let tile[12] = -28662;
         let tile[13] = -32762;
         let tile[14] = -32767 - 1;
