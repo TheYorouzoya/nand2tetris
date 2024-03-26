@@ -164,166 +164,43 @@ class Golem {
 
     method void loadTile(int tileId) {
         if (tileId = 1) {
-            let tile[0] = -1;
-            let tile[1] = -1;
-            let tile[2] = -1;
-            let tile[3] = -1;
-            let tile[4] = -1;
-            let tile[5] = -1;
-            let tile[6] = -1;
-            let tile[7] = -1;
-            let tile[8] = -1;
-            let tile[9] = -1;
-            let tile[10] = -1;
-            let tile[11] = -3073;
-            let tile[12] = -4705;
-            let tile[13] = -29009;
-            let tile[14] = 18095;
-            let tile[15] = -32081;
+            do Tiles.loadTile(tile, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+                                -3073, -4705, -29009, 18095, -32081);
         }
         if (tileId = 2) {
-            let tile[0] = -1;
-            let tile[1] = -97;
-            let tile[2] = -241;
-            let tile[3] = -441;
-            let tile[4] = -985;
-            let tile[5] = -2029;
-            let tile[6] = -4079;
-            let tile[7] = -4080;
-            let tile[8] = -4040;
-            let tile[9] = -4028;
-            let tile[10] = -4028;
-            let tile[11] = -8124;
-            let tile[12] = -31688;
-            let tile[13] = 1040;
-            let tile[14] = 1041;
-            let tile[15] = 1042;
+            do Tiles.loadTile(tile, -1, -97, -241, -441, -985, -2029, -4079, -4080, 
+                                -4040, -4028, -4028, -8124, -31688, 1040, 1041, 1042);
         }
         if (tileId = 3) {
-            let tile[0] = -1;
-            let tile[1] = -1;
-            let tile[2] = -1;
-            let tile[3] = -1;
-            let tile[4] = -1;
-            let tile[5] = -1;
-            let tile[6] = -1;
-            let tile[7] = -1;
-            let tile[8] = -1;
-            let tile[9] = -1;
-            let tile[10] = -1;
-            let tile[11] = -8;
-            let tile[12] = -394;
-            let tile[13] = -652;
-            let tile[14] = -1176;
-            let tile[15] = -1456;
+            do Tiles.loadTile(tile, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+                                -8, -394, -652, -1176, -1456);
         }
         if (tileId = 4) {
-            let tile[0] = 4423;
-            let tile[1] = 4231;
-            let tile[2] = 4227;
-            let tile[3] = 4227;
-            let tile[4] = 4227;
-            let tile[5] = 10369;
-            let tile[6] = 26753;
-            let tile[7] = -5823;
-            let tile[8] = 9505;
-            let tile[9] = 784;
-            let tile[10] = 8460;
-            let tile[11] = 12802;
-            let tile[12] = 30976;
-            let tile[13] = 30978;
-            let tile[14] = -1916;
-            let tile[15] = -1927;
+            do Tiles.loadTile(tile, 4423, 4231, 4227, 4227, 4227, 10369, 26753, 
+                                    -5823, 9505, 784, 8460, 12802, 30976, 30978, 
+                                    -1916, -1927);
         }
         if (tileId = 5) {
-            let tile[0] = 3588;
-            let tile[1] = 4872;
-            let tile[2] = 4816;
-            let tile[3] = 4704;
-            let tile[4] = 4752;
-            let tile[5] = 4368;
-            let tile[6] = 4624;
-            let tile[7] = 5139;
-            let tile[8] = 2076;
-            let tile[9] = -28620;
-            let tile[10] = 24644;
-            let tile[11] = 7304;
-            let tile[12] = 904;
-            let tile[13] = -31672;
-            let tile[14] = 17465;
-            let tile[15] = 17417;
+            do Tiles.loadTile(tile, 3588, 4872, 4816, 4704, 4752, 4368, 4624, 5139, 
+                                2076, -28620, 24644, 7304, 904, -31672, 17465, 17417);
         }
         if (tileId = 6) {
-            let tile[0] = -4030;
-            let tile[1] = -4030;
-            let tile[2] = -3966;
-            let tile[3] = -8062;
-            let tile[4] = -8062;
-            let tile[5] = -8058;
-            let tile[6] = -16052;
-            let tile[7] = -15798;
-            let tile[8] = -27607;
-            let tile[9] = -30703;
-            let tile[10] = 1554;
-            let tile[11] = 262;
-            let tile[12] = 1182;
-            let tile[13] = 1118;
-            let tile[14] = 1055;
-            let tile[15] = 543;
+            do Tiles.loadTile(tile, -4030, -4030, -3966, -8062, -8062, -8058, -16052, 
+                                -15798, -27607, -30703, 1554, 262, 1182, 1118, 1055, 543);
         }
         if (tileId = 7) {
-            let tile[0] = -1935;
-            let tile[1] = -1651;
-            let tile[2] = -1005;
-            let tile[3] = -1005;
-            let tile[4] = -621;
-            let tile[5] = -2031;
-            let tile[6] = -1534;
-            let tile[7] = -1366;
-            let tile[8] = -595;
-            let tile[9] = -81;
-            let tile[10] = -33;
-            let tile[11] = -1;
-            let tile[12] = -1;
-            let tile[13] = -1;
-            let tile[14] = -1;
-            let tile[15] = -1;
+            do Tiles.loadTile(tile, -1935, -1651, -1005, -1005, -621, -2031, -1534, 
+                                -1366, -595, -81, -33, -1, -1, -1, -1, -1);
         }
         if (tileId = 8) {
-            let tile[0] = -32755;
-            let tile[1] = 8305;
-            let tile[2] = 8578;
-            let tile[3] = 8708;
-            let tile[4] = 5128;
-            let tile[5] = 14345;
-            let tile[6] = 2065;
-            let tile[7] = -30671;
-            let tile[8] = -15287;
-            let tile[9] = -15805;
-            let tile[10] = -7769;
-            let tile[11] = -4017;
-            let tile[12] = -1953;
-            let tile[13] = -961;
-            let tile[14] = -385;
-            let tile[15] = -1;
+            do Tiles.loadTile(tile, -32755, 8305, 8578, 8708, 5128, 14345, 2065, 
+                                -30671, -15287, -15805, -7769, -4017, -1953, -961, 
+                                -385, -1);
         }
         if (tileId = 9) {
-            let tile[0] = 95;
-            let tile[1] = -24481;
-            let tile[2] = -26466;
-            let tile[3] = -30946;
-            let tile[4] = -29634;
-            let tile[5] = -12226;
-            let tile[6] = -16321;
-            let tile[7] = -32577;
-            let tile[8] = 24927;
-            let tile[9] = 20831;
-            let tile[10] = 21951;
-            let tile[11] = -18945;
-            let tile[12] = -1025;
-            let tile[13] = -1;
-            let tile[14] = -1;
-            let tile[15] = -1;
+            do Tiles.loadTile(tile, 95, -24481, -26466, -30946, -29634, -12226, 
+                                -16321, -32577, 24927, 20831, 21951, -18945, -1025, 
+                                -1, -1, -1);
         }
         return;
     }

@@ -103,84 +103,28 @@ class Gear {
     method void loadLargeGearLeft(Array tile) {
         if (orientation = 1) {
             if (frame = 1) {
-                let tile[0] = 16383;
-                let tile[1] = -1;
-                let tile[2] = 7269;
-                let tile[3] = 7269;
-                let tile[4] = 7269;
-                let tile[5] = 7269;
-                let tile[6] = 7269;
-                let tile[7] = 7269;
-                let tile[8] = 7269;
-                let tile[9] = -1;
-                let tile[10] = 1;
-                let tile[11] = 16383;
-                let tile[12] = 8191;
-                let tile[13] = -1;
-                let tile[14] = 16383;
-                let tile[15] = -1;
+                do Tiles.loadTile(tile, 16383, -1, 7269, 7269, 7269, 7269, 7269, 
+                                    7269, 7269,-1, 1, 16383, 8191, -1, 16383, -1);
             }
             if (frame = 3) {
-                let tile[0] = 16383;
-                let tile[1] = -1;
-                let tile[2] = -7269;
-                let tile[3] = -7269;
-                let tile[4] = -7269;
-                let tile[5] = -7269;
-                let tile[6] = -7269;
-                let tile[7] = -7269;
-                let tile[8] = -7269;
-                let tile[9] = -1;
-                let tile[10] = 1;
-                let tile[11] = 16383;
-                let tile[12] = 8191;
-                let tile[13] = -1;
-                let tile[14] = 16383;
-                let tile[15] = -1;
+                do Tiles.loadTile(tile, 16383, -1, -7269, -7269, -7269, -7269, -7269, 
+                                    -7269, -7269, -1, 1, 16383, 8191, -1, 16383, -1);
             }
             return;
         }
-        
         return;
     }
 
     method void loadLargeGearRight(Array tile) {
         if (orientation = 1) {
             if (frame = 1) {
-                let tile[0] = -1;
-                let tile[1] = -1;
-                let tile[2] = -22984;
-                let tile[3] = -22984;
-                let tile[4] = -22984;
-                let tile[5] = -22984;
-                let tile[6] = -22984;
-                let tile[7] = -22984;
-                let tile[8] = -22984;
-                let tile[9] = -1;
-                let tile[10] = -32767 - 1;
-                let tile[11] = -4;
-                let tile[12] = -8;
-                let tile[13] = -1;
-                let tile[14] = -4;
-                let tile[15] = -1;
+                do Tiles.loadTile(tile, -1, -1, -22984, -22984, -22984, -22984, 
+                                    -22984, -22984, -22984, -1, -32767 - 1, -4, 
+                                    -8, -1, -4, -1);
             }
             if (frame = 3) {
-                let tile[0] = -4;
-                let tile[1] = -1;
-                let tile[2] = -9785;
-                let tile[3] = -9785;
-                let tile[4] = -9785;
-                let tile[5] = -9785;
-                let tile[6] = -9785;
-                let tile[7] = -9785;
-                let tile[8] = -9785;
-                let tile[9] = -1;
-                let tile[10] = -32767 - 1;
-                let tile[11] = -4;
-                let tile[12] = -8;
-                let tile[13] = -1;
-                let tile[14] = -4;
-                let tile[15] = -1;
+                do Tiles.loadTile(tile, -4, -1, -9785, -9785, -9785, -9785, -9785, 
+                                    -9785, -9785, -1, -32767 - 1, -4, -8, -1, -4, -1);
             }
             return;
         }
@@ -192,78 +136,24 @@ class Gear {
         
         if (orientation = 3) {
             if (frame = 1) {
-                let tile[0] = -961;
-                let tile[1] = -961;
-                let tile[2] = -961;
-                let tile[3] = -961;
-                let tile[4] = -961;
-                let tile[5] = -1;
-                let tile[6] = -2017;
-                let tile[7] = -961;
-                let tile[8] = 0;
-                let tile[9] = -1;
-                let tile[10] = 19506;
-                let tile[11] = 19506;
-                let tile[12] = 19506;
-                let tile[13] = 19506;
-                let tile[14] = -1;
-                let tile[15] = -385;
+                do Tiles.loadTile(tile, -961, -961, -961, -961, -961, -1, -2017, 
+                                    -961, 0, -1, 19506, 19506, 19506, 19506, -1, -385);
             }
             if (frame = 3) {
-                let tile[0] = -961;
-                let tile[1] = -961;
-                let tile[2] = -961;
-                let tile[3] = -961;
-                let tile[4] = -961;
-                let tile[5] = -1;
-                let tile[6] = -2017;
-                let tile[7] = -961;
-                let tile[8] = -32767;
-                let tile[9] = -1;
-                let tile[10] = -19507;
-                let tile[11] = -19507;
-                let tile[12] = -19507;
-                let tile[13] = -19507;
-                let tile[14] = -1;
-                let tile[15] = -385;
+                do Tiles.loadTile(tile, -961, -961, -961, -961, -961, -1, -2017, 
+                                    -961, -32767, -1, -19507, -19507, -19507, -19507, 
+                                    -1, -385);
             }
         }
         if (orientation = 4) {
             if (frame = 1) {
-                let tile[0] = -189;
-                let tile[1] = -129;
-                let tile[2] = -189;
-                let tile[3] = -189;
-                let tile[4] = -129;
-                let tile[5] = -641;
-                let tile[6] = 1091;
-                let tile[7] = 1090;
-                let tile[8] = 1090;
-                let tile[9] = 1091;
-                let tile[10] = -641;
-                let tile[11] = -129;
-                let tile[12] = -189;
-                let tile[13] = -189;
-                let tile[14] = -129;
-                let tile[15] = -189;
+                do Tiles.loadTile(tile, -189, -129, -189, -189, -129, -641, 1091, 
+                                    1090, 1090, 1091, -641, -129, -189, -189, -129, 
+                                    -189);
             }
             if (frame = 3) {
-                let tile[0] = -1;
-                let tile[1] = -189;
-                let tile[2] = -129;
-                let tile[3] = -129;
-                let tile[4] = -189;
-                let tile[5] = -701;
-                let tile[6] = 1151;
-                let tile[7] = 1150;
-                let tile[8] = 1150;
-                let tile[9] = 1151;
-                let tile[10] = -701;
-                let tile[11] = -189;
-                let tile[12] = -129;
-                let tile[13] = -129;
-                let tile[14] = -189;
-                let tile[15] = -1;
+                do Tiles.loadTile(tile, -1, -189, -129, -129, -189, -701, 1151, 
+                                    1150, 1150, 1151, -701, -189, -129, -129, -189, -1);
             }
         }
         return;
