@@ -10,6 +10,7 @@ class Tiles {
         return;
     }
 
+    // draws a particular 16x16 px tile on the screen
     function void drawTile(int x, int y, Array tile) {
         var int i, row, location, halfTile;
         let i = 0;
@@ -43,6 +44,8 @@ class Tiles {
         return;
     }
 
+    // draws a particular row/column of the given tile on the screen
+    // the boolean decides whether it is a row or a column
     function void buildTiles(int r1, int r2, int ax, boolean axis, Array tile) {
         var int i;
         let i = r1;
@@ -60,6 +63,7 @@ class Tiles {
         return;
     }
 
+    // erase a particular 16x16 area on the screen
     function void eraseTile(int x, int y) {
         var int i, row, location;
         
@@ -86,6 +90,7 @@ class Tiles {
         return;
     }
 
+    // loads a particular tile array with the given row values
     function void loadTile(Array tile, int r1, int r2, int r3, int r4, int r5, int r6,
                            int r7, int r8, int r9, int r10, int r11, int r12, int r13,
                            int r14, int r15, int r16) {
@@ -107,6 +112,8 @@ class Tiles {
         let tile[15] = r16;
         return;
     }
+
+    // The rest of the file is just the drawing data used by the game
 
     function void loadChainTile(Array tile) {
         do Tiles.loadTile(tile, -3613, -3613, -3613, -3805, -3821, -1913, -881, 

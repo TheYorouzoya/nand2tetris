@@ -1,4 +1,28 @@
-/* The Level Manager */
+/* 
+Due to the lack of inheritance and interfaces, every level follows the same basic
+template structure.
+    - init() function to receive the reusable arguments from the LevelManager,
+      and performing initialization
+    - dispose() function to free up any memory used during the level
+    - loadLevel() function used to draw the level on the screen, update the
+      spatial hash map, and add any other level mechanics/objects
+    - animateTiles() function to animate any irregular objects (i.e. larger than
+      the 16x16 px size)
+    - winCondition() function to return true when the level is cleared and the 
+      next level can be loaded
+    - processEvents() function to receive the currently pressed key on the keyboard
+      and process any events associated with it (turning levers, pipes, etc)
+    - processKeyCollision() function to process collisions with a "key" item for 
+      the level (e.g., a key, a power core, etc.)
+    - getItemCount() function to return the number of iteems in the level
+    - updateMap() function to update the movable area map for the player
+Levels can add extra functions on top as needed.
+*/
+
+/*
+The LevelManager initializes/disposes the next/current level and calls the current
+level's respective functions for the game engine
+*/
 class LevelManager {
     /*
     The following set of items are passed along to each level upon initialization:

@@ -1,3 +1,4 @@
+/* Drawing data for the dungeon */
 class DungeonTiles {
     function void loadWallTile(Array tile, int tileId) {
         if (tileId = 1) {

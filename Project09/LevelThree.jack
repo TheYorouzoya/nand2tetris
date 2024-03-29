@@ -1,3 +1,13 @@
+/*
+    Level three hosts a giant reactor in the center of the screen which encases
+    a 3 x 3 pattern puzzle. The box near the reactor displays the current solution
+    pattern which all the tiles must match.
+
+    The player uses keys [1 - 9] on the numpad to cycle between patterns on a particular
+    row/column. Once all the tiles match the solution tile in the box, the phase
+    is completed. There are three phases. After the last phase, the NPC prompts
+    some dialogue and the player returns to the starting level.
+*/
 class LevelThree {
     static Array tile, map, twoToThe, items;
     static int itemCount;

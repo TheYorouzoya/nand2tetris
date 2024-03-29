@@ -1,3 +1,4 @@
+/* A large 2x2 fan with animation data */
 class LargeFan {
     field int x, y, frame;
     field boolean animated;

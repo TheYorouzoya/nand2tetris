@@ -1,9 +1,37 @@
 /* Player Character */
 class Player {
-    field int x, y, location, hp;
-    field int oddMask, evenMask;
+    /* x and y refer to the player's position on the screen according to the grid
+       as explained in the LevelManager */
+    field int x, y;
+    
+    /* the current hit points of the player character */
+    field int hp;
+
+    /* the spawn location for the currently active level. When respawned, this is
+       the position the player character returns to */
     field int spawnX, spawnY;
-    field Array screen, twoToThe, map, tile;
+
+    /* bit masks with the first and last 8 bits set to 1. To be used while drawing
+       the character on the screen */
+    field int oddMask, evenMask;
+
+    /* used to hold the location of the player in the screen memory map on the host
+       RAM */
+    field int location;
+
+    /* used for a pointer trick to directly read/write into the screen memory map
+       without calling OS subroutines */
+    field Array screen; 
+    
+    /* twoToThe is the reference to the array used for bitwise operations as mentioned
+       in the Game engine */
+    field Array twoToThe;
+    
+    /* spatial hash map reference provided by the Levelmanager to use while moving
+       the character across the screen */
+    field Array map;
+    
+    /* to hold whether the player is alive or not */
     field boolean alive;
 
     constructor Player new(int Ax, int Ay, Array powArr, Array lMap) {
@@ -11,12 +39,11 @@ class Player {
         let y = Ay;
         let twoToThe = powArr;
         let map = lMap;
-        let screen = 16384;
-        let oddMask = -256;
-        let evenMask = 255;
+        let screen = 16384;     // screen memory starts at RAM location 16384
+        let oddMask = -256;     // bits 8-15 set to 1
+        let evenMask = 255;     // bits 0-7 set to 1
         let alive = true;
-        let hp = 2;
-        let tile = Array.new(16);
+        let hp = 2;             // starting HP is 2
 
         return this;
     }
@@ -26,6 +53,8 @@ class Player {
         return;
     }
 
+    // player takes 1 point of damage; the number of hearts in the UI box
+    // is updated
     method void takeDamage() {
         let hp = hp - 1;
         if (hp = 0) {
@@ -35,6 +64,8 @@ class Player {
         return;
     }
 
+    // player heals 1 point of health; max health is capped at 3; updates dialogue
+    // box UI accordingly
     method void heal() {
         let hp = hp + 1;
         if (hp > 3) {
@@ -44,12 +75,14 @@ class Player {
         return;
     }
 
+    // set a respawn location for the player character
     method void setSpawn(int xPos, int yPos) {
         let spawnX = xPos;
         let spawnY = yPos;
         return;
     }
 
+    // move the player to the respawn location
     method void respawn() {
         do erase();
         do setPosition(spawnX, spawnY);
@@ -73,14 +106,16 @@ class Player {
         return hp;
     }
 
+    // move the player to a particular (x, y) location on the screen
     method void setPosition(int Ax, int Ay) {
         let x = Ax;
         let y = Ay;
         return;
     }
 
+    // draw the player character directly into the screen memory map
     method void draw() {
-        let location = (x / 2) + (y * 256);
+        let location = (x / 2) + (y * 256);     // compute RAM location offset
 
         if ((x & 1) = 1) {  // player model crosses word boundary
             // print first half
@@ -140,13 +175,16 @@ class Player {
         return;
     }
 
+    // erase the player character from the screen
     method void erase() {
         var int i, row;
-        if ((x & 1) = 1) {
+        if ((x & 1) = 1) {  // player crosses word boundary
             let i = 0;
             let row = 0;
 
             while (i < 16) {
+                // preserve the half-word on either while erasing by OR'ing with the
+                // masks
                 let screen[location + row] = screen[location + row] | oddMask;
                 let screen[location + row + 1] = screen[location + row + 1] | evenMask;
                 let i = i + 1;
@@ -201,6 +239,9 @@ class Player {
         return;
     }
 
+    // validates a given (x, y) coordinate against the spatial hash map generated
+    // by the current level. Returns true if the player can move into the given
+    // spot, false otherwise
     method boolean validatePosition(int x, int y) {
         var int index, bit, quot;
         var boolean result;

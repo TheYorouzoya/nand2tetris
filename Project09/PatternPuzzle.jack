@@ -1,3 +1,10 @@
+/*
+A 3 x 3 square populated by patterns. Each block can cycle between 4 patterns.
+When all the blocks match the solution pattern, the puzzle is solved.
+Pressing [1 - 9] on the keypad cycles that particular row's and column's patterns
+by one. For example, pressing 1 would lead to blocks 1, 2, 3, 4, and 7 flipping
+by one.
+*/
 class PatternPuzzle {
     field int x, y, solution, current;
     field Array grid, twoToThe, tile;

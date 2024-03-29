@@ -1,3 +1,9 @@
+/*
+    The boss encounter. A golem moves up and down on the right side of screen
+    and shoots fireballs at the player. The player must dodge everything and get
+    to the console behind the boss and press [E] to deactivate the golem and clear
+    the stage. Once finished, the end game screen is displayed and the program halts.
+*/
 class LevelFive {
     static Array tile, map, twoToThe, items;
     static int itemCount;

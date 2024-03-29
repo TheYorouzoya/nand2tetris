@@ -1,3 +1,7 @@
+/*
+    A skull on wall which shoots fireballs after periodic intervals. The tick()
+    function deals with the fireball's movements and collision mechanics
+*/
 class Skull {
     field int x, y, direction;
     field boolean fireballActive;

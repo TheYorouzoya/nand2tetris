@@ -1,3 +1,14 @@
+/*
+The second level contains a bunch of misaligned pipes. The player rotates these using
+the console devices present on the level. Once all the pipes in a particular area are
+aligned, the doors are unlocked and the next set of consoles becomes accessible.
+Within the locked areas are two power cores, which the player needs to collect and
+return to the pump near the starting location.
+
+In order to clear the level, all the pipes must be aligned and the cores returned
+to the pump. The player can then proceed to the gate at the end and move onto the
+next level.
+*/
 class LevelTwo {
     static Array tile, map, twoToThe, items;
     static int itemCount, powerCores;

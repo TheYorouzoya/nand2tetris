@@ -1,4 +1,10 @@
-/* First Level in the game */
+/* 
+First Level in the game
+The player visits this level twice in their run. First is when the game starts, the
+second when they return from fixing the reactor in level three.
+
+During both the 
+*/
 class LevelOne {
     static Array tile, map, twoToThe, items;
     static int itemCount;

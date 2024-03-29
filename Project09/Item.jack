@@ -44,6 +44,8 @@ class Item {
     field boolean animated;
     field int frames, currentFrame;
 
+    /* denotes whether the item is current "active". This is useful for projectiles
+       which are reused over and over as part of an object pool */
     field boolean active;
 
     constructor Item new(int Ax, int Ay, int Aid, int dir, int pth, int Atyp, boolean anim, int animationOffset) {

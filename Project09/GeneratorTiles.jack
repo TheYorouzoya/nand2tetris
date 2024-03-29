@@ -1,3 +1,4 @@
+/* Drawing data for the Generator(s) displayed on multiple levels */
 class GeneratorTiles {
     function void loadPatternTile(Array tile, int tileId) {
         if (tileId = 1) {

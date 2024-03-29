@@ -1,3 +1,5 @@
+/* A 3 x 3 golem boss that moves up and down on the screen and shoots fireballs
+   towards the player */
 class Golem {
     field int x, y;
     field int direction, path, distanceTraveled, counter;

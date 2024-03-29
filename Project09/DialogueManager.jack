@@ -1,3 +1,4 @@
+/* Manages the dialogue UI at the bottom of the screen. */
 class DialogueManager {
     static Array tile;
     static int statusX, statusY, dialogueX, dialogueY;

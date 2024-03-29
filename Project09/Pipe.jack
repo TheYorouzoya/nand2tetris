@@ -1,3 +1,4 @@
+/* A 1x1 pipe which supports rotations/different orientations */
 class Pipe {
     field int x, y;
     field Array tileP;
