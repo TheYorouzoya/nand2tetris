@@ -119,35 +119,35 @@ class DialogueManager {
         do Tiles.drawTile(8, 6, tile);
 
         do Tiles.loadDialogueBox(tile, 2);
-        do Tiles.buildTiles(10, 52, 6, false, true, tile);
+        do Tiles.buildTiles(10, 52, 6, true, tile);
 
         do Tiles.loadDialogueBox(tile, 3);
         do Tiles.drawTile(54, 6, tile);
 
         do Tiles.loadDialogueBox(tile, 4);
-        do Tiles.buildTiles(8, 22, 8, false, false, tile);
+        do Tiles.buildTiles(8, 22, 8, false, tile);
 
         do Tiles.loadDialogueBox(tile, 6);
-        do Tiles.buildTiles(8, 22, 54, false, false, tile);
+        do Tiles.buildTiles(8, 22, 54, false, tile);
 
         do Tiles.loadDialogueBox(tile, 7);
         do Tiles.drawTile(8, 24, tile);
 
         do Tiles.loadDialogueBox(tile, 8);
-        do Tiles.buildTiles(10, 52, 24, false, true, tile);
+        do Tiles.buildTiles(10, 52, 24, true, tile);
 
         do Tiles.loadDialogueBox(tile, 9);
         do Tiles.drawTile(54, 24, tile);
 
         do Tiles.loadWhiteTile(tile);
-        do Tiles.buildTiles(10, 52, 8, false, true, tile);
-        do Tiles.buildTiles(10, 52, 10, false, true, tile);
-        do Tiles.buildTiles(10, 52, 12, false, true, tile);
-        do Tiles.buildTiles(10, 52, 14, false, true, tile);
-        do Tiles.buildTiles(10, 52, 16, false, true, tile);
-        do Tiles.buildTiles(10, 52, 18, false, true, tile);
-        do Tiles.buildTiles(10, 52, 20, false, true, tile);
-        do Tiles.buildTiles(10, 52, 22, false, true, tile);
+        do Tiles.buildTiles(10, 52, 8, true, tile);
+        do Tiles.buildTiles(10, 52, 10, true, tile);
+        do Tiles.buildTiles(10, 52, 12, true, tile);
+        do Tiles.buildTiles(10, 52, 14, true, tile);
+        do Tiles.buildTiles(10, 52, 16, true, tile);
+        do Tiles.buildTiles(10, 52, 18, true, tile);
+        do Tiles.buildTiles(10, 52, 20, true, tile);
+        do Tiles.buildTiles(10, 52, 22, true, tile);
 
         return;
     }
@@ -212,13 +212,13 @@ class DialogueManager {
 
         // draw top, middle, bottom in one loop
         do Tiles.loadDialogueBox(tile, 2);
-        do Tiles.buildTiles(12, 60, 26, false, true, tile);
+        do Tiles.buildTiles(12, 60, 26, true, tile);
         
         do Tiles.loadDialogueBox(tile, 5);
-        do Tiles.buildTiles(12, 60, 28, false, true, tile);
+        do Tiles.buildTiles(12, 60, 28, true, tile);
         
         do Tiles.loadDialogueBox(tile, 8);
-        do Tiles.buildTiles(12, 60, 30, false, true, tile);
+        do Tiles.buildTiles(12, 60, 30, true, tile);
 
         return;
     }

@@ -17,6 +17,30 @@ class LevelFour {
         return;
     }
 
+    function void dispose() {
+        var int i;
+        var Item item;
+        var Skull skull;
+
+        let i = 0;
+
+        while (i < 3) {
+            let skull = skulls[i];
+            do skull.dispose();
+            let i = i + 1;
+        }
+
+        let i = 0;
+
+        while (i < 17) {
+            let item = items[i];
+            do item.dispose();
+            let i = i + 1;
+        }
+
+        return;
+    }
+
     function void loadLevel() {
         var Item heart;
         var String s;
@@ -24,6 +48,7 @@ class LevelFour {
         do LevelFour.loadWalls();
         do LevelFour.loadSkulls();
         do LevelFour.loadSpikes();
+        do LevelFour.updateMap();
         do Tiles.loadOpenDoorTile(tile);
         do Tiles.drawTile(4, 0, tile);
 
@@ -90,15 +115,15 @@ class LevelFour {
     function void loadWalls() {
         do Tiles.loadBrickTile(tile);
 
-        do Tiles.buildTiles(0, 62, 0, true, true, tile);
-        do Tiles.buildTiles(2, 20, 10, true, false, tile);
-        do Tiles.buildTiles(2, 20, 12, true, false, tile);
-        do Tiles.buildTiles(2, 24, 62, true, false, tile);
+        do Tiles.buildTiles(0, 62, 0, true, tile);
+        do Tiles.buildTiles(2, 20, 10, false, tile);
+        do Tiles.buildTiles(2, 20, 12, false, tile);
+        do Tiles.buildTiles(2, 24, 62, false, tile);
 
-        do Tiles.buildTiles(24, 50, 12, true, true, tile);
-        do Tiles.buildTiles(14, 24, 24, true, false, tile);
-        do Tiles.buildTiles(20, 24, 38, true, false, tile);
-        do Tiles.buildTiles(14, 20, 50, true, false, tile);
+        do Tiles.buildTiles(24, 50, 12, true, tile);
+        do Tiles.buildTiles(14, 24, 24, false, tile);
+        do Tiles.buildTiles(20, 24, 38, false, tile);
+        do Tiles.buildTiles(14, 20, 50, false, tile);
 
         return;
     }
@@ -132,6 +157,19 @@ class LevelFour {
         let items[15] = Item.new(22, 12, 4, 0, 0, 3, true, 10);
 
         let itemCount = itemCount + 16;
+        return;
+    }
+
+    function void updateMap() {
+        do LevelManager.updateMapBulk(0, 62, 0, true);
+        do LevelManager.updateMapBulk(2, 20, 10, false);
+        do LevelManager.updateMapBulk(2, 20, 12, false);
+        do LevelManager.updateMapBulk(2, 24, 62, false);
+        do LevelManager.updateMapBulk(24, 50, 12, true);
+        do LevelManager.updateMapBulk(14, 24, 24, false);
+        do LevelManager.updateMapBulk(14, 20, 50, false);
+        do LevelManager.updateMapBulk(20, 24, 38, false);
+
         return;
     }
 }

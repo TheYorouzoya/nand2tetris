@@ -1,5 +1,20 @@
-/* Level Manager */
+/* The Level Manager */
 class LevelManager {
+    /*
+    The following set of items are passed along to each level upon initialization:
+        - Tile array: A 16x16 pixel "stamp" with which a level would use to draw
+                      the level on the screen
+        - Map array: Array which serves as a "spatial hash map" to resolve player
+                     movement in a level. Each level populates the map based on
+                     where the player can or cannot move. Read more about player
+                     movement below.
+        - TwoToThe array: An array of 16-bit integers received from the Game engine
+        - Items array: To hold any items in the current level
+        - Player: A reference to the current player object
+    
+    currentLevel and itemCount keep track of what the current level is and the number
+    of items currently active in that level
+    */
     static Array tile, map, twoToThe, items;
     static int currentLevel, itemCount;
     static Player player;
@@ -7,7 +22,7 @@ class LevelManager {
 
     function void init(int levelNumber, Array powArr) {
         let currentLevel = levelNumber;
-        let map = Array.new(116);
+        let map = Array.new(104);
         let items = Array.new(20);
         let tile = Array.new(16);
         let twoToThe = powArr;
@@ -24,6 +39,7 @@ class LevelManager {
         return;
     }
 
+    // set the player reference
     function void setPlayer(Player pl) {
         let player = pl;
         return;
@@ -41,35 +57,35 @@ class LevelManager {
         return tile;
     }
 
+    // whether the game is over
     function boolean gameOver() {
         return end;
     }
 
+    // called when the game is finished after the final level has been cleared
     function void endGame() {
         let end = true;
         return;
     }
 
-    function int getItemCount() {
-        if (currentLevel = 1) { return LevelOne.getItemCount(); }
-        if (currentLevel = 2) { return LevelTwo.getItemCount(); }
-        if (currentLevel = 3) { return LevelThree.getItemCount(); }
-        if (currentLevel = 4) { return LevelOne.getItemCount(); }
-        if (currentLevel = 5) { return LevelFour.getItemCount(); }
-        if (currentLevel = 6) { return LevelFive.getItemCount(); }
-        return 0;
-    }
-
-    function void loadLevelOne() {
-        do LevelOne.init(tile, map, twoToThe, items, player);
-        do LevelOne.loadLevel();
-        let itemCount = LevelOne.getItemCount();
-
+    // loads up the Title screen of the game
+    function void loadWelcomeScreen() {
+        do WelcomeScreen.init(tile, map, twoToThe, items, player);
+        do WelcomeScreen.loadLevel();
+        
         return;
     }
 
+    // disposes the current level, clears the dialogue box, resets the movement
+    // map, then initializes and loads the next level
     function void loadNextLevel() {
+        do DialogueManager.clearDialogueBox();
+        //do LevelManager.disposeCurrentLevel();
         do LevelManager.resetMap();
+        if (currentLevel = 0) {
+            do LevelOne.init(tile, map, twoToThe, items, player);
+            do LevelOne.loadLevel();
+        }
         if (currentLevel = 1) {
             do LevelTwo.init(tile, map, twoToThe, items, player);
             do LevelTwo.loadLevel();
@@ -94,7 +110,49 @@ class LevelManager {
         return;
     }
 
+    // get the currently active level's itemCount
+    function int getItemCount() {
+        if (currentLevel = 0) { return WelcomeScreen.getItemCount(); }
+        if (currentLevel = 1) { return LevelOne.getItemCount(); }
+        if (currentLevel = 2) { return LevelTwo.getItemCount(); }
+        if (currentLevel = 3) { return LevelThree.getItemCount(); }
+        if (currentLevel = 4) { return LevelOne.getItemCount(); }
+        if (currentLevel = 5) { return LevelFour.getItemCount(); }
+        if (currentLevel = 6) { return LevelFive.getItemCount(); }
+        return 0;
+    }
+
+    // call the respective level's dispose function
+    function void disposeCurrentLevel() {
+        if (currentLevel = 0) {
+            do WelcomeScreen.dispose();    
+        }
+        if (currentLevel = 1) {
+            do LevelOne.dispose();
+        }
+        if (currentLevel = 2) {
+            do LevelTwo.dispose();
+        }
+        if (currentLevel = 3) {
+            do LevelThree.dispose();
+        }
+        if (currentLevel = 4) {
+            do LevelOne.dispose();
+        }
+        if (currentLevel = 5) {
+            do LevelFour.dispose();
+        }
+        if (currentLevel = 6) {
+            do LevelFive.dispose();
+        }
+        return;
+    }
+
+    // advance the current level's animation frames by one
     function void animateTiles() {
+        if (currentLevel = 0) {
+            do WelcomeScreen.animateTiles();
+        }
         if (currentLevel = 1) {
             do LevelOne.animateTiles();
         }
@@ -116,7 +174,9 @@ class LevelManager {
         return;
     }
 
+    // pass the currently pressed key to the current level
     function void processEvents(int key) {
+        if (currentLevel = 0) { do WelcomeScreen.processEvents(key); }
         if (currentLevel = 1) { do LevelOne.processEvents(key); }
         if (currentLevel = 2) { do LevelTwo.processEvents(key); }
         if (currentLevel = 3) { do LevelThree.processEvents(key); }
@@ -126,7 +186,11 @@ class LevelManager {
         return;
     }
 
+    // call the current level's collision processing subroutine since each level
+    // can have different side-effects upon collision (e.g., player picks up a
+    // power core versus a key)
     function void processKeyCollision(Item item) {
+        if (currentLevel = 0) { do WelcomeScreen.processKeyCollision(item); }
         if (currentLevel = 1) { do LevelOne.processKeyCollision(item); }
         if (currentLevel = 2) { do LevelTwo.processKeyCollision(item); }
         if (currentLevel = 3) { do LevelThree.processKeyCollision(item); }
@@ -136,7 +200,11 @@ class LevelManager {
         return;
     }
 
+    // checks whether the current level is cleared
     function boolean winCondition() {
+        if (currentLevel = 0) {
+            return WelcomeScreen.winCondition();
+        }
         if (currentLevel = 1) {
             return LevelOne.winCondition();
         }
@@ -158,6 +226,51 @@ class LevelManager {
         return false;
     }
 
+    /*
+    The following functions "updateMap()", "updateMapBulk()", and "resetMap()" 
+    all deal with the "spatial hash map" mentioned previously. To explain their 
+    function, we must first understand the player movement.
+
+    The game divides the 512px x 256px screen into two areas: the playable area
+    and the dialogue UI area. The dialogue UI sits at the bottom of the screen,
+    taking up the last 48 rows of pixels.
+    
+    The remaining playable area is where the player is free to roam about. The player
+    character occupies a 16px x 16px square space on the screen and moves 8 pixels 
+    at a time across the x-y axis. This leads to a further division of the playable
+    area into a 64 x 26 grid of "movable units".
+
+    Each moveable (x, y) coordinate on this grid is represented by a single bit.
+    If the bit is set to 0, the player can occupy the free spot. We use four 16-bit
+    integers, put side-by-side, to represent a 64-bit row on this grid. Since there
+    are 26 rows, the entire grid can be represented by 104 16-bit integers laid out
+    similarly to how a 2-D matrix is represented in memory.
+
+    Since the player character occupies 4 units at a given time, we must account for
+    this extra size whenever we wish to update a bit on the grid. Otherwise, half of
+    character will overlap with the object on the screen. Hence, every (x, y)
+    update on the grid can result in blocking up to 9 units on the grid (a 3x3 square
+    centered around the given coordinate).
+
+    While processing player movement, we can query this map using the current
+    (x, y) coordinates of the player character and quickly determine whether the 
+    player can move to the specified area on the grid or not.
+
+    Every level updates this map upon loading by using the subroutines defined below.
+    */
+
+
+
+    /*
+    The updateMap subroutine blocks a particular area on the grid based on the given
+    (x, y) coordinate. Since each row on the map is just four 16-bit integers, i.e.,
+    four words in memory, updates to the map can often cross word boundaries. This
+    leads to three cases: whether the update alters a single word, or we cross over
+    to either the next word or the previous word.
+
+    Furthermore, the "extra padding" is not needed in the boundary cases, so fewer
+    updates are required.
+    */
     function void updateMap(int x, int y) {
         var int index, bit, quot;
         let quot = x / 16;
@@ -166,10 +279,10 @@ class LevelManager {
 
         let map[index] = map[index] | twoToThe[bit];                        // mark tile corner (x, y)
         
-        if ((x > 0) & (y > 0)) {
+        if ((x > 0) & (y > 0)) {    // non-boundary case (most common)
             let map[index - 4] = map[index - 4] | twoToThe[bit];            // mark (x, y - 1)
             let map[index + 4] = map[index + 4] | twoToThe[bit];            // mark (x, y + 1)
-            if (bit = 0) {
+            if (bit = 0) {          // crossing boundary to left
                 let map[index] = map[index] | twoToThe[bit + 1];            // mark (x + 1, y)
                 let map[index - 4] = map[index - 4] | twoToThe[bit + 1];    // mark (x + 1, y - 1)
                 let map[index + 4] = map[index + 4] | twoToThe[bit + 1];    // mark (x + 1, y + 1)
@@ -179,16 +292,16 @@ class LevelManager {
                 let map[index + 3] = map[index + 3] | twoToThe[15];         // mark (x - 1, y + 1)
             }
             else {
-            if (bit = 15) {
-                let map[index + 1] = map[index + 1] | twoToThe[0];
-                let map[index - 3] = map[index - 3] | twoToThe[0];
-                let map[index + 5] = map[index + 5] | twoToThe[0];
+            if (bit = 15) {         // crossing boundary to right
+                let map[index + 1] = map[index + 1] | twoToThe[0];          // mark (x + 1, y)
+                let map[index - 3] = map[index - 3] | twoToThe[0];          // mark (x + 1, y - 1)
+                let map[index + 5] = map[index + 5] | twoToThe[0];          // mark (x + 1, y + 1)
 
                 let map[index] = map[index] | twoToThe[bit - 1];            // mark (x - 1, y)
                 let map[index - 4] = map[index - 4] | twoToThe[bit - 1];    // mark (x - 1, y - 1)
                 let map[index + 4] = map[index + 4] | twoToThe[bit - 1];    // mark (x - 1, y + 1)
             } 
-            else {
+            else {                  // no cross case
                 let map[index] = map[index] | twoToThe[bit + 1];            // mark (x + 1, y)
                 let map[index - 4] = map[index - 4] | twoToThe[bit + 1];    // mark (x + 1, y - 1)
                 let map[index + 4] = map[index + 4] | twoToThe[bit + 1];    // mark (x + 1, y + 1)
@@ -199,42 +312,42 @@ class LevelManager {
             }
             }
         }
-        if (x = 0) {
-            let map[index + 4] = map[index + 4] | twoToThe[bit];
+        if (x = 0) {        // left edge of the screen
+            let map[index + 4] = map[index + 4] | twoToThe[bit];            // mark (x, y + 1)
             
-            if (y > 0) {
-                let map[index - 4] = map[index - 4] | twoToThe[bit];
+            if (y > 0) {    // non-corner case
+                let map[index - 4] = map[index - 4] | twoToThe[bit];        // mark (x, y - 1)
             }
             
-            if (bit = 15) {
-                let map[index + 1] = map[index + 1] | twoToThe[0];
-                let map[index + 5] = map[index + 5] | twoToThe[0];
+            if (bit = 15) { // crossing boundary to right
+                let map[index + 1] = map[index + 1] | twoToThe[0];          // mark (x + 1, y)
+                let map[index + 5] = map[index + 5] | twoToThe[0];          // mark (x + 1, y + 1)
             }
-            else {
-                let map[index] = map[index] | twoToThe[bit + 1];
-                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];
+            else {          // no cross case
+                let map[index] = map[index] | twoToThe[bit + 1];            // mark (x + 1, y)
+                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];    // mark (x + 1, y + 1)
             }
         }
-        if (y = 0) {
-            let map[index + 4] = map[index + 4] | twoToThe[bit];
+        if (y = 0) {        // top edge of the screen
+            let map[index + 4] = map[index + 4] | twoToThe[bit];            // mark (x, y + 1)
             
-            if (bit = 15) {
-                let map[index + 1] = map[index + 1] | twoToThe[0];
-                let map[index + 5] = map[index + 5] | twoToThe[0];
+            if (bit = 15) { // crossing boundary to right
+                let map[index + 1] = map[index + 1] | twoToThe[0];          // mark (x + 1, y)
+                let map[index + 5] = map[index + 5] | twoToThe[0];          // mark (x + 1, y + 1)
             }
             else {
-                let map[index] = map[index] | twoToThe[bit + 1];
-                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];
+                let map[index] = map[index] | twoToThe[bit + 1];            // mark (x + 1, y)
+                let map[index + 4] = map[index + 4] | twoToThe[bit + 1];    // mark (x + 1, y + 1)
             }
 
-            if (x > 0) {
-                if (bit = 0) {
-                    let map[index - 1] = map[index - 1] | twoToThe[15];
-                    let map[index + 3] = map[index + 3] | twoToThe[15]; 
+            if (x > 0) {       // update padding to the left
+                if (bit = 0) { // crossing boundary to left
+                    let map[index - 1] = map[index - 1] | twoToThe[15];     // mark (x - 1, y)
+                    let map[index + 3] = map[index + 3] | twoToThe[15];     // mark (x - 1, y + 1)
                 }
-                else {
-                    let map[index] = map[index] | twoToThe[bit - 1];
-                    let map[index + 4] = map[index + 4] | twoToThe[bit - 1];
+                else {          // no cross case
+                    let map[index] = map[index] | twoToThe[bit - 1];        // mark (x - 1, y)
+                    let map[index + 4] = map[index + 4] | twoToThe[bit - 1];// mark (x - 1, y + 1)
                 }
             }
         }
@@ -242,47 +355,25 @@ class LevelManager {
         return;
     }
 
+    /* 
+    Uses the updateMap() function to update an entire row or column on the map.
+    "start" and "end" denote the endpoints (where start < end), "const" is which
+    row/column to update, and the "axis" denotes which axis to traverse (true =
+    x-axis or row; false = y-axis or column)
+    */
     function void updateMapBulk(int start, int end, int const, boolean axis) {
         var int i;
 
         let i = start;
 
         while (~(i > end)) {
-            if (axis) {
+            if (axis) { // update row
                 do LevelManager.updateMap(i, const);
             }
-            else {
+            else {      // update column
                 do LevelManager.updateMap(const, i);
             }
             let i = i + 2;
-        }
-        return;
-    }
-
-    function void unlockMap(int x, int y, boolean axis) {
-        var int index, bit, quot;
-        let quot = x / 16;
-        let bit = x - (quot * 16);
-        let index = quot + (y * 4);
-
-        let map[index] = map[index] & (~twoToThe[bit]);
-
-        if (axis) {
-            if (bit = 0) {
-                let map[index - 1] = map[index - 1] & (~twoToThe[15]);
-                let map[index] = map[index] & (~twoToThe[bit + 1]);
-            }
-            if (bit = 15) {
-                let map[index] = map[index] & (~twoToThe[bit - 1]);
-                let map[index + 1] = map[index + 1] & (~twoToThe[0]);
-            }
-            else {
-                let map[index] = map[index] & (~(twoToThe[bit + 1] | twoToThe[bit - 1]));
-            }
-        }
-        else {
-            let map[index - 4] = map[index - 4] & (~twoToThe[bit]);
-            let map[index + 4] = map[index + 4] & (~twoToThe[bit]);
         }
         return;
     }
@@ -291,7 +382,7 @@ class LevelManager {
         var int i;
         let i = 0;
 
-        while (i < 116) {
+        while (i < 104) {
             let map[i] = 0;
             let i = i + 1;
         }

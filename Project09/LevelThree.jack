@@ -22,6 +22,13 @@ class LevelThree {
         return;
     }
 
+    function void dispose() {
+        do puzzle.dispose();
+        do engineer.dispose();
+
+        return;
+    }
+
     function void loadLevel() {
         var String s;
         let itemCount = 0;
@@ -34,6 +41,7 @@ class LevelThree {
         do LevelThree.updateMap();
 
         do DialogueManager.clearDialogueBox();
+        do puzzle.loadStageOne();
 
         let engineer = Item.new(50, 14, 9, 0, 0, 0, false, 1);
         do engineer.draw();
@@ -82,7 +90,7 @@ class LevelThree {
     }
 
     function void processEvents(int key) {
-        var int playerX, playerY;
+        var int playerX, playerY, newKey;
         var String s;
 
         let playerX = player.getX();
@@ -91,6 +99,7 @@ class LevelThree {
         if ((playerX = 52) & (playerY = 11)) {
             if ((key < 58) & (key > 48)) {
                 do puzzle.flipPatterns(key - 49);
+                do Sys.wait(100);
             }
         }
         if ((playerX = 52) & (playerY = 14)) {
@@ -137,7 +146,7 @@ class LevelThree {
                 let s = "Next phase loaded.";
                 do DialogueManager.printDialogueLineOne(s);
                 do s.dispose();
-                let end = true;
+
             }
             if (puzzleCount = 2) {
                 let s = "Completed phase two!";
@@ -185,8 +194,8 @@ class LevelThree {
 
         do Tiles.drawTile(0, 4, tile);
         do Tiles.drawTile(2, 4, tile);
-        do Tiles.buildTiles(10, 14, 4, false, true, tile);
-        do Tiles.buildTiles(40, 44, 4, true, true, tile);
+        do Tiles.buildTiles(10, 14, 4, true, tile);
+        do Tiles.buildTiles(40, 44, 4, true, tile);
         
         do Tiles.drawTile(8, 6, tile);
         do Tiles.drawTile(10, 6, tile);
@@ -200,7 +209,7 @@ class LevelThree {
         do Tiles.drawTile(2, 10, tile);
         do Tiles.drawTile(40, 10, tile);
 
-        do Tiles.buildTiles(0, 14, 12, false, true, tile);
+        do Tiles.buildTiles(0, 14, 12, true, tile);
         do Tiles.drawTile(40, 12, tile);
 
         do Tiles.drawTile(4, 14, tile);
@@ -209,10 +218,10 @@ class LevelThree {
         do Tiles.drawTile(40, 16, tile);
         do Tiles.drawTile(42, 16, tile);
 
-        do Tiles.buildTiles(8, 14, 18, false, true, tile);
-        do Tiles.buildTiles(40, 44, 18, true, true, tile);
+        do Tiles.buildTiles(8, 14, 18, true, tile);
+        do Tiles.buildTiles(40, 44, 18, true, tile);
 
-        do Tiles.buildTiles(0, 4, 22, false, true, tile);
+        do Tiles.buildTiles(0, 4, 22, true, tile);
         do Tiles.drawTile(12, 22, tile);
         do Tiles.drawTile(14, 22, tile);
 
@@ -224,10 +233,10 @@ class LevelThree {
 
         do Pipe.loadPipeTile(tile, 4);
 
-        do Tiles.buildTiles(16, 20, 2, false, false, tile);
+        do Tiles.buildTiles(16, 20, 2, false, tile);
         do Tiles.drawTile(2, 24, tile);
 
-        do Tiles.buildTiles(0, 8, 4, false, false, tile);
+        do Tiles.buildTiles(0, 8, 4, false, tile);
 
         do Tiles.drawTile(6, 8, tile);
         do Tiles.drawTile(6, 10, tile);
@@ -273,7 +282,7 @@ class LevelThree {
 
         do Tiles.drawTile(0, 0, tile);
         do Tiles.drawTile(2, 0, tile);
-        do Tiles.buildTiles(0, 4, 6, false, false, tile);
+        do Tiles.buildTiles(0, 4, 6, false, tile);
         do Tiles.drawTile(10, 0, tile);
         do Tiles.drawTile(14, 0, tile);
 
@@ -289,11 +298,11 @@ class LevelThree {
 
         do Tiles.drawTile(8, 8, tile);
         do Tiles.drawTile(10, 8, tile);
-        do Tiles.buildTiles(8, 14, 10, false, true, tile);
+        do Tiles.buildTiles(8, 14, 10, true, tile);
 
-        do Tiles.buildTiles(14, 20, 0, false, false, tile);
-        do Tiles.buildTiles(8, 14, 14, false, true, tile);
-        do Tiles.buildTiles(4, 10, 16, false, true, tile);
+        do Tiles.buildTiles(14, 20, 0, false, tile);
+        do Tiles.buildTiles(8, 14, 14, true, tile);
+        do Tiles.buildTiles(4, 10, 16, true, tile);
 
         do Tiles.drawTile(4, 18, tile);
         do Tiles.drawTile(4, 20, tile);
@@ -303,7 +312,7 @@ class LevelThree {
         do Tiles.drawTile(8, 22, tile);
 
         do Tiles.drawTile(0, 24, tile);
-        do Tiles.buildTiles(4, 8, 24, false, true, tile);
+        do Tiles.buildTiles(4, 8, 24, true, tile);
         do Tiles.drawTile(14, 24, tile);
 
         return;
@@ -315,7 +324,7 @@ class LevelThree {
         do Tiles.drawTile(42, 8, tile);
 
         do GeneratorTiles.loadWallTile(tile, 2);
-        do Tiles.buildTiles(18, 36, 0, false, true, tile);
+        do Tiles.buildTiles(18, 36, 0, true, tile);
         do Tiles.drawTile(44, 8, tile);
         do Tiles.drawTile(46, 8, tile);
 
@@ -324,12 +333,12 @@ class LevelThree {
         do Tiles.drawTile(48, 8, tile);
 
         do GeneratorTiles.loadWallTile(tile, 4);
-        do Tiles.buildTiles(2, 22, 16, false, false, tile);
+        do Tiles.buildTiles(2, 22, 16, false, tile);
         do Tiles.drawTile(42, 10, tile);
         do Tiles.drawTile(42, 12, tile);
 
         do GeneratorTiles.loadWallTile(tile, 6);
-        do Tiles.buildTiles(2, 22, 38, false, false, tile);
+        do Tiles.buildTiles(2, 22, 38, false, tile);
         do Tiles.drawTile(48, 10, tile);
         do Tiles.drawTile(48, 12, tile);
 
@@ -338,7 +347,7 @@ class LevelThree {
         do Tiles.drawTile(42, 14, tile);
 
         do GeneratorTiles.loadWallTile(tile, 8);
-        do Tiles.buildTiles(18, 36, 24, false, true, tile);
+        do Tiles.buildTiles(18, 36, 24, true, tile);
         do Tiles.drawTile(44, 14, tile);
         do Tiles.drawTile(46, 14, tile);
 
@@ -353,16 +362,16 @@ class LevelThree {
         do Tiles.drawTile(36, 22, tile);
 
         do GeneratorTiles.loadCautionWall(tile, 1);
-        do Tiles.buildTiles(4, 20, 18, false, false, tile);
+        do Tiles.buildTiles(4, 20, 18, false, tile);
 
         do GeneratorTiles.loadCautionWall(tile, 2);
-        do Tiles.buildTiles(20, 34, 2, false, true, tile);
+        do Tiles.buildTiles(20, 34, 2, true, tile);
 
         do GeneratorTiles.loadCautionWall(tile, 3);
-        do Tiles.buildTiles(4, 20, 36, false, false, tile);
+        do Tiles.buildTiles(4, 20, 36, false, tile);
 
         do GeneratorTiles.loadSmallWireTile(tile);
-        do Tiles.buildTiles(20, 34, 22, false, true, tile);
+        do Tiles.buildTiles(20, 34, 22, true, tile);
 
         do GeneratorTiles.loadCircleTop(tile);
         do Tiles.drawTile(26, 22, tile);

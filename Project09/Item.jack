@@ -61,6 +61,10 @@ class Item {
         do loadAnimationData(animationOffset);
         do Tiles.loadBlankTile(tile);
         do loadTile();
+
+        if (~(type = 3)) {
+            do draw();
+        }
         
         return this;
     }

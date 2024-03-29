@@ -4,7 +4,7 @@ class Player {
     field int oddMask, evenMask;
     field int spawnX, spawnY;
     field Array screen, twoToThe, map, tile;
-    field boolean key, alive;
+    field boolean alive;
 
     constructor Player new(int Ax, int Ay, Array powArr, Array lMap) {
         let x = Ax;
@@ -14,7 +14,6 @@ class Player {
         let screen = 16384;
         let oddMask = -256;
         let evenMask = 255;
-        let key = false;
         let alive = true;
         let hp = 2;
         let tile = Array.new(16);
@@ -58,15 +57,6 @@ class Player {
         return;
     }
 
-    method boolean hasKey() {
-        return key;
-    }
-
-    method void setKey(boolean k) {
-        let key = k;
-        return;
-    }
-
     method boolean isAlive() {
         return alive;
     }
@@ -92,7 +82,7 @@ class Player {
     method void draw() {
         let location = (x / 2) + (y * 256);
 
-        if ((x & 1) = 1) {
+        if ((x & 1) = 1) {  // player model crosses word boundary
             // print first half
             let screen[location] = screen[location] & (-1);
             let screen[location + 32] = screen[location + 32] & (2047);

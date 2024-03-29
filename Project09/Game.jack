@@ -5,6 +5,8 @@ class Game {
     field Array twoToThe, items;
 
     constructor Game new() {
+        // Array passed around for use in bitwise operations. For a position "i"
+        // in the array, the i'th bit of the 16-bit integer is set to 1.
         let twoToThe = Array.new(16);
         let twoToThe[0] = 1;
         let twoToThe[1] = 2;
@@ -21,19 +23,25 @@ class Game {
         let twoToThe[12] = 4096;
         let twoToThe[13] = 8192;
         let twoToThe[14] = 16384;
-        let twoToThe[15] = 32767 + 1;
+        let twoToThe[15] = 32767 + 1;   // overflows to -32768
+        
+        // Slowbit used in cases where items need to be updated every other tick
+        // of the game engine
         let slowBit = 0;
 
+        // Initlialize other classes
         do Tiles.init();
-        do LevelManager.init(1, twoToThe);
+        do LevelManager.init(0, twoToThe);
         do DialogueManager.init();
         let player = Player.new(0, 0, twoToThe, LevelManager.getMap());
         let direction = 0;
         do LevelManager.setPlayer(player);
         let items = LevelManager.getItems();
+
         return this;
     }
 
+    // dispose of the current game object and respective classes
     method void dispose() {
         do player.dispose();
         do LevelManager.dispose();
@@ -42,21 +50,38 @@ class Game {
         return;
     }
 
+    /*
+    The main game engine loop. Each invocation of the loop is considered a "tick".
+    On each tick, the engine performs the following operations:
+        - Detect the currently pressed key on the keyboard
+        - Move the player character (no movement if no movement keys are pressed)
+        - On every other tick, move any items (in the current level) that have pathing 
+          specified for them
+        - Animate items in the current level by advancing them to the next animation
+          frame
+        - Animate any static objects in the current level (like fans, gears, etc.)
+        - Detect any player x item collisions and process them accordingly
+        - Process keyboard events in the current level (e.g., player activating
+          a switch)
+        - Check if the current level is cleared. If so, load the next level
+        - Flip the slow bit
+        - Detect if the player is alive
+        - Detect if the player has finished the game
+    There is a 100ms delay (a Sys.wait(100) call) between each tick so that key presses
+    and player movement are more fluid and not "instantaneous"
+
+    Once the player dies or finishes the game, we exit out of the tick loop and
+    display a proper text window to the player.
+    */
     method void run() {
         var char key;
         var boolean exit;
 
         let exit = false;
 
-        do blackScreen(false);
-        do DialogueManager.drawUI();
-        do DialogueManager.updateStatusBox(player.getHP());
-        do LevelManager.loadLevelOne();
-        
-        do LevelManager.loadNextLevel();
+        do blackScreen(true);
+        do LevelManager.loadWelcomeScreen();
 
-        do blackScreen(false);
-        do LevelManager.loadNextLevel();
         let itemCount = LevelManager.getItemCount();    
         do player.draw();
 
@@ -75,9 +100,10 @@ class Game {
             do LevelManager.animateTiles();
             do detectCollisions(player.getX(), player.getY());
             do LevelManager.processEvents(key);
-            if (LevelManager.winCondition()) {
-                do blackScreen(false);
-                do LevelManager.loadNextLevel();
+            if (LevelManager.winCondition()) {      // if current level is cleared
+                do blackScreen(false);              // clear the screen
+                do LevelManager.loadNextLevel();    
+                //  get the moving/interactable items from the new level
                 let itemCount = LevelManager.getItemCount();
                 do player.draw();
             }
@@ -91,6 +117,7 @@ class Game {
             }
         }
 
+        // if player died and game is over
         if (~player.isAlive()) {
             do player.erase();
             do Sys.wait(1500);
@@ -104,6 +131,7 @@ class Game {
             do Output.printString("and restart the game.");
         }
 
+        // if player finished the game
         if (LevelManager.gameOver()) {
             do DialogueManager.drawEndScreen();
             do Output.moveCursor(7, 28);
@@ -156,6 +184,7 @@ class Game {
         return;
     }
 
+    // detect any collisions with other items in the level
     method void detectCollisions(int x, int y) {
         var int i, type;
         var Item item;
@@ -163,10 +192,10 @@ class Game {
         let i = 0;
         while (i < itemCount) {
             let item = items[i];
-            if(item.collidesWith(x, y)) {
+            if(item.collidesWith(x, y)) { // if item collides with player
                 let type = item.getType();
                 do processCollision(item, type);
-                if (~(type = 3)) {
+                if (~(type = 3)) {  // if item type is 3
                     do item.dispose();
                     let items[i] = items[itemCount - 1];
                     let itemCount = itemCount - 1;
@@ -181,7 +210,6 @@ class Game {
         do Tiles.eraseTile(item.getX(), item.getY());
         do player.draw();
         if (typ = 1) {
-            do player.setKey(true);
             do LevelManager.processKeyCollision(item);
         }
         if ((typ = 3) & (item.isActive())) {
@@ -194,6 +222,7 @@ class Game {
         return;
     }
 
+    // turns the screen black partly/fully depending on the argument passed
     method void blackScreen(boolean full) {
         var Array screen;
         var int index;

@@ -28,6 +28,26 @@ class LevelTwo {
         return;
     }
 
+    function void dispose() {
+        var Item item;
+
+        do fanA.dispose();
+        do fanB.dispose();
+
+        do pipe0.dispose();
+        do pipe1.dispose();
+        do pipe2.dispose();
+        do pipe3.dispose();
+        do pipe4.dispose();
+        do pipe5.dispose();
+        do pipe6.dispose();
+        do pipe7.dispose();
+        do gearA.dispose();
+        do gearB.dispose();
+
+        return;
+    }
+
     function void loadLevel() {
         let itemCount = 0;
 
@@ -97,11 +117,11 @@ class LevelTwo {
         let playerX = player.getX();
         let playerY = player.getY();
 
-        if ((playerX = 4) & (playerY = 14)) {
+        if ((playerX = 4) & (playerY = 14) & (~cleared)) {
             let s = "Fix the pipes and retrieve the power cores.";
             do DialogueManager.printDialogueLineOne(s);
             do s.dispose();
-            let s = "Press [E] on the consoles to turn the pipes.";
+            let s = "Press [E] on the consoles to rotate the pipes.";
             do DialogueManager.printDialogueLineTwo(s);
             do s.dispose();
         }
@@ -110,23 +130,28 @@ class LevelTwo {
             if ((playerX = 22) & (playerY = 14) & (~consoleADone)) {
                 do pipe0.rotate();
                 do pipe1.rotate();
+                do Sys.wait(150);
             }
             if ((playerX = 26) & (playerY = 10) & (~consoleADone)) {
                 do pipe1.rotate();
                 do pipe2.rotate();
+                do Sys.wait(150);
             }
             if ((playerX = 44) & (playerY = 12) & (~consoleBDone)) {
                 do pipe3.rotate();
                 do pipe4.rotate();
+                do Sys.wait(150);
             }
             if ((playerX = 48) & (playerY = 12) & (~consoleBDone)) {
                 do pipe4.rotate();
                 do pipe5.rotate();
                 do pipe6.rotate();
+                do Sys.wait(150);
             }
             if ((playerX = 54) & (playerY = 16) & (~consoleCDone)) {
                 do pipe6.rotate();
                 do pipe7.rotate();
+                do Sys.wait(150);
             }
 
             do LevelTwo.checkPipes();
@@ -276,7 +301,7 @@ class LevelTwo {
         do Pipe.loadPipeTile(tile, 2);
 
         do Tiles.drawTile(10, 0, tile);
-        do Tiles.buildTiles(20, 28, 0, false, true, tile);
+        do Tiles.buildTiles(20, 28, 0, true, tile);
         do Tiles.drawTile(38, 0, tile);
 
         do Tiles.drawTile(0, 2, tile);
@@ -285,7 +310,7 @@ class LevelTwo {
         do Tiles.drawTile(46, 2, tile);
         do Tiles.drawTile(48, 2, tile);
 
-        do Tiles.buildTiles(26, 34, 4, true, true, tile);
+        do Tiles.buildTiles(26, 34, 4, true, tile);
         
         do Tiles.drawTile(48, 6, tile);
         do Tiles.drawTile(50, 6, tile);
@@ -314,7 +339,7 @@ class LevelTwo {
         do Pipe.loadPipeTile(tile, 4);
 
         do Tiles.drawTile(2, 0, tile);
-        do Tiles.buildTiles(0, 4, 44, true, false, tile);
+        do Tiles.buildTiles(0, 4, 44, false, tile);
 
         do Tiles.drawTile(12, 2, tile);
         do Tiles.drawTile(18, 2, tile);
@@ -403,7 +428,7 @@ class LevelTwo {
         do Tiles.drawTile(10, 2, tile);
         do Tiles.drawTile(14, 2, tile);
         do Tiles.drawTile(16, 2, tile);
-        do Tiles.buildTiles(20, 28, 2, false, true, tile);
+        do Tiles.buildTiles(20, 28, 2, true, tile);
         do Tiles.drawTile(32, 2, tile);
         do Tiles.drawTile(34, 2, tile);
 
@@ -411,8 +436,8 @@ class LevelTwo {
         do Tiles.drawTile(4, 4, tile);
         do Tiles.drawTile(8, 4, tile);
         do Tiles.drawTile(14, 4, tile);
-        do Tiles.buildTiles(4, 8, 20, false, false, tile);
-        do Tiles.buildTiles(4, 8, 22, false, false, tile);
+        do Tiles.buildTiles(4, 8, 20, false, tile);
+        do Tiles.buildTiles(4, 8, 22, false, tile);
         
         return;
     }
@@ -421,7 +446,7 @@ class LevelTwo {
         do Tiles.loadQuadWallTile(tile);
         do Tiles.drawTile(52, 0, tile);
         do Tiles.drawTile(54, 0, tile);
-        do Tiles.buildTiles(58, 62, 0, true, true, tile);
+        do Tiles.buildTiles(58, 62, 0, true, tile);
         return;
     }
         
@@ -446,9 +471,9 @@ class LevelTwo {
     
     function void drawControlRoom() {
         do GeneratorTiles.loadSquareWallTile(tile);
-        do Tiles.buildTiles(0, 18, 6, false, true, tile);
-        do Tiles.buildTiles(8, 14, 0, true, false, tile);
-        do Tiles.buildTiles(8, 14, 18, true, false, tile);
+        do Tiles.buildTiles(0, 18, 6, true, tile);
+        do Tiles.buildTiles(8, 14, 0, false, tile);
+        do Tiles.buildTiles(8, 14, 18, false, tile);
 
         do GeneratorTiles.loadComponentOne(tile, 1);
         do Tiles.drawTile(6, 8, tile);
@@ -475,7 +500,7 @@ class LevelTwo {
         do Tiles.drawTile(12, 10, tile);
 
         do GeneratorTiles.loadWires(tile);
-        do Tiles.buildTiles(2, 16, 12, true, true, tile);
+        do Tiles.buildTiles(2, 16, 12, true, tile);
 
         do Tiles.eraseTile(6, 12);
         do Tiles.eraseTile(12, 12);
@@ -495,15 +520,15 @@ class LevelTwo {
             do Tiles.loadBlankTile(tile);
         }
 
-        do Tiles.buildTiles(38, 42, 4, false, true, tile);
-        do Tiles.buildTiles(32, 42, 6, false, true, tile);
-        do Tiles.buildTiles(32, 44, 8, false, true, tile);
+        do Tiles.buildTiles(38, 42, 4, true, tile);
+        do Tiles.buildTiles(32, 42, 6, true, tile);
+        do Tiles.buildTiles(32, 44, 8, true, tile);
         do Tiles.drawTile(48, 8, tile);
         do Tiles.drawTile(50, 8, tile);
-        do Tiles.buildTiles(32, 50, 10, false, true, tile);
-        do Tiles.buildTiles(38, 48, 12, false, true, tile);
-        do Tiles.buildTiles(38, 42, 14, false, true, tile);
-        do Tiles.buildTiles(46, 50, 14, false, true, tile);
+        do Tiles.buildTiles(32, 50, 10, true, tile);
+        do Tiles.buildTiles(38, 48, 12, true, tile);
+        do Tiles.buildTiles(38, 42, 14, true, tile);
+        do Tiles.buildTiles(46, 50, 14, true, tile);
         do Tiles.drawTile(38, 16, tile);
         do Tiles.drawTile(40, 16, tile);
 
@@ -520,12 +545,12 @@ class LevelTwo {
         do Tiles.drawTile(54, 14, tile);
         do Tiles.drawTile(56, 14, tile);
         do Tiles.drawTile(54, 16, tile);
-        do Tiles.buildTiles(46, 56, 18, false, true, tile);
-        do Tiles.buildTiles(46, 56, 20, false, true, tile);
-        do Tiles.buildTiles(48, 62, 22, false, true, tile);
+        do Tiles.buildTiles(46, 56, 18, true, tile);
+        do Tiles.buildTiles(46, 56, 20, true, tile);
+        do Tiles.buildTiles(48, 62, 22, true, tile);
         do Tiles.drawTile(48, 24, tile);
         do Tiles.drawTile(50, 24, tile);
-        do Tiles.buildTiles(54, 62, 24, false, true, tile);
+        do Tiles.buildTiles(54, 62, 24, true, tile);
         
         return;
     }
@@ -538,19 +563,23 @@ class LevelTwo {
             do Tiles.loadBlankTile(tile);
         }
         do Tiles.drawTile(52, 2, tile);
-        do Tiles.buildTiles(46, 52, 4, false, true, tile);
-        do Tiles.buildTiles(2, 10, 54, false, false, tile);
-        do Tiles.buildTiles(2, 10, 56, false, false, tile);
-        do Tiles.buildTiles(2, 10, 58, false, false, tile);
-        do Tiles.buildTiles(2, 18, 60, false, false, tile);
-        do Tiles.buildTiles(2, 18, 62, false, false, tile);
+        do Tiles.buildTiles(46, 52, 4, true, tile);
+        do Tiles.buildTiles(2, 10, 54, false, tile);
+        do Tiles.buildTiles(2, 10, 56, false, tile);
+        do Tiles.buildTiles(2, 10, 58, false, tile);
+        do Tiles.buildTiles(2, 18, 60, false, tile);
+        do Tiles.buildTiles(2, 18, 62, false, tile);
 
         return;
     }
 
     function void updateMap() {
+        do LevelManager.updateMap(0, 14);
+        do LevelManager.updateMapBulk(0, 18, 12, true);
+        do LevelManager.updateMap(18, 14);
         do LevelManager.updateMapBulk(20, 24, 10, true);
         do LevelManager.updateMap(22, 12);
+        do LevelManager.updateMapBulk(26, 34, 4, true);
         do LevelManager.updateMapBulk(4, 8, 24, false);
         do LevelManager.updateMapBulk(0, 4, 36, false);
         do LevelManager.updateMap(38, 0);
@@ -569,6 +598,7 @@ class LevelTwo {
         do LevelManager.updateMap(46, 22);
         do LevelManager.updateMap(46, 24);
         do LevelManager.updateMapBulk(44, 52, 6, true);
+        do LevelManager.updateMap(44, 4);
         do LevelManager.updateMap(46, 8);
         do LevelManager.updateMapBulk(8, 14, 52, false);
         do LevelManager.updateMap(50, 12);

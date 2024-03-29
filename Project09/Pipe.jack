@@ -14,6 +14,12 @@ class Pipe {
         return this;
     }
 
+    method void dispose() {
+        do tileP.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
     method void draw() {
         do Tiles.drawTile(x, y, tileP);
         return;

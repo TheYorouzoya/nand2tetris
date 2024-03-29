@@ -20,6 +20,13 @@ class Skull {
         return this;
     }
 
+    method void dispose() {
+        do fireball.dispose();
+        do tile.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
     method void initializeFireball(int bound) {
         var int iX, iY;
         let wallX = x;

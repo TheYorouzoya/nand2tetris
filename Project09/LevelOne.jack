@@ -4,7 +4,8 @@ class LevelOne {
     static int itemCount;
     static Player player;
     static Gear left, right;
-    static boolean cleared;
+    static boolean dialogueEventA, dialogueEventB;
+    static boolean cleared, end;
 
     function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Player Aplr) {
         let tile = Atile;
@@ -14,6 +15,9 @@ class LevelOne {
         let player = Aplr;
         let itemCount = 0;
         let cleared = false;
+        let end = false;
+        let dialogueEventA = false;
+        let dialogueEventB = false;
         let left = Gear.new(40, 6, 1, 1, false);
         let right = Gear.new(46, 6, 1, 1, false);
 
@@ -27,10 +31,27 @@ class LevelOne {
         return;
     }
 
+    function void dispose() {
+        var Item item;
+        var int i;
+
+        let i = 0;
+
+        do left.dispose();
+        do right.dispose();
+        
+        while(i < 3) {
+            let item = items[i];
+            do item.dispose();
+            let i = i + 1;
+        } 
+        return;
+    }
+
     function void loadLevel() {
         let itemCount = 0;
 
-        do player.setPosition(0, 22);
+        do player.setPosition(62, 20);
 
         do LevelOne.loadMap();
 
@@ -42,13 +63,14 @@ class LevelOne {
         do LevelManager.updateMap(36, 14);
 
         do Tiles.loadDoorKeeper(tile);
-        do Tiles.drawTile(8, 18, tile);
-        do LevelManager.updateMap(8, 18);
+        do Tiles.drawTile(10, 18, tile);
+        do LevelManager.updateMap(10, 18);
 
         return;
     }
 
     function void loadLevelCompleted() {
+        let cleared = true;
         do LevelOne.loadMap();
         do player.setPosition(0, 22);
 
@@ -73,6 +95,9 @@ class LevelOne {
         do LevelOne.drawDungeon();
         do LevelOne.drawWalls();
         do LevelOne.drawGenerator();
+        do LevelOne.updateMap();
+        do DialogueManager.drawUI();
+        do DialogueManager.updateStatusBox(player.getHP());
 
         do DungeonTiles.loadLeftGateClosed(tile);
         do Tiles.drawTile(24, 10, tile);
@@ -96,14 +121,14 @@ class LevelOne {
 
         let x = player.getX();
         let y = player.getY();
-        if ((x = 6) & (y = 18)) {
+        if ((x = 6) & (y = 18) & (dialogueEventA)) {
             return true;
         }
         return false;
     }
 
     function boolean newWinCondition() {
-        return false;
+        return end;
     }
 
     function void processEvents(int key) {
@@ -111,9 +136,9 @@ class LevelOne {
         var String s;
         let x = player.getX();
         let y = player.getY();
-        if ((x = 34) & (y = 14)) {
+        if (((x = 34) & (y = 14)) | ((x = 36) & (y = 16))) {
             if (~cleared) {
-                let s = "The generator is broken. We must fix it.";
+                let s = "The generator is down. We must fix it.";
                 do DialogueManager.printDialogueLineOne(s);
                 do s.dispose();
                 let s = "Go talk to the engineer over there.";
@@ -127,7 +152,45 @@ class LevelOne {
             }
         }
 
-        if (cleared) {
+        if ((~cleared) & (y = 18) & ((x = 8) | (x = 12))) {
+            if (~dialogueEventA) {
+                let s = "The reactor has powered down due to the recent";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+
+                let s = "earthquake shaking up the plumbing.";
+                do DialogueManager.printDialogueLineTwo(s);
+                do s.dispose();
+
+                do Sys.wait(3000);
+                let dialogueEventA = true;
+            }
+
+            let s = "We'll need to fix the pipes to get the";
+            do DialogueManager.printDialogueLineOne(s);
+            do s.dispose();
+
+            let s = "pump working again. Let's go.";
+            do DialogueManager.printDialogueLineTwo(s);
+            do s.dispose();
+
+            do Tiles.loadOpenDoorTile(tile);
+            do Tiles.drawTile(6, 16, tile);
+        }
+
+        if ((y = 12) & (x > 23) & (x < 27)) {
+            if (cleared) {
+                let end = true;
+            }
+            else {
+                let s = "The doors to the dungeon are sealed shut.";
+                do DialogueManager.printDialogueLineOne(s);
+                do s.dispose();
+            }
+            
+        }
+
+        if (cleared & (~dialogueEventB)) {
             if ((y = 14) & (x > 23) & (x < 27)) {
                 let s = "Due to the generator being down for so long, the";
                 do DialogueManager.printDialogueLineOne(s);
@@ -147,7 +210,7 @@ class LevelOne {
                 do DialogueManager.printDialogueLineTwo(s);
                 do s.dispose();
 
-                do Sys.wait(3000);
+                do Sys.wait(4000);
 
                 let s = "Go inside and reboot the control device.";
                 do DialogueManager.printDialogueLineOne(s);
@@ -161,6 +224,8 @@ class LevelOne {
                 do DungeonTiles.loadRightGateOpen(tile);
                 do Tiles.drawTile(26, 10, tile);
                 do LevelManager.updateMap(26, 10);
+
+                let dialogueEventB = true;
             }
         }
 
@@ -189,17 +254,28 @@ class LevelOne {
         return itemCount;
     }
 
+    function void updateMap() {
+        do LevelManager.updateMapBulk(0, 12, 16, true);
+        do LevelManager.updateMapBulk(12, 16, 12, false);
+        do LevelManager.updateMapBulk(14, 22, 12, true);
+        do LevelManager.updateMapBulk(28, 36, 12, true);
+        do LevelManager.updateMapBulk(38, 62, 14, true);
+
+
+        return;
+    }
+
     function void drawPipes() {
         // Load the horizontal pipe tile and draw all pipes
         do Pipe.loadPipeTile(tile, 2);
-        do Tiles.buildTiles(0, 6, 0, false, true, tile);
+        do Tiles.buildTiles(0, 6, 0, true, tile);
         
         do Tiles.drawTile(0, 2, tile);
         do Tiles.drawTile(48, 2, tile);
         do Tiles.drawTile(50, 2, tile);
 
-        do Tiles.buildTiles(6, 14, 4, false, true, tile);
-        do Tiles.buildTiles(34, 42, 4, false, true, tile);
+        do Tiles.buildTiles(6, 14, 4, true, tile);
+        do Tiles.buildTiles(34, 42, 4, true, tile);
 
         do Tiles.drawTile(16, 6, tile);
         do Tiles.drawTile(12, 8, tile);
@@ -213,7 +289,7 @@ class LevelOne {
         do Tiles.drawTile(30, 0, tile);
         do Tiles.drawTile(38, 0, tile);
 
-        do Tiles.buildTiles(2, 6, 8, false, false, tile);
+        do Tiles.buildTiles(2, 6, 8, false, tile);
         do Tiles.drawTile(16, 2, tile);
         do Tiles.drawTile(22, 2, tile);
         
@@ -276,12 +352,12 @@ class LevelOne {
         do Tiles.loadFenceTile(tile);
 
         // draw the bottom left group
-        do Tiles.buildTiles(4, 14, 0, false, false, tile);
-        do Tiles.buildTiles(6, 14, 2, false, false, tile);
-        do Tiles.buildTiles(6, 14, 4, false, false, tile);
-        do Tiles.buildTiles(6, 14, 6, false, false, tile);
-        do Tiles.buildTiles(10, 14, 8, false, false, tile);
-        do Tiles.buildTiles(8, 18, 10, false, true, tile);
+        do Tiles.buildTiles(4, 14, 0, false, tile);
+        do Tiles.buildTiles(6, 14, 2, false, tile);
+        do Tiles.buildTiles(6, 14, 4, false, tile);
+        do Tiles.buildTiles(6, 14, 6, false, tile);
+        do Tiles.buildTiles(10, 14, 8, false, tile);
+        do Tiles.buildTiles(8, 18, 10, true, tile);
         do Tiles.drawTile(8, 12, tile);
         do Tiles.drawTile(10, 12, tile);
         do Tiles.drawTile(8, 14, tile);
@@ -292,36 +368,36 @@ class LevelOne {
         do Tiles.drawTile(6, 2, tile);
         do Tiles.drawTile(10, 6, tile);
         do Tiles.drawTile(12, 6, tile);
-        do Tiles.buildTiles(10, 14, 0, false, true, tile);
-        do Tiles.buildTiles(10, 14, 2, false, true, tile);
-        do Tiles.buildTiles(0, 4, 18, false, false, tile);
+        do Tiles.buildTiles(10, 14, 0, true, tile);
+        do Tiles.buildTiles(10, 14, 2, true, tile);
+        do Tiles.buildTiles(0, 4, 18, false, tile);
         do Tiles.drawTile(20, 0, tile);
         do Tiles.drawTile(20, 2, tile);
 
-        do Tiles.buildTiles(24, 28, 0, false, true, tile);
+        do Tiles.buildTiles(24, 28, 0, true, tile);
         do Tiles.drawTile(24, 2, tile);
         do Tiles.drawTile(26, 2, tile);
 
-        do Tiles.buildTiles(32, 36, 0, false, true, tile);
+        do Tiles.buildTiles(32, 36, 0, true, tile);
         do Tiles.drawTile(32, 2, tile);
         do Tiles.drawTile(34, 2, tile);
         do Tiles.drawTile(34, 6, tile);
-        do Tiles.buildTiles(32, 36, 10, false, true, tile);
+        do Tiles.buildTiles(32, 36, 10, true, tile);
 
-        do Tiles.buildTiles(40, 44, 0, false, true, tile);
-        do Tiles.buildTiles(40, 44, 2, false, true, tile);
-        do Tiles.buildTiles(46, 50, 4, false, true, tile);
-        do Tiles.buildTiles(48, 52, 0, false, true, tile);
+        do Tiles.buildTiles(40, 44, 0, true, tile);
+        do Tiles.buildTiles(40, 44, 2, true, tile);
+        do Tiles.buildTiles(46, 50, 4, true, tile);
+        do Tiles.buildTiles(48, 52, 0, true, tile);
         do Tiles.drawTile(50, 6, tile);
         do Tiles.drawTile(50, 8, tile);
         do Tiles.drawTile(50, 12, tile);
         do Tiles.drawTile(52, 12, tile);
 
-        do Tiles.buildTiles(0, 12, 54, false, false, tile);
-        do Tiles.buildTiles(0, 12, 56, false, false, tile);
-        do Tiles.buildTiles(2, 12, 58, false, false, tile);
-        do Tiles.buildTiles(0, 12, 60, false, false, tile);
-        do Tiles.buildTiles(0, 12, 62, false, false, tile);
+        do Tiles.buildTiles(0, 12, 54, false, tile);
+        do Tiles.buildTiles(0, 12, 56, false, tile);
+        do Tiles.buildTiles(0, 12, 58, false, tile);
+        do Tiles.buildTiles(0, 12, 60, false, tile);
+        do Tiles.buildTiles(0, 12, 62, false, tile);
 
         return;
     }
@@ -331,7 +407,7 @@ class LevelOne {
         do Tiles.drawTile(20, 4, tile);
 
         do DungeonTiles.loadWallTile(tile, 2);
-        do Tiles.buildTiles(22, 28, 4, false, true, tile);
+        do Tiles.buildTiles(22, 28, 4, true, tile);
 
         do DungeonTiles.loadWallTile(tile, 3);
         do Tiles.drawTile(30, 4, tile);
@@ -341,7 +417,7 @@ class LevelOne {
         do Tiles.drawTile(20, 8, tile);
 
         do Tiles.loadWhiteTile(tile);
-        do Tiles.buildTiles(22, 28, 6, false, true, tile);
+        do Tiles.buildTiles(22, 28, 6, true, tile);
         do Tiles.drawTile(22, 8, tile);
         do Tiles.drawTile(28, 8, tile);
 
@@ -366,20 +442,18 @@ class LevelOne {
         do Tiles.loadTorchTile(tile);
         do Tiles.drawTile(22, 12, tile);
         do Tiles.drawTile(28, 12, tile);
-        do LevelManager.updateMap(22, 12);
-        do LevelManager.updateMap(28, 12);
         
         return;
     }
 
     function void drawWalls() {
         do Tiles.loadQuadWallTile(tile);
-        do Tiles.buildTiles(0, 10, 16, true, true, tile);
-        do Tiles.buildTiles(12, 16, 12, true, false, tile);
-        do Tiles.buildTiles(14, 20, 12, true, true, tile);
+        do Tiles.buildTiles(0, 10, 16, true, tile);
+        do Tiles.buildTiles(12, 16, 12, false, tile);
+        do Tiles.buildTiles(14, 20, 12, true, tile);
 
-        do Tiles.buildTiles(30, 36, 12, true, true, tile);
-        do Tiles.buildTiles(50, 62, 14, true, true, tile);
+        do Tiles.buildTiles(30, 36, 12, true, tile);
+        do Tiles.buildTiles(50, 62, 14, true, tile);
 
         do Tiles.eraseTile(6, 16);
         do Tiles.eraseTile(58, 14);
@@ -395,7 +469,7 @@ class LevelOne {
         do Tiles.drawTile(40, 8, tile);
         
         do GeneratorTiles.loadWallTile(tile, 2);
-        do Tiles.buildTiles(42, 46, 8, false, true, tile);
+        do Tiles.buildTiles(42, 46, 8, true, tile);
 
         do GeneratorTiles.loadWallTile(tile, 3);
         do Tiles.drawTile(48, 8, tile);
@@ -410,7 +484,7 @@ class LevelOne {
         do Tiles.drawTile(40, 12, tile);
 
         do GeneratorTiles.loadWallTile(tile, 8);
-        do Tiles.buildTiles(42, 46, 12, false, true, tile);
+        do Tiles.buildTiles(42, 46, 12, true, tile);
 
         do GeneratorTiles.loadWallTile(tile, 9);
         do Tiles.drawTile(48, 12, tile);
@@ -430,25 +504,20 @@ class LevelOne {
         if (~cleared) {
             do GeneratorTiles.loadCircleBottom(tile);
             do Tiles.drawTile(38, 14, tile);
-            do LevelManager.updateMap(38, 14);
         }
         else {
             do GeneratorTiles.loadEnergyOrb(tile);
             do Tiles.drawTile(38, 14, tile);
-            do LevelManager.updateMap(38, 14);
-
         }
         
         do GeneratorTiles.loadBeltTile(tile, 1);
         do Tiles.drawTile(40, 14, tile);
-        do LevelManager.updateMap(40, 14);
 
         do GeneratorTiles.loadBeltTile(tile, 2);
-        do Tiles.buildTiles(42, 46, 14, true, true, tile);
+        do Tiles.buildTiles(42, 46, 14, true, tile);
 
         do GeneratorTiles.loadBeltTile(tile, 3);
         do Tiles.drawTile(48, 14, tile);
-        do LevelManager.updateMap(48, 14);
         
         return;
     }

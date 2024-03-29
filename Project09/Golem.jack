@@ -24,6 +24,25 @@ class Golem {
         return this;
     }
 
+    method void dispose() {
+        var int i;
+        var Item item;
+        
+        let i = 0;
+
+        while(i < 5) {
+            let item = fireballs[i];
+            do item.dispose();
+            let i = i + 1;
+        }
+        
+        do fireballs.dispose();
+        do tile.dispose();
+        do Memory.deAlloc(this);
+        
+        return;
+    }
+
     method void tick(int playerX, int playerY, Player player) {
         var int i;
         var Item fireball;
@@ -53,12 +72,13 @@ class Golem {
                     let counter = 0;
                 }
             }
-            if (collidesWith(playerX, playerY)) {
-                do player.takeDamage();
-                do player.respawn();
-            }
             let i = i + 1;
             let counter = counter + 1;
+        }
+
+        if (collidesWith(playerX, playerY)) {
+                do player.takeDamage();
+                do player.respawn();
         }
         return;
     }

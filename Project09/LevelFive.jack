@@ -16,6 +16,17 @@ class LevelFive {
         return;
     }
 
+    function void dispose() {
+        var Item item;
+        let item = items[0];
+
+        do item.dispose();
+        do golem.dispose();
+        do engineer.dispose();
+
+        return;
+    }
+
     function void loadLevel() {
         var String s;
         do player.setPosition(0, 12);
@@ -113,17 +124,17 @@ class LevelFive {
         do Tiles.drawTile(46, 22, tile);
 
         do Pipe.loadPipeTile(tile, 2);
-        do Tiles.buildTiles(48, 52, 2, false, true, tile);
-        do Tiles.buildTiles(48, 52, 22, false, true, tile);
+        do Tiles.buildTiles(48, 52, 2, true, tile);
+        do Tiles.buildTiles(48, 52, 22, true, tile);
         do Tiles.drawTile(52, 4, tile);
         do Tiles.drawTile(52, 20, tile);
-        do Tiles.buildTiles(10, 14, 62, false, false, tile);
+        do Tiles.buildTiles(10, 14, 62, false, tile);
 
         do Pipe.loadPipeTile(tile, 4);
         do Tiles.drawTile(46, 0, tile);
         do Tiles.drawTile(50, 0, tile);
-        do Tiles.buildTiles(56, 60, 8, false, true, tile);
-        do Tiles.buildTiles(56, 60, 16, false, true, tile);
+        do Tiles.buildTiles(56, 60, 8, true, tile);
+        do Tiles.buildTiles(56, 60, 16, true, tile);
         do Tiles.drawTile(46, 24, tile);
         do Tiles.drawTile(50, 24, tile);
 
@@ -140,9 +151,9 @@ class LevelFive {
         do Tiles.drawTile(54, 18, tile);
 
         do DungeonTiles.loadWallTile(tile, 2);
-        do Tiles.buildTiles(56, 62, 0, false, true, tile);
-        do Tiles.buildTiles(56, 62, 18, false, true, tile);
-        do Tiles.buildTiles(0, 42, 22, false, true, tile);
+        do Tiles.buildTiles(56, 62, 0, true, tile);
+        do Tiles.buildTiles(56, 62, 18, true, tile);
+        do Tiles.buildTiles(0, 42, 22, true, tile);
 
         do DungeonTiles.loadWallTile(tile, 3);
         do Tiles.drawTile(44, 22, tile);
@@ -162,20 +173,20 @@ class LevelFive {
         do Tiles.drawTile(54, 24, tile);
 
         do DungeonTiles.loadWallTile(tile, 8);
-        do Tiles.buildTiles(0, 42, 2, false, true, tile);
-        do Tiles.buildTiles(56, 62, 6, false, true, tile);
-        do Tiles.buildTiles(56, 62, 24, false, true, tile);
+        do Tiles.buildTiles(0, 42, 2, true, tile);
+        do Tiles.buildTiles(56, 62, 6, true, tile);
+        do Tiles.buildTiles(56, 62, 24, true, tile);
 
         do DungeonTiles.loadWallTile(tile, 9);
         do Tiles.drawTile(44, 2, tile);
 
         do Tiles.loadWhiteTile(tile);
-        do Tiles.buildTiles(0, 42, 0, false, true, tile);
-        do Tiles.buildTiles(0, 42, 24, false, true, tile);
-        do Tiles.buildTiles(56, 62, 2, false, true, tile);
-        do Tiles.buildTiles(56, 62, 4, false, true, tile);
-        do Tiles.buildTiles(56, 62, 20, false, true, tile);
-        do Tiles.buildTiles(56, 62, 22, false, true, tile);
+        do Tiles.buildTiles(0, 42, 0, true, tile);
+        do Tiles.buildTiles(0, 42, 24, true, tile);
+        do Tiles.buildTiles(56, 62, 2, true, tile);
+        do Tiles.buildTiles(56, 62, 4, true, tile);
+        do Tiles.buildTiles(56, 62, 20, true, tile);
+        do Tiles.buildTiles(56, 62, 22, true, tile);
 
         return;
     }

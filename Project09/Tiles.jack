@@ -43,22 +43,16 @@ class Tiles {
         return;
     }
 
-    function void buildTiles(int r1, int r2, int ax, boolean flag, boolean axis, Array tile) {
+    function void buildTiles(int r1, int r2, int ax, boolean axis, Array tile) {
         var int i;
         let i = r1;
 
         while (~(r2 < i)) {
             if (axis) {
                 do Tiles.drawTile(i, ax, tile);
-                if (flag) {
-                    do LevelManager.updateMap(i, ax);
-                }
             }
             else {
                 do Tiles.drawTile(ax, i, tile);
-                if (flag) {
-                    do LevelManager.updateMap(ax, i);
-                }
             }
 
             let i = i + 2;
@@ -111,6 +105,13 @@ class Tiles {
         let tile[13] = r14;
         let tile[14] = r15;
         let tile[15] = r16;
+        return;
+    }
+
+    function void loadChainTile(Array tile) {
+        do Tiles.loadTile(tile, -3613, -3613, -3613, -3805, -3821, -1913, -881, 
+                            -113, -1649, -1649, -1137, -881, -1913, -3821, -3805, 
+                            -3613);
         return;
     }
 
