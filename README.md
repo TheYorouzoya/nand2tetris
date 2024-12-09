@@ -59,9 +59,46 @@ The VM in question is a stack-based VM which only supports a single data type: *
 
 The VM code follows the following syntax: `command segment index`
 
-The `command` here refers to one of the 4 command types above. The `segment` part refers to one of the virtual memory segments that the VM provides, and the `index` part is an offset into that memory segment. The `segment` and `index` parts may be omitted.
+The `command` here refers to one of the 4 command types above. The `segment` part refers to one of the virtual memory segments that the VM provides, and the `index` part is an offset into that memory segment. In certain cases, the `segment` and `index` parts may be omitted.
 
 ### VM Stack and Virtual Memory Segments
 
-The stack in this stack-based VM is maintained by a stack pointer stored at the very first location in RAM (address 0x0000). The assembler reserves a special keyword called `SP` to point to it. Think of it as a dedicated stack-pointer register (in fact, the assembler denotes the first 16 memory addresses with `R0` to `R15` as the 16 registers).
+The stack in this stack-based VM is maintained by a stack pointer stored at the very first location in RAM (address 0x0000). The assembler reserves a special keyword called `SP` to point to it. Think of it as a dedicated stack-pointer register (in fact, the assembler denotes the first 16 memory addresses with `R0` to `R15` as the 16 registers; mind you, there are no actual registers in the CPU's architecture). Upon initialization of the VM, we point this stack pointer to RAM location 0x0100 (256) to mark the start of the stack. During execution, the stack grows or shrinks appropriately.
 
+You might have noticed that there was no mention of function calls in the assembly language's specifications. That is because in the Hack system, function calls start on the VM level. To facilitate this, the VM provides access to different virtual memory segments via segment pointers. There are 8 such `segment` values:
+
+Segment | Assembly Mnemonic | RAM location | Role
+:-- | :--: | :--: | :--:
+argument | ARG | RAM[2] or 0x0002 | points to the segment containing the function arguments for the current function
+local | LCL | RAM[1] or 0x0001 | points to the segment containing the local variables declared in the current function
+static | Foo.i | RAM[16-255] or 0x0010 to 0x00ff | segment containing the entire program's static/global variables. For a vm file named `Foo.vm`, the Assembler will generate a unique label for each of the static variables encountered. This is what the `Foo.i` denotes, where `i` is the i'th variable in the file.
+constant | - | - | ***not a segment***. The VM uses this to push constant values onto the stack.
+this | THIS | RAM[3] or 0x0003 | 
+that | THAT | RAM[4] or 0x0004
+pointer | THIS/THAT | RAM[3]/RAM[4] or 0x0003/0x0004
+temp | temp i | RAM[5-12] or 0x0005 to 0x000c
+
+
+These segments will point to different parts of the stack during the execution of a program (except for the `static` and `temp` segments, which have a fixed size and location on the RAM).
+
+In modern hardware, these stack semantics are typically part of the assembly mnemonics themselves (take the `x86` for example). The segments are usually maintained via dedicated registers (like the `%rsp`) and different adderssing modes facilitate access into a segment.
+
+
+### Function Calls in the VM
+
+The VM provides the following three function-related primitives:
+- `function FUNCTION_NAME nVARS`
+- `call FUNCTION_NAME`
+- `return`
+
+Each VM function starts with a `function` command, and ends with a `return` command.
+
+In your typical modern implementation, primitive-type arguments are usually passed via registers (`%rsi`, `%rdi`, `%rdx`, etc.). Composite types are passed by pushing the appropriate pointer onto the stack before the function call. Upon return, the return value is typically stored in a dedicated register as well (`%rax` for example). The responsibility of saving and restoring the register context between function calls is shared among the hardware and the compiler.
+
+Our VM does a similar thing. During initialization (the first primitive), the VM inserts code to make space for all the local variables on the stack. The number of variables is denoted by the `nVars` value in the declaration. This value is actually calculated and placed there by the compiler.
+
+Upon encountering a function call statement (the second primitive in the list), we save the caller's stack frame context onto the stack before making the function call. Upon return, we store this context from the stack and continue execution. Here's a snapshot of the stack during a hypothetical execution (from the [original picture](./VMTranslator/Virtual%20Machine%20Translator.png)),
+
+![Image showing the state of the VM stack on the RAM during a function call](./docimages/function-call.png)
+
+The responsibility of pushing the function arguments and the return value onto the stack lies with the compiler. Meanwhile, the VM Translater generates code to save and restore the context.
