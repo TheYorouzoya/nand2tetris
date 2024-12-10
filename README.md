@@ -178,3 +178,71 @@ With this, one part of Jack's two-part compilation process is done. Now, let us 
 
 ## Jack Compiler
 
+Jack is a simple, Java-like, object-based programming language. It is designed to lend itself nicely to common compilation techniques. It is weakly typed and features only 3 primitive data types, but provides access to user-defined data types via objects. Let's start with an example Jack program, and then we'll list the language grammar and specfications.
+
+```Java
+/** Inputs a sequence of integers, and computes their average. */
+class Main {
+    function void main() {
+        var Array a;        // Jack arrays are not typed
+        var int length;
+        var int i, sum;
+        
+        let i = 0;
+        let sum = 0;
+        let length = Keyboard.readInt("How many numbers? ");
+        let a = Array.new(length);  // constructs the array
+        
+        while (i < length) {
+            let a[i] = Keyboard.readInt("Enter a number: ");
+            let sum = sum + a[i];
+            let i = i + 1;
+        }
+
+        do Output.printString("The average is: ");
+        do Output.printInt(sum / length);
+        do Output.println();
+        return;
+    }
+}
+```
+As you can see, we've got *classes*, *methods*, *functions*, *variables*, *arrays*, *expressions*, *comments*, *I/O*, and *strings* (I/O, arrays, and strings are actually provided by the Jack OS library, which we'll discuss later). It is not nearly as powerful as a real language, but it's got enough substance to it.
+
+### Jack Syntax
+
+A Jack program is a sequence of tokens, separated by an arbitrary amount of white space and comments. Tokens can be cymbols, reserved words, constants, and identifiers. Here's a full list:
+
+**1. White space and comments**:
+Space characters, newline characters, and comments are ignored, but the following comment formats are supported:
+- `// Comment to the end of line`
+- `/* Comment until closing */`
+- `/** Comment aimed at software tolls that extract API documentation. */`
+
+**2. Symbols**:
+- `()`: Used for grouping arithmetic expressions and for enclosing argument-lists (in subroutine calls) and parameter-lists (in subroutine declarations)
+- `[]`: Used for array indexing
+- `{}`: Used for grouping program units and statements
+- `,`: Variable-list separator
+- `;`: Statement terminator
+- `=`: Assignmment and comparison operator
+- `.`: Class membership
+- `+`, `-`, `*`, `/`. `&`, `|`, `~`, `<`, `>` Operators
+
+**3. Reserved words**:
+- Program Components: `class`, `constructor`, `method`, `function`
+- Primitive types: `int`, `boolean`, `char`, `void`
+- Variable declarations: `var`, `static`, `field`
+- Statements: `let`, `do`, `if`, `else`, `while`, `return`
+- Constant values: `true`, `false`, `null`
+- Object reference: `this`
+
+**4. Constants**:
+- ***Integer Constants*** are values in the range 0 to 32767. Negative integers are not constants but rather expressions consisting of a unary minus operator applied to an integer constant. The resulting valid range of values i -32768 to 32767 (the former can be obtained using the expression -32767-1).
+- ***String Constants*** are enclosed within double quote `"` characters and may contain any character except newline or double quote. These characters are supplied by the OS functions `String.newLine()` and `String.doubleQuote()`.
+- ***Boolean Constants*** are `true` and `false`.
+- The `null` constant signifies a null reference.
+
+**5. Identifiers**:
+- Identifiers are composed from arbitrarily long sequences of letters (A-Z, a-z), digits (0-9), and "_" (underscore). The first character must either be a letter or "_".
+- The language is case sensitive: `x` and `X` are treated as different identifiers.
+
