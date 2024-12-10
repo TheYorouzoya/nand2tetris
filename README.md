@@ -79,7 +79,7 @@ pointer | THIS/THAT | RAM[3]/RAM[4] or 0x0003/0x0004 | used by the compiler to r
 temp | temp i | RAM[5-12] or 0x0005 to 0x000c | used by the compiler to temporarily store intermediate computations
 
 
-These segments will point to different parts of the stack during the execution of a program (except for the `static` and `temp` segments, which have a fixed size and location on the RAM).
+These segments will point to different parts of the stack during the execution of a program (except for the `static` and `temp` segments, which have a fixed size and location on the RAM). Together, they encompass the currently executing function's stack frame.
 
 In modern hardware, these stack semantics are typically part of the assembly mnemonics themselves (take the `x86` for example). The segments are usually maintained via dedicated registers (like the `%rsp`) and different adderssing modes facilitate access into a segment.
 
@@ -97,7 +97,7 @@ In your typical modern implementation, primitive-type arguments are usually pass
 
 Our VM does a similar thing. During initialization (the first primitive), the VM inserts code to make space for all the local variables on the stack. The number of variables is denoted by the `nVars` value in the declaration. This value is actually calculated and placed there by the compiler.
 
-Upon encountering a function call statement (the second primitive in the list), we save the caller's stack frame context onto the stack before making the function call. The `nVars` value is inserted by the compiler after it pushes the required arguments on the stack. Upon return, we restore this context from the stack and continue execution. Here's a snapshot of the stack during a hypothetical execution,
+Upon encountering a function call statement (the second primitive in the list), we save the caller's stack frame context onto the stack before making the function call. The `nArgs` value is inserted by the compiler after it pushes the required arguments on the stack. Upon return, we restore this context from the stack and continue execution. Here's a snapshot of the stack during a hypothetical execution,
 
 ![Image showing the state of the VM stack on the RAM during a function call](./docimages/function-call.png)
 
@@ -123,7 +123,7 @@ The responsibility of pushing the function arguments and the return value onto t
     - assign another temporary variable `returnAdd` to hold the return address stored at `frame - 5`.
     - reposition the function's return value, which is currently stored at the top of the stack, to where the calling function's stack would begin, i.e., at start of the current `ARG` segment (since that's where our caller pushed the arguments before making the function call).
     - reposition the stack pointer just past this `ARG` base value, i.e., `ARG + 1`, effectively destroying the current function's call stack and reclaiming memory.
-    - restore the `ARG`, `LCL`, `THIS`, and `THAT` segments for the calling function by pulling them from the `frame` variable as follows:
+    - restore the `ARG`, `LCL`, `THIS`, and `THAT` segment base address values for the calling function by pulling them from the `frame` variable as follows:
         - `THAT = frame - 1`
         - `THIS = frame - 2`
         - `ARG = frame - 3`
@@ -147,7 +147,7 @@ The translation process usually involves juggling the data between the A-registe
 ```
 @segment    // select the segment's base RAM location (base register)
 D=M         // dereference to get the base pointer's address and store 
-            //into D-register
+            // into D-register
 @index      // store the segment offset (a constant value) into the A-register
 A=D+A       // advance the segement pointer by this offset value to get to the 
             // required address
