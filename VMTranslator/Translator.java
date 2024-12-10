@@ -312,7 +312,7 @@ public class Translator {
      *          memory segments.
      */
     static String bootstrapCode() {
-        return "@261\n"
+        return "@256\n"
              + "D=A\n"
              + "@SP\n"
              + "M=D\n"
