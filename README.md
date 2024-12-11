@@ -326,7 +326,7 @@ As the Tokenizer makes its way through the input file, it sends each token strin
 
 ### Compilation Engine
 
-While the output of the Tokenizer only gives us an array of Tokens, we still do not have a proper syntax tree yet. Since we're not doing any comprehensive error checking (as per the specifications) we can actually construct and parse the syntax tree at the same time in a recursive fashion. Think of it as a depth-first traversal of a graph (after all, trees are graphs in a way). We advance deeper and deeper into leaf nodes until we hit a dead-end, whereupon we backtrack and continue until we've parsed all the branches. The leaf nodes here correspond to atomic terms which cannot be broken down further, while the branches are your composite types.
+While the output of the Tokenizer only gives us an array of Tokens, we still do not have a proper syntax tree yet. Since we're not doing any comprehensive error checking (as per the specifications) we can actually construct and parse the syntax tree at the same time in a recursive fashion. Think of it as a depth-first traversal of a graph (after all, trees are graphs in a way). We advance deeper and deeper into nodes until we hit a dead-end (a leaf node), whereupon we backtrack and continue until we've parsed all the branches. The leaf nodes here correspond to atomic terms which cannot be broken down further, while the branches are your composite types.
 
 For example, the code
 ```JavaScript
