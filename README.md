@@ -373,7 +373,7 @@ whileStatement
 
 Think of our stream of tokens as a queue. The `currentToken` variable always stores the current token in the queue. The `advance()` method advances the queue to the next token, updating the value of `currentToken`. The compilation engine effectively calls `advance()` and `compileCurrentToken()` repeatedly until there are no more tokens left in the queue.
 
-`compileCurrentToken()` simply looks at the `currentToken` and calls the appropriate compilation subroutine. There are dedicated subroutines for each of the composite types. Just like how these composite types can be recursive and can contain nested levels of other types, our dedicated subroutines also call one other in such manner.
+`compileCurrentToken()` simply looks at the `currentToken` and calls the appropriate compilation subroutine. There are dedicated subroutines for each of the composite types. Just like how these composite types can be recursive and can contain nested levels of other types, our dedicated subroutines also call one another in such manner.
 
 This way, our function calls would map directly onto the syntax tree, meaning we are effectively generating and parsing the tree at the same time. For the above example, the calling chain would look liks this:
 
@@ -434,7 +434,7 @@ Each of the first four types correspond to a memory segment in the VM. The symbo
 
 The same case applies to the Subroutine Table, except that it is reset whenever the compiler gets to a new subroutine. Also, whenever the compiler processes a class method, it pushes an entry for an identifier by the name of `this` whose type corresponds to the current class' name. Later on, when the method is called via an object, the compiler will effectively "push" this entry as the first argument allowing access to the `this` keyword inside the method body.
 
-When the compiler encounters an identifier, it looks up its entry in the Subroutine Table. If it doesn't find it there, it then looks up the Class Table. If it doesn't find the entry there as well, it... well, it should stop compilation and return an error, telling the user there's an unidentified variable in the program. But since we're supposed to assume that the given programs are error-free, we simply keep on compiling instead (which makes this a not-so-smart compiler).
+When the compiler encounters an identifier, it looks up its entry in the Subroutine Table. If it doesn't find it there, it then looks for it in the Class Table. If it doesn't find the entry there as well, it... well, it should stop compilation and return an error, telling the user there's an unidentified variable in the program. But since we're supposed to assume that the given programs are error-free, we simply keep on compiling instead (which makes this a not-so-smart compiler).
 
 ### Function Calls and Returns
 
