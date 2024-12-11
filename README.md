@@ -244,7 +244,7 @@ Space characters, newline characters, and comments are ignored, but the followin
 - The `null` constant signifies a null reference.
 
 ### 5. Identifiers:
-- Identifiers are composed from arbitrarily long sequences of letters (A-Z, a-z), digits (0-9), and "_" (underscore). The first character must either be a letter or "_".
+- Identifiers are composed from arbitrarily long sequences of letters (A-Z, a-z), digits (0-9), and "\_" (underscore). The first character must either be a letter or "\_".
 - The language is case sensitive: `x` and `X` are treated as different identifiers.
 
 ## Jack Grammar
