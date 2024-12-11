@@ -180,7 +180,7 @@ With this, one part of Jack's two-part compilation process is done. Now, let us 
 
 Jack is a simple, Java-like, object-based programming language. It is designed to lend itself nicely to common compilation techniques. It is weakly typed and features only 3 primitive data types, but provides access to user-defined data types via objects. Let's start with an example Jack program, and then we'll list the language grammar and specfications.
 
-```Jack
+```JavaScript
 /** Inputs a sequence of integers, and computes their average. */
 class Main {
     function void main() {
@@ -206,9 +206,9 @@ class Main {
     }
 }
 ```
-As you can see, we've got *classes*, *methods*, *functions*, *variables*, *arrays*, *expressions*, *comments*, *I/O*, and *strings* (I/O, arrays, and strings are actually provided by the Jack OS library, which we'll discuss later). Jack is not nearly as powerful as a real language, but it's got enough substance to it.
+As you can see, we've got *classes*, *methods*, *functions*, *variables*, *arrays*, *expressions*, *comments*, *I/O*, and *strings* (I/O, arrays, and strings are actually provided by the Jack OS library, which we'll discuss later).
 
-## Jack Syntax
+## Syntax
 
 A Jack program is a sequence of tokens, separated by an arbitrary amount of white space and comments. Tokens can be symbols, reserved words, constants, and identifiers. Here's a list of these syntax elements:
 
@@ -251,10 +251,6 @@ Space characters, newline characters, and comments are ignored, but the followin
 
 With the lexical elements defined, let us move on to the grammar portion -- the program structure, statements, and expressions.
 
-### Progarm Structure
-
-A Jack program is a collection of classes, each appearing in a separate file. The compilation unit is a class, which is a sequence of tokens structured according to the following context free syntax:
-
 > *Grammar Conventions:* 
 > - `'x'`     : text that appears verbatim
 > - *x*       : lexical element
@@ -264,12 +260,16 @@ A Jack program is a collection of classes, each appearing in a separate file. Th
 > - *x**      : *x* appears 0 or more times
 > - *(x y)*   : grouping of *x* and *y*
 
+### Progarm Structure
+
+A Jack program is a collection of classes, each appearing in a separate file. The compilation unit is a class, which is a sequence of tokens structured according to the following context free syntax:
+
 Structure | Syntax
 :-- | :--:
 **class** | `'class'` className `'{'` classVarDec* subroutineDec* `'}'`
 **classVarDec** | (`'static'` \| `'field'`) type varName (`','`varName)* `';'`
 **type** | `'int'` \| `'char'` \| `'boolean'` \| className
-**subroutineDec** | (`'constructor'` \| `'function'` \| `'method'`) ('`void'`\|type) subroutineName `'('`parameterList`')'`subroutineBody
+**subroutineDec** | (`'constructor'` \| `'function'` \| `'method'`) ('`void'` \| type) subroutineName `'('`parameterList`')'`subroutineBody
 **parameterList** | ( (type varName) (`','`type varName)*)?
 **subroutineBody** | `'{'`varDec* statements`'}'`
 **varDec** | `'var'`type varName(`','`varName)*`';'`
@@ -300,3 +300,150 @@ Expression | Syntax
 **op** | `'+'` \| `'-'` \| `'*'` \| `'/'` \| `'&'` \| `'\|'` `'<'` \| `'>'` \| `'='`
 **unaryOp** | `'-'` \| `'~'`
 **KeywordConstant** | `'true'` \| `'false'` \| `'null'` \| `'this'`
+
+You can use the grammar convention guide to read how a particular entity is expressed. It should be apparent that these can also be recursive (so a `term` can contain an `expression` which can contain `term`s, and so on). Let's take the **expression** part as an example. According to the table, an expression is of type `term (op term)*`, that is, a term which is optionally followed by 0 or more groups of terms separated by operators. Looking at the specification for a `term`, you can see that it can take on a variety of values. So the expression `a = Array.new(length + 3);` is a term which consists of a `varName` (an identifier) followed by an `op` (operator), which is followed by a `subroutineCall` which itself has an `expression` nested inside its `expressionList`.
+
+## Compilation
+
+Our Jack compiler is written in Java. It performs the compilation process in two phases:
+1. Tokenize the given program text by, first, cleaning up all the whitespace and comments, and then generating a stream of parsed tokens.
+2. Perform a depth first traversal of the syntax tree and output the appropriate VM code as we go along.
+
+### Tokenization
+
+We use Java enums to store the different syntax elements and literals. For example, `Keywords.java` holds all the Jack language keywords in an enum. Similarly, the `VarKind.java` file stores the kinds of variables (static, field, argument, class, etc) found in Jack.
+
+The given program file(s) is sent to `Tokenizer.java` which eliminates all the whitespace and comments, and returns an array of individual tokens extracted from the program. We define token types as one of the following inside `Tokens.java`:
+- Keyword
+- Symbol
+- Identifier
+- Integer constant
+- String constant
+
+The `Token.java` file, on the other hand, defines a `Token` datatype, which breaks down a token into a token type and a token value field. It provides two constructors: one, where it consumes a string token, parses it, and extracts the token's type and value fields. The other is where the type and value fields can be instantiated directly.
+
+As the Tokenizer makes its way through the input file, it sends each token string to this Token class and stores the resulting Token object into a resizeable array (an ArrayDeque). Once the whole file is processed, the Tokenizer now holds the array of processed tokens and is ready to stream them to the CompilationEngine.
+
+### Compilation Engine
+
+While the output of the Tokenizer only gives us an array of Tokens, we still do not have a proper syntax tree yet. Since we're not doing any comprehensive error checking (as per the specifications) we can actually construct and parse the syntax tree at the same time in a recursive fashion. Think of it as a depth-first traversal of a graph (after all, trees are graphs in a way). We advance deeper and deeper into leaf nodes until we hit a dead-end, whereupon we backtrack and continue until we've parsed all the branches. The leaf nodes here correspond to atomic terms which cannot be broken down further, while the branches are your composite types.
+
+For example, the code
+```JavaScript
+while (count < 100) {
+    let count = count + 1;
+}
+```
+
+would break down to the following tree structure in the syntax tree:
+```
+whileStatement
+├── while
+├── (
+├── expression
+│   ├── term
+│   │   └── varName
+│   │       └── count
+│   ├── op
+│   │   └── <
+│   └── term
+│       └── constant
+│           └── 100
+├── )
+├── {
+├── statements
+│   └── statement
+│       └── letStatement
+│           ├── let
+│           ├── varName
+│           │   └── count
+│           ├── =
+│           ├── expression
+│           │   ├── term
+│           │   │   └── varName
+│           │   │       └── count
+│           │   ├── op
+│           │   │   └── +
+│           │   └── term
+│           │       └── constant
+│           │           └── 1
+│           └── ;
+└── }
+```
+
+Think of our stream of tokens as a queue. The `currentToken` variable always stores the current token in the queue. The `advance()` method advances the queue to the next token, updating the value of `currentToken`. The compilation engine effectively calls `advance()` and `compileCurrentToken()` repeatedly until there are no more tokens left in the queue.
+
+`compileCurrentToken()` simply looks at the `currentToken` and calls the appropriate compilation subroutine. There are dedicated subroutines for each of the composite types. Just like how these composite types can be recursive and can contain nested levels of other types, our dedicated subroutines also call one other in such manner.
+
+This way, our function calls would map directly onto the syntax tree, meaning we are effectively generating and parsing the tree at the same time. For the above example, the calling chain would look liks this:
+
+```
+compileWhile()
+├── compileExpression()
+│   ├── compileTerm()
+│   ├── compileOperator()
+│   └── compileTerm()
+├── compileStatements()
+│   └── compileLet()
+│       ├── compileExpression()
+│       │   ├── compileTerm()
+│       │   ├── compileOperator()
+│       │   └── compileTerm()
+```
+
+This is not the full call stack, though. There would be `advance()` and `compileCurrentToken()` calls interleaved with additional calls to compiling the integer constants (like the `100` in `count < 100`) or compiling identifiers.
+
+Now, notice how this call chain correlates with the grammar spec for a while statement: 
+
+`'while'` `'('`expression`')'` `'{'`statements`'}'`.
+
+This is what the Compilation Engine does on a fundamental level. Calls to each of the dedicated subroutines directly follow the language grammar specification as guidelines. Since each file corresponds to a particular class, we call the `compileClass()` to start the recursive call chain and the engine will fill in the output lines by calling the appropriate VMWriter functions at appropriate intervals.
+
+## VM Code Generation
+
+While parsing the syntax tree, the compiler also needs to do additional work to ensure that the program flow works according to the user's specifications. In our `while` statement example above, the compiler needs to ensure that proper branches are generated for the `while`'s condition expression so that the program control flow can escape the loop body once the value of `count` reaches 100. Furthermore, in the loop body, it has to make sure that the value of the `count` variable is updated properly.
+
+Mind you, our `let count = count + 1;` statement uses ***infix notation***, while our compilation target, the stack-based VM, uses ***postfix notation***. So our VM code might look like this,
+```
+push count
+push 1
+add
+pop count
+```
+
+This also brings up another question: ***Where does `count` belong?***
+
+Remember, our VM has virtual memory segments. The `push` and `pop` commands require a memory segment and an offset to index into the segment. Which segment does `count` belong to? Is it a local variable, a static variable, a function argument, or an object field varaible?
+
+### Symbol Tables
+
+To keep track of each of the identifiers in the program, the compiler keeps two symbol tables to lookup a variable's proper segment and offset value. Why two? It is because Jack effectively only has two scopes: class-level and subroutine-level. Since we do not have nested functions nor can we have an arbitrary block-level scope within code blocks, we'll only ever declare variables at the beginning of a class definition or a function definition. Each of our tables correspond to those scopes. If that weren't the case, we'd need multi-level symbol tables for each nested scope level.
+
+Our two symbol tables are the Class Table and the Subroutine Table. They are intialized as instances of the `SymbolTable` class. The Class Table is initialized once, and is only reset when the compiler moves on to the next class file. The table contains the class name, all of its field and static variables, as well as the class method names in it.
+
+As stored in the `VarKind` enum, any identifier in the program can be one of the following:
+- a static variable
+- a field variable
+- a local variable
+- a function argument variable
+- a class type name
+- a subroutine name
+- none of the above (i.e., undefined)
+
+Each of the first four types correspond to a memory segment in the VM. The symbol table updates this information when an identifier entry is first added to it. It also keeps track of a separate index counter for each of the segments (which also doubles as a counter to generate unique lables), and assigns the proper segment type and index value when an identifier entry is added to it.
+
+The same case applies to the Subroutine Table, except that it is reset whenever the compiler gets to a new subroutine. Also, whenever the compiler processes a class method, it pushes an entry for an identifier by the name of `this` whose type corresponds to the current class' name. Later on, when the method is called via an object, the compiler will effectively "push" this entry as the first argument allowing access to the `this` keyword inside the method body.
+
+When the compiler encounters an identifier, it looks up its entry in the Subroutine Table. If it doesn't find it there, it then looks up the Class Table. If it doesn't find the entry there as well, it... well, it should stop compilation and return an error, telling the user there's an unidentified variable in the program. But since we're supposed to assume that the given programs are error-free, we simply keep on compiling instead (which makes this a not-so-smart compiler).
+
+### Function Calls and Returns
+
+Thanks to our recursive structure, things like function calls and return values are easily sorted out. For a function call, the `compileExpressionList()` function returns the number of expressions it has compiled once it is done processing the list. The compiler can use this information to calculate how many arguments were passed to the function during the call. Not only that, since the arguments need to be pushed before the call itself, the recursive compilation of the argument list does exactly that. Once `compileExpressionList()` returns, the compiler takes the return value and makes the subroutine call.
+
+A similar phenomenon happens in case of return statements. Since return statements are of the form `return expression?;`, our recursive descent will end up compiling the return expression before processing the return keyword itself. The compilation of the expression will automatically push this return value onto the stack. The compiler only has to write the equivalent return VM statement. In case of void return types, we simply push a 0 onto the stack as the return value which then gets dumped by the caller.
+
+### Class Methods and Constructors
+
+You might remember we had a `pointer` segment in our VM which would point to either the `this` or `that` virtual memory segment. Since we always pass `this` (the Jack identifier, not the VM segment) as the first argument during a method call, the compiler uses this argument to set up the proper memory segment. Upon entering a method's body, the compiler immediately inserts VM code which effectively takes this first argument, pushes it onto the stack, and pops it into the `pointer` segment at index 0. The result is that the `this` memory segment (which is aliased by `pointer 0`) is now aligned with the base address of the calling object variable. All references to the calling object will now properly point to the correct location in memory.
+
+In the case of Constructors, the compiler needs to allocate enough memory for the class object. The amount of memory required is calculated automatically by the time all the class field variables are compiled and put into the Class Symbol Table. While compiling a Constructor, the compiler consults the current Class Table to get this number and calls the Jack OS library function `Memory.alloc()` with the proper size to get the required block of memory. It then aligns the base of the `this` segment (aliased by `pointer 0`) with this block, which is then returned to caller at the end of the Constructor as a `return this;` statement.

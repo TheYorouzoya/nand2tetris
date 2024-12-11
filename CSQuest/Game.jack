@@ -68,10 +68,10 @@ class Game {
         - Detect if the player is alive
         - Detect if the player has finished the game
     There is a 100ms delay (a Sys.wait(100) call) between each tick so that key presses
-    and player movement are more fluid and not "instantaneous"
+    and player movement are more fluid and not "too instantaneous"
 
     Once the player dies or finishes the game, we exit out of the tick loop and
-    display a proper text window to the player.
+    display a proper end game text window to the player.
     */
     method void run() {
         var char key;

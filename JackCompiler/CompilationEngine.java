@@ -544,7 +544,6 @@ public class CompilationEngine {
                         compileCurrentToken();
                         advance();
                         arguments += compileExpressionList();
-                        // System.out.println("Writing call: " + className + "." + subroutineName + " " + arguments);
                         writer.writeCall(className + "." + subroutineName, arguments);
                         compileCurrentToken();
                         advance();    

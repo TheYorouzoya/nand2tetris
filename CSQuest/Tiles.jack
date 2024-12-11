@@ -289,14 +289,7 @@ class Tiles {
     }
 
     function void loadWhiteTile(Array tile) {
-        var int i;
-
-        let i = 0;
-
-        while(i < 16) {
-            let tile[i] = 0;
-            let i = i + 1;
-        }
+        do Tiles.loadTile(tile, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         return;
     }
 }
