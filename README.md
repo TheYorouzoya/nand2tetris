@@ -19,7 +19,7 @@ Below is my arrangement for the Hack CPU circuitry as it was implemented in HDL.
 
 The point here is that *this is a really simple CPU*. None of the modern CPU magic (the pipelining, caches, memory controller, register files, functional units, etc.) is to be found here. So I hope this sets the proper precendence for what to expect out of the projects in this repo. On their own, they are quite simple, but when put together, they present the picture of what a marvel the modern computer is. With that, let us start with the first project, the [Hack Assembler](./HackAssembler/).
 
-## Hack Assembler
+# Hack Assembler
 
 The Hack Assembly language only consists of two kinds of instructions (i.e., there's only 1 bit for the op code): an ***A-instruction*** or a ***C-instruction***. Below are the instruction set mnemonics,
 
@@ -39,7 +39,7 @@ The assembler performs this by doing two passes over the program code -- one to 
 
 There are two main caveats here, though. The first, and probably the most egregious one, is that the assembler assumes that the given program is error-free. This was part of the specification, so no error-checking is performed and no useful feedback is given. If a line doesn't contain valid code, it is completely ignored. Now, for the second one. Because the Hack program for this course was to be run on a CPU emulator, the final output isn't a proper binary file but rather a text file where each line contains an instruction in 0s and 1s (the ASCII binary, as I like to call it). The emulator would consume this file and run the program.
 
-## VM Translator
+# VM Translator
 
 With the machinery and the interface (the assembler) done, we can now move on to building another layer of abstraction on top of this. Primarily because writing assembly is very time consuming and representing complex ideas in a high-level language is much easier.
 
@@ -49,7 +49,7 @@ This project covers the specifics of the Virtual Machine which'll sit on top of 
 
 ![Image showing all VM commands with their assembly translations](./VMTranslator/Virtual%20Machine%20Translator.png)
 
-### VM Commands
+## VM Commands
 
 The VM in question is a stack-based VM which only supports a single data type: *a 16-bit integer*. It provides the following 4 types of commands:
 - Basic commands: `push`, `pop`
@@ -61,7 +61,7 @@ The VM code follows the following syntax: `command segment index`
 
 The `command` here refers to one of the 4 command types above. The `segment` part refers to one of the virtual memory segments that the VM provides, and the `index` part is an offset into that memory segment. In certain cases, the `segment` and `index` parts may be omitted.
 
-### VM Stack and Virtual Memory Segments
+## VM Stack and Virtual Memory Segments
 
 The stack in this stack-based VM is maintained by a stack pointer stored at the very first location in RAM (address 0x0000). The assembler reserves a special keyword called `SP` to point to it. Think of it as a dedicated stack-pointer register (in fact, the assembler denotes the first 16 memory addresses with `R0` to `R15` as the 16 registers; mind you, there are no actual registers in the CPU's architecture). Upon initialization of the VM, we point this stack pointer to RAM location 0x0100 (256) to mark the start of the stack. During execution, the stack grows or shrinks appropriately.
 
@@ -84,7 +84,7 @@ These segments will point to different parts of the stack during the execution o
 In modern hardware, these stack semantics are typically part of the assembly mnemonics themselves (take the `x86` for example). The segments are usually maintained via dedicated registers (like the `%rsp`) and different adderssing modes facilitate access into a segment.
 
 
-### Function Calls in the VM
+## Function Calls in the VM
 
 The VM provides the following three function-related primitives:
 - `function FUNCTION_NAME nVars`
@@ -131,7 +131,7 @@ The responsibility of pushing the function arguments and the return value onto t
     - finally, intialize the jump back to the calling function by inserting a `goto returnAdd` statement.
 
 
-### VM Command Operations
+## VM Command Operations
 
 Aside from function calls and the basic `push`/`pop` commands, the VM also provides a bunch of arithmetic, logical, and branching commands. I'll briefly explain how the commands work and what their translation process entails.
 
@@ -168,7 +168,7 @@ A=M         // dereference to go the actual segment location
 M=D         // store the popped value at the destination
 ```
 
-### VM Bootstrap Code
+## VM Bootstrap Code
 
 Finally, since our VM Translater can handle multi-file programs, we need to insert some bootstrap code so that we have a proper entry point to start execution from. Later on, we'll have a barebones OS which'll, by default, be compiled with every program and linked when the system boots. This OS contains a `Sys` module which contains a `Sys.init` function whose job is to call the `main` subroutine for the current program (along with initializing the OS modules) which'll serve as our entry point.
 
@@ -176,11 +176,11 @@ This means that there must exist a file called `Main.vm` which will contain a `m
 
 With this, one part of Jack's two-part compilation process is done. Now, let us move on to the Jack Compiler.
 
-## Jack Compiler
+# Jack Compiler
 
 Jack is a simple, Java-like, object-based programming language. It is designed to lend itself nicely to common compilation techniques. It is weakly typed and features only 3 primitive data types, but provides access to user-defined data types via objects. Let's start with an example Jack program, and then we'll list the language grammar and specfications.
 
-```Java
+```Jack
 /** Inputs a sequence of integers, and computes their average. */
 class Main {
     function void main() {
@@ -206,19 +206,20 @@ class Main {
     }
 }
 ```
-As you can see, we've got *classes*, *methods*, *functions*, *variables*, *arrays*, *expressions*, *comments*, *I/O*, and *strings* (I/O, arrays, and strings are actually provided by the Jack OS library, which we'll discuss later). It is not nearly as powerful as a real language, but it's got enough substance to it.
+As you can see, we've got *classes*, *methods*, *functions*, *variables*, *arrays*, *expressions*, *comments*, *I/O*, and *strings* (I/O, arrays, and strings are actually provided by the Jack OS library, which we'll discuss later). Jack is not nearly as powerful as a real language, but it's got enough substance to it.
 
-### Jack Syntax
+## Jack Syntax
 
-A Jack program is a sequence of tokens, separated by an arbitrary amount of white space and comments. Tokens can be cymbols, reserved words, constants, and identifiers. Here's a full list:
+A Jack program is a sequence of tokens, separated by an arbitrary amount of white space and comments. Tokens can be symbols, reserved words, constants, and identifiers. Here's a list of these syntax elements:
 
-**1. White space and comments**:
+### 1. White space and comments:
+
 Space characters, newline characters, and comments are ignored, but the following comment formats are supported:
 - `// Comment to the end of line`
 - `/* Comment until closing */`
-- `/** Comment aimed at software tolls that extract API documentation. */`
+- `/** Comment aimed at software tools that extract API documentation. */`
 
-**2. Symbols**:
+### 2. Symbols:
 - `()`: Used for grouping arithmetic expressions and for enclosing argument-lists (in subroutine calls) and parameter-lists (in subroutine declarations)
 - `[]`: Used for array indexing
 - `{}`: Used for grouping program units and statements
@@ -228,7 +229,7 @@ Space characters, newline characters, and comments are ignored, but the followin
 - `.`: Class membership
 - `+`, `-`, `*`, `/`. `&`, `|`, `~`, `<`, `>` Operators
 
-**3. Reserved words**:
+### 3. Reserved words:
 - Program Components: `class`, `constructor`, `method`, `function`
 - Primitive types: `int`, `boolean`, `char`, `void`
 - Variable declarations: `var`, `static`, `field`
@@ -236,13 +237,66 @@ Space characters, newline characters, and comments are ignored, but the followin
 - Constant values: `true`, `false`, `null`
 - Object reference: `this`
 
-**4. Constants**:
-- ***Integer Constants*** are values in the range 0 to 32767. Negative integers are not constants but rather expressions consisting of a unary minus operator applied to an integer constant. The resulting valid range of values i -32768 to 32767 (the former can be obtained using the expression -32767-1).
+### 4. Constants:
+- ***Integer Constants*** are values in the range 0 to 32767. Negative integers are not constants but rather expressions consisting of a unary minus operator applied to an integer constant. The resulting valid range of values is -32768 to 32767 (the former can be obtained using the expression -32767-1).
 - ***String Constants*** are enclosed within double quote `"` characters and may contain any character except newline or double quote. These characters are supplied by the OS functions `String.newLine()` and `String.doubleQuote()`.
 - ***Boolean Constants*** are `true` and `false`.
 - The `null` constant signifies a null reference.
 
-**5. Identifiers**:
+### 5. Identifiers:
 - Identifiers are composed from arbitrarily long sequences of letters (A-Z, a-z), digits (0-9), and "_" (underscore). The first character must either be a letter or "_".
 - The language is case sensitive: `x` and `X` are treated as different identifiers.
 
+## Jack Grammar
+
+With the lexical elements defined, let us move on to the grammar portion -- the program structure, statements, and expressions.
+
+### Progarm Structure
+
+A Jack program is a collection of classes, each appearing in a separate file. The compilation unit is a class, which is a sequence of tokens structured according to the following context free syntax:
+
+> *Grammar Conventions:* 
+> - `'x'`     : text that appears verbatim
+> - *x*       : lexical element
+> - *x y*     : *x* appears, then *y* appears
+> - *x | y*   : either *x* or *y* appears
+> - *x?*      : *x* appears 0 or 1 times
+> - *x**      : *x* appears 0 or more times
+> - *(x y)*   : grouping of *x* and *y*
+
+Structure | Syntax
+:-- | :--:
+**class** | `'class'` className `'{'` classVarDec* subroutineDec* `'}'`
+**classVarDec** | (`'static'` \| `'field'`) type varName (`','`varName)* `';'`
+**type** | `'int'` \| `'char'` \| `'boolean'` \| className
+**subroutineDec** | (`'constructor'` \| `'function'` \| `'method'`) ('`void'`\|type) subroutineName `'('`parameterList`')'`subroutineBody
+**parameterList** | ( (type varName) (`','`type varName)*)?
+**subroutineBody** | `'{'`varDec* statements`'}'`
+**varDec** | `'var'`type varName(`','`varName)*`';'`
+**className** | identifier
+**subroutineName** | identifier
+**varName** | identifier
+
+### Statements
+
+Statement | Syntax
+:-- | :--:
+**statements** | statement*
+**statement** | letStatement \| ifStatement \| whileStatement \| doStatement \| returnStatement
+**letStatement** | `'let'` varName (`'['`expression`']'`)?`'='`expression`';'`
+**ifStatement** | `'if'` `'('`expression`')'` `'{'`statements`'}'`(`'else'` `'{'`statements`'}'`)?
+**whileStatement** | `'while'` `'('`expression`')'` `'{'`statements`'}'`
+**doStatement** | `'do'`subroutineCall`';'`
+**ReturnStatement** | `'return'`expression?`';'`
+
+### Expressions
+
+Expression | Syntax
+:-- | :--:
+**expression** | term (op term)*
+**term** | integerConstant \| stringConstant \| keywordConstant \| varName \| varName`'['`expression`']'` \| subrouineCall \| `'('`expression`')'` \| unaryOp term
+**subroutineCall** | subroutineName `'('`expressionList`')'` \| (className \| varName)`'.'`subroutineName `'('`expressionList`')'`
+**expressionList** | (expression (`','`expression)* )?
+**op** | `'+'` \| `'-'` \| `'*'` \| `'/'` \| `'&'` \| `'\|'` `'<'` \| `'>'` \| `'='`
+**unaryOp** | `'-'` \| `'~'`
+**KeywordConstant** | `'true'` \| `'false'` \| `'null'` \| `'this'`
