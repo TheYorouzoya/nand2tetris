@@ -43,7 +43,7 @@ public class CodeParser {
                         binaries.add(bin);
                     }
                 }
-            } else {    // Line a C-instruction
+            } else {    // Line is a C-instruction
                 binaries.add(symbolTable.parseInstruction(line));
             }
         }
