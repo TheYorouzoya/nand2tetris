@@ -151,7 +151,7 @@ With that, our compilation process is complete.
 
 # CSQuest
 
-CSQuest is a small puzzle/adventure game written in Jack which can be run on the VM or CPU emulator.
+CSQuest is a small puzzle/adventure game written in Jack.
 
 ![image showing the game's home screen with the game running inside the VM emulator](./docimages/game-home.png)
 
