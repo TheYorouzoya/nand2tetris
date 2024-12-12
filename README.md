@@ -307,7 +307,7 @@ You can use the grammar convention guide to read how a particular entity is expr
 
 Our Jack compiler is written in Java. It performs the compilation process in two phases:
 1. Tokenize the given program text by, first, cleaning up all the whitespace and comments, and then generating a stream of parsed tokens.
-2. Perform a depth first traversal of the syntax tree and output the appropriate VM code as we go along.
+2. Perform a recursive descent of the syntax tree and output the appropriate VM code as we go along.
 
 ### Tokenization
 
@@ -326,7 +326,7 @@ As the Tokenizer makes its way through the input file, it sends each token strin
 
 ### Compilation Engine
 
-While the output of the Tokenizer only gives us an array of Tokens, we still do not have a proper syntax tree yet. Since we're not doing any comprehensive error checking (as per the specifications) we can actually construct and parse the syntax tree at the same time in a recursive fashion. Think of it as a depth-first traversal of a graph (after all, trees are graphs in a way). We advance deeper and deeper into nodes until we hit a dead-end (a leaf node), whereupon we backtrack and continue until we've parsed all the branches. The leaf nodes here correspond to atomic terms which cannot be broken down further, while the branches are your composite types.
+While the output of the Tokenizer only gives us an array of Tokens, we still do not have a proper syntax tree yet. Since we're not doing any comprehensive error checking (as per the specifications) we can actually construct and parse the syntax tree at the same time in what is known as *recursive descent parsing*. Think of it as a depth-first traversal of a graph (after all, trees are graphs in a way). We advance deeper and deeper into nodes until we hit a dead-end (a leaf node), whereupon we backtrack and continue until we've parsed all the branches. The leaf nodes here correspond to atomic terms which cannot be broken down further, while the branches are your composite types.
 
 For example, the code
 ```JavaScript
@@ -397,11 +397,11 @@ Now, notice how this call chain correlates with the grammar spec for a while sta
 
 `'while'` `'('`expression`')'` `'{'`statements`'}'`.
 
-This is what the Compilation Engine does on a fundamental level. Calls to each of the dedicated subroutines directly follow the language grammar specification as guidelines. Since each file corresponds to a particular class, we call the `compileClass()` to start the recursive call chain and the engine will fill in the output lines by calling the appropriate VMWriter functions at appropriate intervals.
+This is what the Compilation Engine does on a fundamental level. Calls to each of the dedicated subroutines directly follow the language grammar specification as guidelines. Since each file corresponds to a particular class, we call `compileClass()` to start the recursive call chain and the engine will do the rest.
 
 ## VM Code Generation
 
-While parsing the syntax tree, the compiler also needs to do additional work to ensure that the program flow works according to the user's specifications. In our `while` statement example above, the compiler needs to ensure that proper branches are generated for the `while`'s condition expression so that the program control flow can escape the loop body once the value of `count` reaches 100. Furthermore, in the loop body, it has to make sure that the value of the `count` variable is updated properly.
+While parsing the syntax tree, the compiler also needs to do additional work to ensure that the program flow works according to the user's expectations. In our `while` statement example above, the compiler needs to ensure that proper branches are generated for the `while`'s condition expression so that the program control flow can escape the loop body once the value of `count` reaches 100. Furthermore, in the loop body, it has to make sure that the value of the `count` variable is updated properly.
 
 Mind you, our `let count = count + 1;` statement uses ***infix notation***, while our compilation target, the stack-based VM, uses ***postfix notation***. So our VM code might look like this,
 ```
@@ -432,18 +432,58 @@ As stored in the `VarKind` enum, any identifier in the program can be one of the
 
 Each of the first four types correspond to a memory segment in the VM. The symbol table updates this information when an identifier entry is first added to it. It also keeps track of a separate index counter for each of the segments (which also doubles as a counter to generate unique lables), and assigns the proper segment type and index value when an identifier entry is added to it.
 
-The same case applies to the Subroutine Table, except that it is reset whenever the compiler gets to a new subroutine. Also, whenever the compiler processes a class method, it pushes an entry for an identifier by the name of `this` whose type corresponds to the current class' name. Later on, when the method is called via an object, the compiler will effectively "push" this entry as the first argument allowing access to the `this` keyword inside the method body.
+The same case applies to the Subroutine Table, except that it is reset whenever the compiler gets to a new subroutine. Also, whenever the compiler processes a class method call, it pushes an entry for an identifier by the name of `this` as an alias for the calling object. Later on, when the method body is executed, it will have access to the `this` keyword as a reference to the calling object.
 
 When the compiler encounters an identifier, it looks up its entry in the Subroutine Table. If it doesn't find it there, it then looks for it in the Class Table. If it doesn't find the entry there as well, it... well, it should stop compilation and return an error, telling the user there's an unidentified variable in the program. But since we're supposed to assume that the given programs are error-free, we simply keep on compiling instead (which makes this a not-so-smart compiler).
 
 ### Function Calls and Returns
 
-Thanks to our recursive structure, things like function calls and return values are easily sorted out. For a function call, the `compileExpressionList()` function returns the number of expressions it has compiled once it is done processing the list. The compiler can use this information to calculate how many arguments were passed to the function during the call. Not only that, since the arguments need to be pushed before the call itself, the recursive compilation of the argument list does exactly that. Once `compileExpressionList()` returns, the compiler takes the return value and makes the subroutine call.
+Thanks to our recursive structure, things like function calls and return values are easily sorted out. For a function call, the `compileExpressionList()` function returns the number of expressions it has compiled once it is done processing the list. The compiler can use this information to calculate how many arguments were passed to the function during the call. Not only that, since the arguments need to be pushed onto the VM stack before the call itself, the recursive compilation of the argument list does exactly that. Once `compileExpressionList()` returns, the compiler takes its return value and makes the subroutine call.
 
 A similar phenomenon happens in case of return statements. Since return statements are of the form `return expression?;`, our recursive descent will end up compiling the return expression before processing the return keyword itself. The compilation of the expression will automatically push this return value onto the stack. The compiler only has to write the equivalent return VM statement. In case of void return types, we simply push a 0 onto the stack as the return value which then gets dumped by the caller.
 
 ### Class Methods and Constructors
 
-You might remember we had a `pointer` segment in our VM which would point to either the `this` or `that` virtual memory segment. Since we always pass `this` (the Jack identifier, not the VM segment) as the first argument during a method call, the compiler uses this argument to set up the proper memory segment. Upon entering a method's body, the compiler immediately inserts VM code which effectively takes this first argument, pushes it onto the stack, and pops it into the `pointer` segment at index 0. The result is that the `this` memory segment (which is aliased by `pointer 0`) is now aligned with the base address of the calling object variable. All references to the calling object will now properly point to the correct location in memory.
+You might remember we had a `pointer` segment in our VM which would point to either the `this` or `that` virtual memory segment. Since we always pass `this` (the Jack identifier, not the VM segment) as the first argument during a method call, the compiler uses this argument to set up the proper memory segment. Upon entering a method's body, the compiler immediately inserts VM code which effectively takes this first argument, pushes it onto the stack, and pops it into the `pointer` segment at index 0. The result is that the `this` memory segment (which is aliased by `pointer 0`) is now aligned with the base address of the calling object variable. All references to the calling object, i.e., *this*, will now properly point to the correct location in memory.
 
-In the case of Constructors, the compiler needs to allocate enough memory for the class object. The amount of memory required is calculated automatically by the time all the class field variables are compiled and put into the Class Symbol Table. While compiling a Constructor, the compiler consults the current Class Table to get this number and calls the Jack OS library function `Memory.alloc()` with the proper size to get the required block of memory. It then aligns the base of the `this` segment (aliased by `pointer 0`) with this block, which is then returned to caller at the end of the Constructor as a `return this;` statement.
+In the case of Constructors, the compiler needs to allocate enough memory for the class object. The amount of memory required is already calculated by the time all the class field variables are compiled and put into the Class Symbol Table. While compiling a Constructor, the compiler consults the current Class Table to get this number and calls the Jack OS library function `Memory.alloc()` with the proper size to get the required block of memory. It then aligns the base of the `this` segment (aliased by `pointer 0`) with this block, which is then returned to the caller at the end of the Constructor as a `return this;` statement.
+
+### Arrays and Strings
+
+While support for arrays in Jack is provided by the Jack OS library's Array module, it is effectively just another class. What makes them work is the compiler's support for processing the array indexing syntax. In Jack, you can access the `i`th element of an array `arr` using the standard syntax `a[i]`. Looking at the grammar spec: `varName'['expression']'`, we can see that there can be another expression inside the `[]` brackets. This means that the compiler should also deal with any nested array accesses like `a[b[c[i]]]` for an arbitrary depth. Not only that, this syntax can be present on both sides of an assignment statement as well (like `let a[b[c[i]]] = [a[d[e[f[j]]]]];`).
+
+Once again, our recursive descent comes to the rescue. Whenever the compiler deals with a `term` of the form `varName'['expression']'`, it compiles the nested expression as is, which puts the resulting value onto the stack. Upon return, the compiler pushes the base address of the array and performs and `add` stack operation which now computes the proper memory location. This address value is immediately popped into the `pointer 1` segment which aliases the `that` memory segment. Since this segment now holds the array element's address, we can derefernce and push the value stored at this address onto the stack by performing a `push that 0` operation.
+
+Here's an example which illustrates this operation:
+
+![Image that illustrates how the compiler processes an array expression](./docimages/array-evaluation.png)
+
+Now, this gets tricky when we have an assignment inside a `let` statement. If you remember the grammar spec (`'let'` varName (`'['`expression`']'`)?`'='`expression`';'`), both sides of the assignemnt are on the same tree level. Since we're performing a recursive descent, we will end up compiling the left side before we get to the right side. As a result, we'll put the actual value held in the array element on the left side onto the stack. When we're done with the right side, we'll do the same, though, in the process, we would have lost the address location of where the result of this computation is supposed to go.
+
+The workaround is that when the compiler realizes it is parsing a `let` statement where both sides have the array syntax, then it stops the compilation process of the left side early. It compiles any nested expressions within the `[]` brackets, but stops once the computed array element's address is pushed onto the stack. It then moves on to the right side and compiles it as usual.
+
+Once the right side finishes, our stack now holds the final value at the top and the address of the destination element right after it. So we pop the top value into a `temp` (temporary) segment and pop the next value into the `that` segment's base register (aliased by `pointer 1`). We, then, push the temporarily stored value back onto the stack and pop it into the destination address by doing a `pop that 0` operation.
+
+### Mathematical Operations and Operator Precedence
+
+Since our Hack CPU has a very simple architecture, it lacks any infrastructure to perform bit shift operations. As a result, multiplication and division are now the responsibility of the software rather than the hardware. While it is possible to implement floating point support at a software level, the Jack OS API only offers integer division and multiplication support. Whenever the compiler encounters a multiply `*` or division operator `/`, it simply pushes the operands onto the stack and calls either the `Math.multiply()` or `Math.divide()` OS library function.
+
+Furthermore, there is no operator precedence defined by the language specification, so the programmer is advised to use the parenthesis `()` judiciously. Still, this can be implemented by the compiler, but it would require extending the grammar spec's expression part to include a separate entry for each operator priority level. For example, we can add the following entries to our expression table:
+
+Statement | Syntax
+:-- | :--:
+subtraction | addition ( `'-'` addition)*
+addition | multiplication ( `'+'` multiplication)*
+multiplication | division ( `'*'` division)*
+division | term ( `'/'` term)*
+
+This would implement a division-->multiply-->addition-->subtraction operator precedence where divisions are evaluated first. Our compiler, in accordance with the initial specifications, does not have this modification.
+
+### Final Output
+
+All the mentions of pushing or popping things off of the stack (or any other VM operations) are direct calls to the specific functions inside the `VMWriter.java` class. We store the VM's memory segments in an enum inside `MemSegments.java` and all the VM commands inside `VMCommands.java`. Code generation calls from the compiler add the respective VM operation code into a buffer. Once the compiler is done with the program file, it instructs the writer to write the contents of the buffer into the output file. The compiler will then move on to the next file in queue and start a new instance of the writer.
+
+With that, our compilation process is complete. We are now free to talk about the Jack OS implementaion.
+
+# Jack OS
+
