@@ -151,7 +151,51 @@ With that, our compilation process is complete.
 
 # CSQuest
 
-CSQuest is a small puzzle/adventure game written in Jack.
+CSQuest is a small puzzle/adventure game written in Jack. The game can be run on the VM emulator provided [here](https://drive.google.com/file/d/1IkIR8Pwq3PY49QgXpUJOkUUVht-TKIET/view).
+
+> *The artwork assets for the game are taken from the free assets put on itch.io by [PiiiXL](https://piiixl.itch.io/) and [Kenney](https://kenney.itch.io/), and then converted to bitmaps to work with the Hack CPU architecture.*
 
 ![image showing the game's home screen with the game running inside the VM emulator](./docimages/game-home.png)
 
+> [!NOTE]
+> While Nand2Tetris now uses their web-based IDE for emulation, since this project was written for the legacy Java software package linked above, it is recommended you run it there. The tick rate for the new web-based IDE's CPU is too fast which makes the game's tile animations and movement too jarring. Plus, there are numerous graphics bugs when running the game on it.
+
+Since our Hack CPU comes with a screen and a keyboard which is mapped onto the RAM (memory-mapped I/O), I decided to make a game that runs on this hardware. The screen is 512 pixels wide and 256 pixels tall, with each pixel mapped onto an idividual bit inside the RAM starting from location 0x4000 (16384). The screen polls the RAM and updates itself 60 times a second. All the graphics for the game are drawn by the game engine by writing the appropriate 16-bit words in memory.
+
+The keyboard, on the other hand, is mapped on RAM location 0x6000 (24576). Any keyboard input updates this word in the RAM accordingly, which is then processed by the game engine to update the game's current state.
+
+The game's design details and documentation can be found in the project's own [readme](./CSQuest/README.md).
+
+## Gameplay
+
+The player can use the `W, A, S, D` keys to move the main character around. When prompted, they can interact with certain game objects by pressing the `E` key.
+
+The game has 5 levels, with 3 of them containing puzzles and 1 combat encounter. In the first level, the player starts off in a village where the generator siphoning power from the dungeon has been shut down due to flooding. The player is asked to assist the engineer in repairing it.
+
+![image showing game's first level](./docimages/game-level-1.png)
+
+Talking to the engineer opens the gate to the second level. Here, they must assist the engineer by fixing the misaligned pipes to drain out the flood water and retrieve the power cores. Once the player returns the core to their respective slots, the water pumps start working and the player can access the next level.
+
+![image showing game's second level](./docimages/game-level-2.png)
+
+The third level takes the player to the generator's main reactor room. Due to the flooding, the system modules have been scrambled. The player must make sure to restart the reactor by aligning all the modules (the patterns displayed in the center) with the one displayed on the console in three separate phases. Each pattern slot on the grid corresponds to a number on the keyboard's numpad. Pressing a key will cycle all the patterns in that row and column to the next cycle. The player must figure out the right combination of keys to press in order to turn all the patterns to the one displayed on the console to the right.
+
+![image showing game's third level](./docimages/game-level-3.png)
+
+Once the player finishes all three puzzle phases, the reactor finally boots up and the player is taken back to the beginning of the game. This time, the generator is fully operational and running. The engineer now tells the player to go into the dungeon and disable the golem (who has now woken up due to a security measure in the dungeon). The player must head inside and reboot the control device to disable the golem so that power can be redirected to the village.
+
+![image showing game's first level when revisited](./docimages/game-level-1-revisited.png)
+
+Before the player can get to the golem, they must make their way past the dungeon's security systems. If the player steps on the spikes or gets hit by a fireball, they lose one of their lives.
+
+![image showing game's fourth level](./docimages/game-level-4.png)
+
+Once the player reaches the end of the corridor, they can enter the door and face their final opponent: the security golem. The player needs to dodge all the fireballs and interact with the console behind the boss to deactivate it.
+
+![image showing the game's final boss level](./docimages/game-level-5.png)
+
+Once the player does that, game is over.
+
+![image showing the game's end screen](./docimages/game-end.png)
+
+At this point, the user can restart the emulator and play the game again if they want.

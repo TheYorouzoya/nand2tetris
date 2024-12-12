@@ -28,7 +28,6 @@ class LevelFive {
 
         do item.dispose();
         do golem.dispose();
-        do engineer.dispose();
 
         return;
     }
@@ -117,6 +116,8 @@ class LevelFive {
         let s = "You have saved the village from destruction.";
         do DialogueManager.printDialogueLineTwo(s);
         do s.dispose();
+
+        do engineer.dispose();
 
         do Sys.wait(3000);
 
