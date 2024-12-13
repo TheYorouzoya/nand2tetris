@@ -1,0 +1,730 @@
+function DialogueManager.init 0
+    call LevelManager.getTile 0
+    pop static 0
+    push constant 1
+    pop static 1
+    push constant 20
+    pop static 2
+    push constant 12
+    pop static 3
+    push constant 20
+    pop static 4
+    push constant 0
+    return
+function DialogueManager.updateStatusBox 1
+    call DialogueManager.drawStatusBox 0
+    pop temp 0
+    push constant 0
+    pop local 0
+label DialogueManager_0
+    push local 0
+    push argument 0
+    lt
+    not
+    if-goto DialogueManager_1
+    push constant 20
+    push constant 1
+    push local 0
+    add
+    call DialogueManager.drawHeart 2
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto DialogueManager_0
+label DialogueManager_1
+    push constant 0
+    return
+function DialogueManager.drawHeart 2
+    push argument 1
+    push argument 0
+    push constant 352
+    call Math.multiply 2
+    add
+    pop local 0
+    push constant 16384
+    pop local 1
+    push local 0
+    push local 1
+    add
+    push local 0
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 792
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 32
+    add
+    push local 1
+    add
+    push local 0
+    push constant 32
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 1980
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 64
+    add
+    push local 1
+    add
+    push local 0
+    push constant 64
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 4094
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 96
+    add
+    push local 1
+    add
+    push local 0
+    push constant 96
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 8191
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 128
+    add
+    push local 1
+    add
+    push local 0
+    push constant 128
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 8191
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 160
+    add
+    push local 1
+    add
+    push local 0
+    push constant 160
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 4094
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 192
+    add
+    push local 1
+    add
+    push local 0
+    push constant 192
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 2044
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 224
+    add
+    push local 1
+    add
+    push local 0
+    push constant 224
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 1016
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 256
+    add
+    push local 1
+    add
+    push local 0
+    push constant 256
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 496
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 288
+    add
+    push local 1
+    add
+    push local 0
+    push constant 288
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 224
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 320
+    add
+    push local 1
+    add
+    push local 0
+    push constant 320
+    add
+    push local 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 64
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function DialogueManager.printDialogueLineOne 0
+    call DialogueManager.clearDialogueBox 0
+    pop temp 0
+    push static 4
+    push static 3
+    call Output.moveCursor 2
+    pop temp 0
+    push argument 0
+    call Output.printString 1
+    pop temp 0
+    push constant 0
+    return
+function DialogueManager.printDialogueLineTwo 0
+    call DialogueManager.clearLineTwo 0
+    pop temp 0
+    push static 4
+    push constant 1
+    add
+    push static 3
+    call Output.moveCursor 2
+    pop temp 0
+    push argument 0
+    call Output.printString 1
+    pop temp 0
+    push constant 0
+    return
+function DialogueManager.clearLineOne 1
+    push static 3
+    pop local 0
+    push static 4
+    push constant 62
+    call Output.moveCursor 2
+    pop temp 0
+label DialogueManager_2
+    push local 0
+    push constant 63
+    lt
+    not
+    if-goto DialogueManager_3
+    call Output.backSpace 0
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto DialogueManager_2
+label DialogueManager_3
+    push constant 0
+    return
+function DialogueManager.clearLineTwo 1
+    push static 3
+    pop local 0
+    push static 4
+    push constant 1
+    add
+    push constant 62
+    call Output.moveCursor 2
+    pop temp 0
+    push static 3
+    pop local 0
+label DialogueManager_4
+    push local 0
+    push constant 63
+    lt
+    not
+    if-goto DialogueManager_5
+    call Output.backSpace 0
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto DialogueManager_4
+label DialogueManager_5
+    push constant 0
+    return
+function DialogueManager.clearDialogueBox 1
+    push static 3
+    pop local 0
+    push static 4
+    push constant 62
+    call Output.moveCursor 2
+    pop temp 0
+label DialogueManager_6
+    push local 0
+    push constant 63
+    lt
+    not
+    if-goto DialogueManager_7
+    call Output.backSpace 0
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto DialogueManager_6
+label DialogueManager_7
+    push static 4
+    push constant 1
+    add
+    push constant 62
+    call Output.moveCursor 2
+    pop temp 0
+    push static 3
+    pop local 0
+label DialogueManager_8
+    push local 0
+    push constant 63
+    lt
+    not
+    if-goto DialogueManager_9
+    call Output.backSpace 0
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto DialogueManager_8
+label DialogueManager_9
+    push constant 0
+    return
+function DialogueManager.drawUI 0
+    call DialogueManager.drawStatusBox 0
+    pop temp 0
+    call DialogueManager.drawDialogueBox 0
+    pop temp 0
+    push constant 0
+    return
+function DialogueManager.drawEndScreen 0
+    push static 0
+    push constant 1
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 2
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 6
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 3
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 54
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 4
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 22
+    push constant 8
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 6
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 22
+    push constant 54
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 7
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 24
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 8
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 24
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 9
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 54
+    push constant 24
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    call Tiles.loadWhiteTile 1
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 8
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 10
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 12
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 14
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 16
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 18
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 20
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 10
+    push constant 52
+    push constant 22
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return
+function DialogueManager.drawStatusBox 0
+    push static 0
+    push constant 1
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 0
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 3
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 7
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 0
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 9
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 4
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 0
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 6
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 8
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 2
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 2
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 5
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 2
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 8
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 2
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function DialogueManager.drawDialogueBox 0
+    push static 0
+    push constant 1
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 10
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 3
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 62
+    push constant 26
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 7
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 10
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 9
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 62
+    push constant 30
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 4
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 10
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 6
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 62
+    push constant 28
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 2
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 12
+    push constant 60
+    push constant 26
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 5
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 12
+    push constant 60
+    push constant 28
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 8
+    call Tiles.loadDialogueBox 2
+    pop temp 0
+    push constant 12
+    push constant 60
+    push constant 30
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return

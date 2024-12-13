@@ -1,0 +1,1542 @@
+function Tiles.init 0
+    push constant 255
+    pop static 0
+    push constant 256
+    neg
+    pop static 1
+    push constant 16384
+    pop static 2
+    push constant 0
+    return
+function Tiles.drawTile 4
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 1
+    push argument 0
+    push constant 2
+    call Math.divide 2
+    push argument 1
+    push constant 256
+    call Math.multiply 2
+    add
+    pop local 2
+    push argument 0
+    push constant 1
+    and
+    push constant 1
+    eq
+    not
+    if-goto Tiles_1
+label Tiles_2
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Tiles_3
+    push local 2
+    push local 1
+    add
+    push static 2
+    add
+    push local 2
+    push local 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    push local 0
+    push argument 2
+    add
+    pop pointer 1
+    push that 0
+    push constant 256
+    call Math.multiply 2
+    push static 0
+    or
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push argument 2
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    eq
+    not
+    if-goto Tiles_5
+    push local 2
+    push local 1
+    add
+    push constant 1
+    add
+    push static 2
+    add
+    push local 2
+    push local 1
+    add
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    push static 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Tiles_4
+label Tiles_5
+    push local 0
+    push argument 2
+    add
+    pop pointer 1
+    push that 0
+    push constant 256
+    call Math.divide 2
+    pop local 3
+    push local 0
+    push argument 2
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    lt
+    not
+    if-goto Tiles_7
+    push local 3
+    push constant 1
+    sub
+    pop local 3
+    goto Tiles_6
+label Tiles_7
+label Tiles_6
+    push local 2
+    push local 1
+    add
+    push constant 1
+    add
+    push static 2
+    add
+    push local 2
+    push local 1
+    add
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    push local 3
+    push static 1
+    or
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label Tiles_4
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 32
+    add
+    pop local 1
+    goto Tiles_2
+label Tiles_3
+    goto Tiles_0
+label Tiles_1
+label Tiles_8
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Tiles_9
+    push local 2
+    push local 1
+    add
+    push static 2
+    add
+    push local 0
+    push argument 2
+    add
+    pop pointer 1
+    push that 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 32
+    add
+    pop local 1
+    goto Tiles_8
+label Tiles_9
+label Tiles_0
+    push constant 0
+    return
+function Tiles.buildTiles 1
+    push argument 0
+    pop local 0
+label Tiles_10
+    push argument 1
+    push local 0
+    lt
+    not
+    not
+    if-goto Tiles_11
+    push argument 3
+    not
+    if-goto Tiles_13
+    push local 0
+    push argument 2
+    push argument 4
+    call Tiles.drawTile 3
+    pop temp 0
+    goto Tiles_12
+label Tiles_13
+    push argument 2
+    push local 0
+    push argument 4
+    call Tiles.drawTile 3
+    pop temp 0
+label Tiles_12
+    push local 0
+    push constant 2
+    add
+    pop local 0
+    goto Tiles_10
+label Tiles_11
+    push constant 0
+    return
+function Tiles.eraseTile 3
+    push constant 0
+    pop local 1
+    push argument 0
+    push constant 2
+    call Math.divide 2
+    push argument 1
+    push constant 256
+    call Math.multiply 2
+    add
+    pop local 2
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 1
+    push argument 0
+    push constant 1
+    and
+    push constant 1
+    eq
+    not
+    if-goto Tiles_15
+label Tiles_16
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Tiles_17
+    push local 2
+    push local 1
+    add
+    push static 2
+    add
+    push local 2
+    push local 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    push static 1
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 2
+    push local 1
+    add
+    push constant 1
+    add
+    push static 2
+    add
+    push local 2
+    push local 1
+    add
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    push static 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 32
+    add
+    pop local 1
+    goto Tiles_16
+label Tiles_17
+    goto Tiles_14
+label Tiles_15
+label Tiles_18
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Tiles_19
+    push local 2
+    push local 1
+    add
+    push static 2
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 32
+    add
+    pop local 1
+    goto Tiles_18
+label Tiles_19
+label Tiles_14
+    push constant 0
+    return
+function Tiles.loadTile 0
+    push constant 0
+    push argument 0
+    add
+    push argument 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push argument 0
+    add
+    push argument 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push argument 0
+    add
+    push argument 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push argument 0
+    add
+    push argument 4
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push argument 0
+    add
+    push argument 5
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push argument 0
+    add
+    push argument 6
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push argument 0
+    add
+    push argument 7
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push argument 0
+    add
+    push argument 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push argument 0
+    add
+    push argument 9
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push argument 0
+    add
+    push argument 10
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 10
+    push argument 0
+    add
+    push argument 11
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 11
+    push argument 0
+    add
+    push argument 12
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 12
+    push argument 0
+    add
+    push argument 13
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 13
+    push argument 0
+    add
+    push argument 14
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 14
+    push argument 0
+    add
+    push argument 15
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 15
+    push argument 0
+    add
+    push argument 16
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function Tiles.loadChainTile 0
+    push argument 0
+    push constant 3613
+    neg
+    push constant 3613
+    neg
+    push constant 3613
+    neg
+    push constant 3805
+    neg
+    push constant 3821
+    neg
+    push constant 1913
+    neg
+    push constant 881
+    neg
+    push constant 113
+    neg
+    push constant 1649
+    neg
+    push constant 1649
+    neg
+    push constant 1137
+    neg
+    push constant 881
+    neg
+    push constant 1913
+    neg
+    push constant 3821
+    neg
+    push constant 3805
+    neg
+    push constant 3613
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadBrickTile 0
+    push argument 0
+    push constant 258
+    push constant 258
+    push constant 258
+    push constant 1
+    neg
+    push constant 4104
+    push constant 4104
+    push constant 4104
+    push constant 1
+    neg
+    push constant 258
+    push constant 258
+    push constant 258
+    push constant 1
+    neg
+    push constant 4104
+    push constant 4104
+    push constant 4104
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadHeartTile 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 3697
+    neg
+    push constant 4489
+    neg
+    push constant 11893
+    neg
+    push constant 23547
+    neg
+    push constant 22011
+    neg
+    push constant 23547
+    neg
+    push constant 12277
+    neg
+    push constant 6121
+    neg
+    push constant 3025
+    neg
+    push constant 1441
+    neg
+    push constant 577
+    neg
+    push constant 385
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadVentTile 0
+    push argument 0
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 16386
+    neg
+    push constant 32766
+    neg
+    push constant 28662
+    neg
+    push constant 30750
+    neg
+    push constant 32766
+    neg
+    push constant 30750
+    neg
+    push constant 32766
+    neg
+    push constant 30750
+    neg
+    push constant 32766
+    neg
+    push constant 30750
+    neg
+    push constant 32766
+    neg
+    push constant 28662
+    neg
+    push constant 32762
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadQuadWallTile 0
+    push argument 0
+    push constant 257
+    push constant 32125
+    push constant 17733
+    push constant 17733
+    push constant 17733
+    push constant 32125
+    push constant 257
+    push constant 1
+    neg
+    push constant 257
+    push constant 32125
+    push constant 17733
+    push constant 17733
+    push constant 17733
+    push constant 32125
+    push constant 257
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadConsoleTile 0
+    push argument 0
+    push constant 12285
+    neg
+    push constant 20483
+    neg
+    push constant 22523
+    neg
+    push constant 22523
+    neg
+    push constant 20483
+    neg
+    push constant 20483
+    neg
+    push constant 22235
+    neg
+    push constant 22235
+    neg
+    push constant 20483
+    neg
+    push constant 22235
+    neg
+    push constant 22235
+    neg
+    push constant 20483
+    neg
+    push constant 22235
+    neg
+    push constant 22235
+    neg
+    push constant 20483
+    neg
+    push constant 12285
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadWaterTile 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 1029
+    neg
+    push constant 515
+    neg
+    push constant 258
+    neg
+    push constant 1
+    neg
+    push constant 4113
+    neg
+    push constant 8225
+    neg
+    push constant 16449
+    neg
+    push constant 1
+    neg
+    push constant 1029
+    neg
+    push constant 515
+    neg
+    push constant 258
+    neg
+    push constant 1
+    neg
+    push constant 4113
+    neg
+    push constant 8225
+    neg
+    push constant 16449
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadTorchTile 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 129
+    neg
+    push constant 257
+    neg
+    push constant 385
+    neg
+    push constant 961
+    neg
+    push constant 577
+    neg
+    push constant 385
+    neg
+    push constant 1057
+    neg
+    push constant 961
+    neg
+    push constant 1
+    neg
+    push constant 385
+    neg
+    push constant 257
+    neg
+    push constant 129
+    neg
+    push constant 385
+    neg
+    push constant 1
+    neg
+    push constant 577
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadClosedDoorTile 0
+    push argument 0
+    push constant 8185
+    neg
+    push constant 16381
+    neg
+    push constant 28687
+    neg
+    push constant 28647
+    neg
+    push constant 28663
+    neg
+    push constant 28647
+    neg
+    push constant 28631
+    neg
+    push constant 28135
+    neg
+    push constant 27639
+    neg
+    push constant 27383
+    neg
+    push constant 27383
+    neg
+    push constant 27623
+    neg
+    push constant 28119
+    neg
+    push constant 28647
+    neg
+    push constant 28663
+    neg
+    push constant 28663
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadOpenDoorTile 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 16381
+    neg
+    push constant 32767
+    neg
+    push constant 24583
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 24695
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 24631
+    neg
+    push constant 25911
+    neg
+    push constant 27319
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadEngineer 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 2041
+    neg
+    push constant 4093
+    neg
+    push constant 8191
+    neg
+    push constant 4111
+    neg
+    push constant 6135
+    neg
+    push constant 5051
+    neg
+    push constant 5051
+    neg
+    push constant 10249
+    push constant 8191
+    push constant 32221
+    neg
+    push constant 8641
+    push constant 1015
+    neg
+    push constant 545
+    neg
+    push constant 673
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadDoorKeeper 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 2017
+    neg
+    push constant 4081
+    neg
+    push constant 8185
+    neg
+    push constant 8121
+    neg
+    push constant 8025
+    neg
+    push constant 7897
+    neg
+    push constant 401
+    neg
+    push constant 6121
+    neg
+    push constant 14365
+    neg
+    push constant 32507
+    neg
+    push constant 32767
+    neg
+    push constant 14061
+    neg
+    push constant 1
+    neg
+    push constant 1633
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadClosedChestTile 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 16381
+    neg
+    push constant 16387
+    neg
+    push constant 27306
+    push constant 21846
+    push constant 16386
+    push constant 16386
+    push constant 32190
+    push constant 16770
+    push constant 24582
+    push constant 16386
+    push constant 32766
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadOpenChestTile 0
+    push argument 0
+    push constant 16381
+    neg
+    push constant 16963
+    neg
+    push constant 16386
+    push constant 23610
+    push constant 24570
+    push constant 24570
+    push constant 24570
+    push constant 24570
+    push constant 24570
+    push constant 32190
+    push constant 16770
+    push constant 16386
+    push constant 24582
+    push constant 16386
+    push constant 32766
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadFenceTile 0
+    push argument 0
+    push constant 258
+    neg
+    push constant 32125
+    push constant 17477
+    neg
+    push constant 10281
+    neg
+    push constant 4113
+    neg
+    push constant 10249
+    neg
+    push constant 17477
+    neg
+    push constant 32125
+    push constant 258
+    neg
+    push constant 32253
+    push constant 17477
+    neg
+    push constant 10281
+    neg
+    push constant 4113
+    neg
+    push constant 2089
+    neg
+    push constant 17477
+    neg
+    push constant 32125
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadSmallFan 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Tiles_21
+    push argument 0
+    push constant 1
+    neg
+    push constant 961
+    neg
+    push constant 3121
+    neg
+    push constant 4105
+    neg
+    push constant 11317
+    neg
+    push constant 11893
+    neg
+    push constant 18019
+    neg
+    push constant 16771
+    neg
+    push constant 16771
+    neg
+    push constant 18019
+    neg
+    push constant 11893
+    neg
+    push constant 11317
+    neg
+    push constant 4105
+    neg
+    push constant 3121
+    neg
+    push constant 961
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_20
+label Tiles_21
+label Tiles_20
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Tiles_23
+    push argument 0
+    push constant 1
+    neg
+    push constant 961
+    neg
+    push constant 3121
+    neg
+    push constant 4489
+    neg
+    push constant 8581
+    neg
+    push constant 8581
+    neg
+    push constant 16387
+    neg
+    push constant 23995
+    neg
+    push constant 23995
+    neg
+    push constant 16387
+    neg
+    push constant 8581
+    neg
+    push constant 8581
+    neg
+    push constant 4489
+    neg
+    push constant 3121
+    neg
+    push constant 961
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_22
+label Tiles_23
+label Tiles_22
+    push constant 0
+    return
+function Tiles.loadSpikeTwo 0
+    push argument 1
+    push constant 11
+    eq
+    not
+    if-goto Tiles_25
+    push argument 0
+    call Tiles.loadBlankTile 1
+    pop temp 0
+    goto Tiles_24
+label Tiles_25
+label Tiles_24
+    push argument 1
+    push constant 1
+    eq
+    push argument 1
+    push constant 10
+    eq
+    or
+    not
+    if-goto Tiles_27
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 2065
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 8773
+    neg
+    push constant 10837
+    neg
+    push constant 19867
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_26
+label Tiles_27
+label Tiles_26
+    push argument 1
+    push constant 2
+    eq
+    push argument 1
+    push constant 9
+    eq
+    or
+    not
+    if-goto Tiles_29
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 2065
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 8773
+    neg
+    push constant 8773
+    neg
+    push constant 10837
+    neg
+    push constant 10837
+    neg
+    push constant 19867
+    neg
+    push constant 19867
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_28
+label Tiles_29
+label Tiles_28
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Tiles_31
+    push argument 0
+    push constant 2065
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 5161
+    neg
+    push constant 8773
+    neg
+    push constant 8773
+    neg
+    push constant 8773
+    neg
+    push constant 10837
+    neg
+    push constant 10837
+    neg
+    push constant 19867
+    neg
+    push constant 19867
+    neg
+    push constant 19867
+    neg
+    push constant 19867
+    neg
+    push constant 19867
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_30
+label Tiles_31
+label Tiles_30
+    push constant 0
+    return
+function Tiles.loadDialogueBox 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Tiles_33
+    push argument 0
+    push constant 1
+    push constant 2
+    neg
+    push constant 2
+    push constant 26
+    push constant 26
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_32
+label Tiles_33
+label Tiles_32
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Tiles_35
+    push argument 0
+    push constant 0
+    push constant 1
+    neg
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_34
+label Tiles_35
+label Tiles_34
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Tiles_37
+    push argument 0
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 32767
+    push constant 16384
+    push constant 22528
+    push constant 22528
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_36
+label Tiles_37
+label Tiles_36
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Tiles_39
+    push argument 0
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_38
+label Tiles_39
+label Tiles_38
+    push argument 1
+    push constant 5
+    eq
+    not
+    if-goto Tiles_41
+    push argument 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_40
+label Tiles_41
+label Tiles_40
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto Tiles_43
+    push argument 0
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_42
+label Tiles_43
+label Tiles_42
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto Tiles_45
+    push argument 0
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 26
+    push constant 26
+    push constant 2
+    push constant 2
+    neg
+    push constant 1
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_44
+label Tiles_45
+label Tiles_44
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto Tiles_47
+    push argument 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 1
+    neg
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_46
+label Tiles_47
+label Tiles_46
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto Tiles_49
+    push argument 0
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 16384
+    push constant 22528
+    push constant 22528
+    push constant 16384
+    push constant 32767
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Tiles_48
+label Tiles_49
+label Tiles_48
+    push constant 0
+    return
+function Tiles.loadBlankTile 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function Tiles.loadWhiteTile 1
+    push constant 0
+    pop local 0
+label Tiles_50
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Tiles_51
+    push local 0
+    push argument 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Tiles_50
+label Tiles_51
+    push constant 0
+    return

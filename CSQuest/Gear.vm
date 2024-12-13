@@ -1,0 +1,614 @@
+function Gear.new 0
+    push constant 10
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 4
+    push argument 3
+    pop this 6
+    push constant 16
+    call Array.new 1
+    pop this 8
+    push this 6
+    push constant 1
+    eq
+    not
+    if-goto Gear_1
+    push constant 16
+    call Array.new 1
+    pop this 9
+    push pointer 0
+    call Gear.initializeGear 1
+    pop temp 0
+    push pointer 0
+    push this 8
+    call Gear.loadLargeGearLeft 2
+    pop temp 0
+    push pointer 0
+    push this 9
+    call Gear.loadLargeGearRight 2
+    pop temp 0
+    goto Gear_0
+label Gear_1
+    push pointer 0
+    push this 8
+    call Gear.loadSmallGear 2
+    pop temp 0
+label Gear_0
+    push argument 4
+    pop this 7
+    push constant 1
+    pop this 5
+    push pointer 0
+    return
+function Gear.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 8
+    call Array.dispose 1
+    pop temp 0
+    push this 6
+    push constant 1
+    eq
+    not
+    if-goto Gear_3
+    push this 9
+    call Array.dispose 1
+    pop temp 0
+    goto Gear_2
+label Gear_3
+label Gear_2
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Gear.initializeGear 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    push constant 1
+    eq
+    not
+    if-goto Gear_5
+    push this 0
+    push constant 2
+    add
+    pop this 2
+    push this 1
+    pop this 3
+    goto Gear_4
+label Gear_5
+label Gear_4
+    push this 4
+    push constant 2
+    eq
+    not
+    if-goto Gear_7
+    push this 0
+    pop this 2
+    push this 1
+    push constant 2
+    add
+    pop this 3
+    goto Gear_6
+label Gear_7
+label Gear_6
+    push this 4
+    push constant 3
+    eq
+    not
+    if-goto Gear_9
+    push this 0
+    push constant 2
+    sub
+    pop this 2
+    push this 1
+    pop this 3
+    goto Gear_8
+label Gear_9
+label Gear_8
+    push this 4
+    push constant 4
+    eq
+    not
+    if-goto Gear_11
+    push this 0
+    pop this 2
+    push this 1
+    push constant 2
+    sub
+    pop this 3
+    goto Gear_10
+label Gear_11
+label Gear_10
+    push constant 0
+    return
+function Gear.draw 0
+    push argument 0
+    pop pointer 0
+    push this 6
+    push constant 1
+    eq
+    not
+    if-goto Gear_13
+    push pointer 0
+    call Gear.drawLargeGear 1
+    pop temp 0
+    goto Gear_12
+label Gear_13
+    push pointer 0
+    call Gear.drawSmallGear 1
+    pop temp 0
+label Gear_12
+    push constant 0
+    return
+function Gear.setAnimated 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 7
+    push constant 0
+    return
+function Gear.drawLargeGear 0
+    push argument 0
+    pop pointer 0
+    push this 7
+    not
+    if-goto Gear_15
+    push this 5
+    push constant 1
+    add
+    pop this 5
+    goto Gear_14
+label Gear_15
+label Gear_14
+    push this 0
+    push this 1
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push pointer 0
+    push this 8
+    call Gear.loadLargeGearLeft 2
+    pop temp 0
+    push this 0
+    push this 1
+    push this 8
+    call Tiles.drawTile 3
+    pop temp 0
+    push pointer 0
+    push this 9
+    call Gear.loadLargeGearRight 2
+    pop temp 0
+    push this 2
+    push this 3
+    push this 9
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 5
+    push constant 4
+    eq
+    not
+    if-goto Gear_17
+    push constant 0
+    pop this 5
+    goto Gear_16
+label Gear_17
+label Gear_16
+    push constant 0
+    return
+function Gear.drawSmallGear 0
+    push argument 0
+    pop pointer 0
+    push this 7
+    not
+    if-goto Gear_19
+    push this 5
+    push constant 1
+    add
+    pop this 5
+    goto Gear_18
+label Gear_19
+label Gear_18
+    push this 0
+    push this 1
+    call Tiles.eraseTile 2
+    pop temp 0
+    push pointer 0
+    push this 8
+    call Gear.loadSmallGear 2
+    pop temp 0
+    push this 0
+    push this 1
+    push this 8
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 5
+    push constant 4
+    eq
+    not
+    if-goto Gear_21
+    push constant 0
+    pop this 5
+    goto Gear_20
+label Gear_21
+label Gear_20
+    push constant 0
+    return
+function Gear.loadLargeGearLeft 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    push constant 1
+    eq
+    not
+    if-goto Gear_23
+    push this 5
+    push constant 1
+    eq
+    not
+    if-goto Gear_25
+    push argument 1
+    push constant 16383
+    push constant 1
+    neg
+    push constant 7269
+    push constant 7269
+    push constant 7269
+    push constant 7269
+    push constant 7269
+    push constant 7269
+    push constant 7269
+    push constant 1
+    neg
+    push constant 1
+    push constant 16383
+    push constant 8191
+    push constant 1
+    neg
+    push constant 16383
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_24
+label Gear_25
+label Gear_24
+    push this 5
+    push constant 3
+    eq
+    not
+    if-goto Gear_27
+    push argument 1
+    push constant 16383
+    push constant 1
+    neg
+    push constant 7269
+    neg
+    push constant 7269
+    neg
+    push constant 7269
+    neg
+    push constant 7269
+    neg
+    push constant 7269
+    neg
+    push constant 7269
+    neg
+    push constant 7269
+    neg
+    push constant 1
+    neg
+    push constant 1
+    push constant 16383
+    push constant 8191
+    push constant 1
+    neg
+    push constant 16383
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_26
+label Gear_27
+label Gear_26
+    push constant 0
+    return
+    goto Gear_22
+label Gear_23
+label Gear_22
+    push constant 0
+    return
+function Gear.loadLargeGearRight 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    push constant 1
+    eq
+    not
+    if-goto Gear_29
+    push this 5
+    push constant 1
+    eq
+    not
+    if-goto Gear_31
+    push argument 1
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 22984
+    neg
+    push constant 22984
+    neg
+    push constant 22984
+    neg
+    push constant 22984
+    neg
+    push constant 22984
+    neg
+    push constant 22984
+    neg
+    push constant 22984
+    neg
+    push constant 1
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 4
+    neg
+    push constant 8
+    neg
+    push constant 1
+    neg
+    push constant 4
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_30
+label Gear_31
+label Gear_30
+    push this 5
+    push constant 3
+    eq
+    not
+    if-goto Gear_33
+    push argument 1
+    push constant 4
+    neg
+    push constant 1
+    neg
+    push constant 9785
+    neg
+    push constant 9785
+    neg
+    push constant 9785
+    neg
+    push constant 9785
+    neg
+    push constant 9785
+    neg
+    push constant 9785
+    neg
+    push constant 9785
+    neg
+    push constant 1
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 4
+    neg
+    push constant 8
+    neg
+    push constant 1
+    neg
+    push constant 4
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_32
+label Gear_33
+label Gear_32
+    push constant 0
+    return
+    goto Gear_28
+label Gear_29
+label Gear_28
+    push constant 0
+    return
+function Gear.loadSmallGear 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    push constant 3
+    eq
+    not
+    if-goto Gear_35
+    push this 5
+    push constant 1
+    eq
+    not
+    if-goto Gear_37
+    push argument 1
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 1
+    neg
+    push constant 2017
+    neg
+    push constant 961
+    neg
+    push constant 0
+    push constant 1
+    neg
+    push constant 19506
+    push constant 19506
+    push constant 19506
+    push constant 19506
+    push constant 1
+    neg
+    push constant 385
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_36
+label Gear_37
+label Gear_36
+    push this 5
+    push constant 3
+    eq
+    not
+    if-goto Gear_39
+    push argument 1
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 961
+    neg
+    push constant 1
+    neg
+    push constant 2017
+    neg
+    push constant 961
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    neg
+    push constant 19507
+    neg
+    push constant 19507
+    neg
+    push constant 19507
+    neg
+    push constant 19507
+    neg
+    push constant 1
+    neg
+    push constant 385
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_38
+label Gear_39
+label Gear_38
+    goto Gear_34
+label Gear_35
+label Gear_34
+    push this 4
+    push constant 4
+    eq
+    not
+    if-goto Gear_41
+    push this 5
+    push constant 1
+    eq
+    not
+    if-goto Gear_43
+    push argument 1
+    push constant 189
+    neg
+    push constant 129
+    neg
+    push constant 189
+    neg
+    push constant 189
+    neg
+    push constant 129
+    neg
+    push constant 641
+    neg
+    push constant 1091
+    push constant 1090
+    push constant 1090
+    push constant 1091
+    push constant 641
+    neg
+    push constant 129
+    neg
+    push constant 189
+    neg
+    push constant 189
+    neg
+    push constant 129
+    neg
+    push constant 189
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_42
+label Gear_43
+label Gear_42
+    push this 5
+    push constant 3
+    eq
+    not
+    if-goto Gear_45
+    push argument 1
+    push constant 1
+    neg
+    push constant 189
+    neg
+    push constant 129
+    neg
+    push constant 129
+    neg
+    push constant 189
+    neg
+    push constant 701
+    neg
+    push constant 1151
+    push constant 1150
+    push constant 1150
+    push constant 1151
+    push constant 701
+    neg
+    push constant 189
+    neg
+    push constant 129
+    neg
+    push constant 129
+    neg
+    push constant 189
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Gear_44
+label Gear_45
+label Gear_44
+    goto Gear_40
+label Gear_41
+label Gear_40
+    push constant 0
+    return

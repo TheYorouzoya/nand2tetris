@@ -1,0 +1,2767 @@
+function LevelTwo.init 0
+    push argument 0
+    pop static 0
+    push argument 1
+    pop static 1
+    push argument 2
+    pop static 2
+    push argument 3
+    pop static 3
+    push argument 4
+    pop static 6
+    push constant 0
+    pop static 4
+    push constant 2
+    push constant 8
+    push constant 0
+    call LargeFan.new 3
+    pop static 7
+    push constant 14
+    push constant 8
+    push constant 0
+    call LargeFan.new 3
+    pop static 8
+    push constant 0
+    pop static 19
+    push constant 0
+    pop static 20
+    push constant 0
+    pop static 21
+    push constant 0
+    pop static 22
+    push constant 0
+    pop static 23
+    push constant 0
+    pop static 24
+    push constant 0
+    pop static 5
+    push constant 0
+    return
+function LevelTwo.dispose 1
+    push static 7
+    call LargeFan.dispose 1
+    pop temp 0
+    push static 8
+    call LargeFan.dispose 1
+    pop temp 0
+    push static 11
+    call Pipe.dispose 1
+    pop temp 0
+    push static 12
+    call Pipe.dispose 1
+    pop temp 0
+    push static 13
+    call Pipe.dispose 1
+    pop temp 0
+    push static 14
+    call Pipe.dispose 1
+    pop temp 0
+    push static 15
+    call Pipe.dispose 1
+    pop temp 0
+    push static 16
+    call Pipe.dispose 1
+    pop temp 0
+    push static 17
+    call Pipe.dispose 1
+    pop temp 0
+    push static 18
+    call Pipe.dispose 1
+    pop temp 0
+    push static 9
+    call Gear.dispose 1
+    pop temp 0
+    push static 10
+    call Gear.dispose 1
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.loadLevel 0
+    push constant 0
+    pop static 4
+    push static 6
+    push constant 0
+    push constant 20
+    call Player.setPosition 3
+    pop temp 0
+    call LevelTwo.drawPipes 0
+    pop temp 0
+    call LevelTwo.drawVents 0
+    pop temp 0
+    call LevelTwo.drawFences 0
+    pop temp 0
+    call LevelTwo.drawWalls 0
+    pop temp 0
+    call LevelTwo.drawDoors 0
+    pop temp 0
+    call LevelTwo.drawConsoles 0
+    pop temp 0
+    call LevelTwo.drawControlRoom 0
+    pop temp 0
+    push constant 1
+    neg
+    call LevelTwo.drawWaterAreaOne 1
+    pop temp 0
+    push constant 1
+    neg
+    call LevelTwo.drawWaterAreaTwo 1
+    pop temp 0
+    push constant 1
+    neg
+    call LevelTwo.drawWaterAreaThree 1
+    pop temp 0
+    call LevelTwo.updateMap 0
+    pop temp 0
+    push static 0
+    call Tiles.loadDoorKeeper 1
+    pop temp 0
+    push constant 2
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 2
+    push constant 14
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 24
+    push constant 10
+    push constant 1
+    call Pipe.new 3
+    pop static 11
+    push constant 24
+    push constant 4
+    push constant 2
+    call Pipe.new 3
+    pop static 12
+    push constant 30
+    push constant 12
+    push constant 3
+    call Pipe.new 3
+    pop static 13
+    push constant 46
+    push constant 22
+    push constant 4
+    call Pipe.new 3
+    pop static 14
+    push constant 52
+    push constant 16
+    push constant 2
+    call Pipe.new 3
+    pop static 15
+    push constant 52
+    push constant 6
+    push constant 3
+    call Pipe.new 3
+    pop static 16
+    push constant 58
+    push constant 12
+    push constant 2
+    call Pipe.new 3
+    pop static 17
+    push constant 58
+    push constant 20
+    push constant 3
+    call Pipe.new 3
+    pop static 18
+    push constant 34
+    push constant 16
+    push constant 4
+    push constant 2
+    push constant 0
+    call Gear.new 5
+    pop static 9
+    push constant 46
+    push constant 8
+    push constant 3
+    push constant 2
+    push constant 0
+    call Gear.new 5
+    pop static 10
+    push static 4
+    push static 3
+    add
+    push constant 38
+    push constant 2
+    push constant 6
+    push constant 0
+    push constant 0
+    push constant 1
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push static 4
+    push constant 1
+    add
+    pop static 4
+    push static 4
+    push static 3
+    add
+    push constant 52
+    push constant 24
+    push constant 6
+    push constant 0
+    push constant 0
+    push constant 1
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push static 4
+    push constant 1
+    add
+    pop static 4
+    call DialogueManager.clearDialogueBox 0
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.animateTiles 0
+    push static 7
+    call LargeFan.draw 1
+    pop temp 0
+    push static 8
+    call LargeFan.draw 1
+    pop temp 0
+    push static 9
+    call Gear.draw 1
+    pop temp 0
+    push static 10
+    call Gear.draw 1
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.winCondition 0
+    push static 24
+    not
+    if-goto LevelTwo_1
+    push static 6
+    call Player.getX 1
+    push constant 56
+    eq
+    push static 6
+    call Player.getY 1
+    push constant 2
+    eq
+    and
+    not
+    if-goto LevelTwo_3
+    push constant 1
+    neg
+    return
+    goto LevelTwo_2
+label LevelTwo_3
+label LevelTwo_2
+    goto LevelTwo_0
+label LevelTwo_1
+label LevelTwo_0
+    push constant 0
+    return
+function LevelTwo.processEvents 3
+    push static 6
+    call Player.getX 1
+    pop local 0
+    push static 6
+    call Player.getY 1
+    pop local 1
+    push local 0
+    push constant 4
+    eq
+    push local 1
+    push constant 14
+    eq
+    and
+    push static 24
+    not
+    and
+    not
+    if-goto LevelTwo_5
+    push constant 43
+    call String.new 1
+    push constant 70
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 120
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 118
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 119
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 2
+    push local 2
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 2
+    call String.dispose 1
+    pop temp 0
+    push constant 46
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 91
+    call String.appendChar 2
+    push constant 69
+    call String.appendChar 2
+    push constant 93
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 2
+    push local 2
+    call DialogueManager.printDialogueLineTwo 1
+    pop temp 0
+    push local 2
+    call String.dispose 1
+    pop temp 0
+    goto LevelTwo_4
+label LevelTwo_5
+label LevelTwo_4
+    push argument 0
+    push constant 69
+    eq
+    not
+    if-goto LevelTwo_7
+    push local 0
+    push constant 22
+    eq
+    push local 1
+    push constant 14
+    eq
+    and
+    push static 19
+    not
+    and
+    not
+    if-goto LevelTwo_9
+    push static 11
+    call Pipe.rotate 1
+    pop temp 0
+    push static 12
+    call Pipe.rotate 1
+    pop temp 0
+    push constant 150
+    call Sys.wait 1
+    pop temp 0
+    goto LevelTwo_8
+label LevelTwo_9
+label LevelTwo_8
+    push local 0
+    push constant 26
+    eq
+    push local 1
+    push constant 10
+    eq
+    and
+    push static 19
+    not
+    and
+    not
+    if-goto LevelTwo_11
+    push static 12
+    call Pipe.rotate 1
+    pop temp 0
+    push static 13
+    call Pipe.rotate 1
+    pop temp 0
+    push constant 150
+    call Sys.wait 1
+    pop temp 0
+    goto LevelTwo_10
+label LevelTwo_11
+label LevelTwo_10
+    push local 0
+    push constant 44
+    eq
+    push local 1
+    push constant 12
+    eq
+    and
+    push static 20
+    not
+    and
+    not
+    if-goto LevelTwo_13
+    push static 14
+    call Pipe.rotate 1
+    pop temp 0
+    push static 15
+    call Pipe.rotate 1
+    pop temp 0
+    push constant 150
+    call Sys.wait 1
+    pop temp 0
+    goto LevelTwo_12
+label LevelTwo_13
+label LevelTwo_12
+    push local 0
+    push constant 48
+    eq
+    push local 1
+    push constant 12
+    eq
+    and
+    push static 20
+    not
+    and
+    not
+    if-goto LevelTwo_15
+    push static 15
+    call Pipe.rotate 1
+    pop temp 0
+    push static 16
+    call Pipe.rotate 1
+    pop temp 0
+    push static 17
+    call Pipe.rotate 1
+    pop temp 0
+    push constant 150
+    call Sys.wait 1
+    pop temp 0
+    goto LevelTwo_14
+label LevelTwo_15
+label LevelTwo_14
+    push local 0
+    push constant 54
+    eq
+    push local 1
+    push constant 16
+    eq
+    and
+    push static 21
+    not
+    and
+    not
+    if-goto LevelTwo_17
+    push static 17
+    call Pipe.rotate 1
+    pop temp 0
+    push static 18
+    call Pipe.rotate 1
+    pop temp 0
+    push constant 150
+    call Sys.wait 1
+    pop temp 0
+    goto LevelTwo_16
+label LevelTwo_17
+label LevelTwo_16
+    call LevelTwo.checkPipes 0
+    pop temp 0
+    goto LevelTwo_6
+label LevelTwo_7
+label LevelTwo_6
+    push argument 0
+    push constant 131
+    eq
+    not
+    if-goto LevelTwo_19
+    push local 0
+    push constant 40
+    eq
+    push local 1
+    push constant 20
+    eq
+    and
+    push static 19
+    and
+    not
+    if-goto LevelTwo_21
+    push static 6
+    push constant 40
+    push constant 16
+    call Player.setPosition 3
+    pop temp 0
+    goto LevelTwo_20
+label LevelTwo_21
+label LevelTwo_20
+    push local 0
+    push constant 48
+    eq
+    push local 1
+    push constant 18
+    eq
+    and
+    not
+    if-goto LevelTwo_23
+    push static 6
+    push constant 48
+    push constant 14
+    call Player.setPosition 3
+    pop temp 0
+    goto LevelTwo_22
+label LevelTwo_23
+label LevelTwo_22
+    goto LevelTwo_18
+label LevelTwo_19
+label LevelTwo_18
+    push argument 0
+    push constant 133
+    eq
+    not
+    if-goto LevelTwo_25
+    push local 0
+    push constant 40
+    eq
+    push local 1
+    push constant 16
+    eq
+    and
+    not
+    if-goto LevelTwo_27
+    push static 6
+    push constant 40
+    push constant 20
+    call Player.setPosition 3
+    pop temp 0
+    goto LevelTwo_26
+label LevelTwo_27
+label LevelTwo_26
+    push local 0
+    push constant 48
+    eq
+    push local 1
+    push constant 14
+    eq
+    and
+    push static 20
+    and
+    not
+    if-goto LevelTwo_29
+    push static 6
+    push constant 48
+    push constant 18
+    call Player.setPosition 3
+    pop temp 0
+    goto LevelTwo_28
+label LevelTwo_29
+label LevelTwo_28
+    goto LevelTwo_24
+label LevelTwo_25
+label LevelTwo_24
+    push argument 0
+    push constant 132
+    eq
+    not
+    if-goto LevelTwo_31
+    push local 0
+    push constant 50
+    eq
+    push local 1
+    push constant 8
+    eq
+    and
+    push static 21
+    and
+    not
+    if-goto LevelTwo_33
+    push static 6
+    push constant 54
+    push constant 8
+    call Player.setPosition 3
+    pop temp 0
+    goto LevelTwo_32
+label LevelTwo_33
+label LevelTwo_32
+    goto LevelTwo_30
+label LevelTwo_31
+label LevelTwo_30
+    push argument 0
+    push constant 130
+    eq
+    not
+    if-goto LevelTwo_35
+    push local 0
+    push constant 54
+    eq
+    push local 1
+    push constant 8
+    eq
+    and
+    not
+    if-goto LevelTwo_37
+    push static 6
+    push constant 50
+    push constant 8
+    call Player.setPosition 3
+    pop temp 0
+    goto LevelTwo_36
+label LevelTwo_37
+label LevelTwo_36
+    goto LevelTwo_34
+label LevelTwo_35
+label LevelTwo_34
+    push static 22
+    not
+    if-goto LevelTwo_39
+    push local 0
+    push constant 6
+    eq
+    push local 1
+    push constant 14
+    eq
+    and
+    not
+    if-goto LevelTwo_41
+    push static 7
+    push constant 1
+    neg
+    call LargeFan.setAnimated 2
+    pop temp 0
+    push constant 23
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 119
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 67
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 49
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 2
+    push local 2
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 2
+    call String.dispose 1
+    pop temp 0
+    push static 0
+    call GeneratorTiles.loadEnergyOrb 1
+    pop temp 0
+    push constant 6
+    push constant 12
+    call Tiles.eraseTile 2
+    pop temp 0
+    push constant 6
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    pop static 22
+    push static 5
+    push constant 1
+    add
+    pop static 5
+    goto LevelTwo_40
+label LevelTwo_41
+label LevelTwo_40
+    goto LevelTwo_38
+label LevelTwo_39
+label LevelTwo_38
+    push static 23
+    not
+    if-goto LevelTwo_43
+    push local 0
+    push constant 12
+    eq
+    push local 1
+    push constant 14
+    eq
+    and
+    not
+    if-goto LevelTwo_45
+    push static 8
+    push constant 1
+    neg
+    call LargeFan.setAnimated 2
+    pop temp 0
+    push constant 23
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 119
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 67
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 50
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 2
+    push local 2
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 2
+    call String.dispose 1
+    pop temp 0
+    push static 0
+    call GeneratorTiles.loadEnergyOrb 1
+    pop temp 0
+    push constant 12
+    push constant 12
+    call Tiles.eraseTile 2
+    pop temp 0
+    push constant 12
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    pop static 23
+    push static 5
+    push constant 1
+    add
+    pop static 5
+    goto LevelTwo_44
+label LevelTwo_45
+label LevelTwo_44
+    goto LevelTwo_42
+label LevelTwo_43
+label LevelTwo_42
+    push static 5
+    push constant 2
+    eq
+    push static 21
+    and
+    not
+    if-goto LevelTwo_47
+    push constant 1
+    neg
+    pop static 24
+    push constant 56
+    push constant 0
+    call Tiles.eraseTile 2
+    pop temp 0
+    push static 0
+    call Tiles.loadOpenDoorTile 1
+    pop temp 0
+    push constant 56
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 40
+    call String.new 1
+    push constant 76
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 118
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 80
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 120
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 2
+    push local 2
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 2
+    call String.dispose 1
+    pop temp 0
+    push constant 0
+    pop static 5
+    goto LevelTwo_46
+label LevelTwo_47
+label LevelTwo_46
+    push constant 0
+    return
+function LevelTwo.checkPipes 1
+    push static 19
+    not
+    not
+    if-goto LevelTwo_49
+    push static 11
+    call Pipe.getOrientation 1
+    push constant 3
+    eq
+    push static 12
+    call Pipe.getOrientation 1
+    push constant 1
+    eq
+    and
+    push static 13
+    call Pipe.getOrientation 1
+    push constant 4
+    eq
+    and
+    not
+    if-goto LevelTwo_51
+    push constant 1
+    neg
+    pop static 19
+    push constant 0
+    call LevelTwo.drawWaterAreaOne 1
+    pop temp 0
+    push constant 40
+    push constant 18
+    call Tiles.eraseTile 2
+    pop temp 0
+    push static 0
+    call Tiles.loadOpenDoorTile 1
+    pop temp 0
+    push constant 40
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 9
+    push constant 1
+    neg
+    call Gear.setAnimated 2
+    pop temp 0
+    push constant 44
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 0
+    push local 0
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 0
+    call String.dispose 1
+    pop temp 0
+    goto LevelTwo_50
+label LevelTwo_51
+label LevelTwo_50
+    goto LevelTwo_48
+label LevelTwo_49
+label LevelTwo_48
+    push static 20
+    not
+    not
+    if-goto LevelTwo_53
+    push static 14
+    call Pipe.getOrientation 1
+    push constant 2
+    eq
+    push static 15
+    call Pipe.getOrientation 1
+    push constant 3
+    eq
+    and
+    push static 16
+    call Pipe.getOrientation 1
+    push constant 2
+    eq
+    and
+    not
+    if-goto LevelTwo_55
+    push constant 1
+    neg
+    pop static 20
+    push constant 0
+    call LevelTwo.drawWaterAreaTwo 1
+    pop temp 0
+    push constant 48
+    push constant 16
+    call Tiles.eraseTile 2
+    pop temp 0
+    push static 0
+    call Tiles.loadOpenDoorTile 1
+    pop temp 0
+    push constant 48
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 0
+    push local 0
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 0
+    call String.dispose 1
+    pop temp 0
+    goto LevelTwo_54
+label LevelTwo_55
+label LevelTwo_54
+    goto LevelTwo_52
+label LevelTwo_53
+label LevelTwo_52
+    push static 21
+    not
+    not
+    if-goto LevelTwo_57
+    push static 17
+    call Pipe.getOrientation 1
+    push constant 2
+    eq
+    push static 18
+    call Pipe.getOrientation 1
+    push constant 4
+    eq
+    and
+    not
+    if-goto LevelTwo_59
+    push constant 1
+    neg
+    pop static 21
+    push constant 0
+    call LevelTwo.drawWaterAreaThree 1
+    pop temp 0
+    push constant 52
+    push constant 8
+    call Tiles.eraseTile 2
+    pop temp 0
+    push static 0
+    call Tiles.loadOpenDoorTile 1
+    pop temp 0
+    push constant 52
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 10
+    push constant 1
+    neg
+    call Gear.setAnimated 2
+    pop temp 0
+    push constant 43
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 112
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 33
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 65
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 0
+    push local 0
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 0
+    call String.dispose 1
+    pop temp 0
+    goto LevelTwo_58
+label LevelTwo_59
+label LevelTwo_58
+    goto LevelTwo_56
+label LevelTwo_57
+label LevelTwo_56
+    push constant 0
+    return
+function LevelTwo.processKeyCollision 1
+    push argument 0
+    call Item.getX 1
+    push constant 38
+    eq
+    not
+    if-goto LevelTwo_61
+    push constant 1
+    neg
+    pop static 22
+    goto LevelTwo_60
+label LevelTwo_61
+    push constant 1
+    neg
+    pop static 23
+label LevelTwo_60
+    push constant 49
+    call String.new 1
+    push constant 80
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 119
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 108
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 82
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 105
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 103
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 0
+    push local 0
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 0
+    call String.dispose 1
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.getItemCount 0
+    push static 4
+    return
+function LevelTwo.drawPipes 0
+    push static 0
+    push constant 1
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 18
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 36
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 10
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 16
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 42
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 2
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 10
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 20
+    push constant 28
+    push constant 0
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 38
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 42
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 46
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 48
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 26
+    push constant 34
+    push constant 4
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 48
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 50
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 20
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 32
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 34
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 54
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 56
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 46
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 50
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 38
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 60
+    push constant 20
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 62
+    push constant 20
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 3
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 40
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 36
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 4
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 2
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    push constant 4
+    push constant 44
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 12
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 18
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 30
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 36
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 2
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 24
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 30
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 24
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 30
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 52
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 36
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 52
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 58
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 58
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    push constant 20
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 46
+    push constant 24
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 6
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 36
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 7
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 8
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 40
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 36
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    push constant 22
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 8
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 46
+    push constant 6
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 9
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    push constant 50
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 12
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 18
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 36
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 42
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawVents 0
+    push static 0
+    call Tiles.loadVentTile 1
+    pop temp 0
+    push constant 12
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 30
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 50
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 2
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 22
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 30
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 52
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 58
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawFences 0
+    push static 0
+    call Tiles.loadFenceTile 1
+    pop temp 0
+    push constant 0
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 14
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 16
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 32
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 34
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 42
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 46
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 48
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 8
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 10
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 14
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 16
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 20
+    push constant 28
+    push constant 2
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 32
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 34
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 8
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 14
+    push constant 4
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 4
+    push constant 8
+    push constant 20
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 4
+    push constant 8
+    push constant 22
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawWalls 0
+    push static 0
+    call Tiles.loadQuadWallTile 1
+    pop temp 0
+    push constant 52
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 54
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 58
+    push constant 62
+    push constant 0
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawDoors 0
+    push static 0
+    call Tiles.loadClosedDoorTile 1
+    pop temp 0
+    push constant 56
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 52
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 48
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 40
+    push constant 18
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawConsoles 0
+    push static 0
+    call Tiles.loadConsoleTile 1
+    pop temp 0
+    push constant 28
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 22
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 50
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 44
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 56
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawControlRoom 0
+    push static 0
+    call GeneratorTiles.loadSquareWallTile 1
+    pop temp 0
+    push constant 0
+    push constant 18
+    push constant 6
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 8
+    push constant 14
+    push constant 0
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 8
+    push constant 14
+    push constant 18
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push static 0
+    push constant 1
+    call GeneratorTiles.loadComponentOne 2
+    pop temp 0
+    push constant 6
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 2
+    call GeneratorTiles.loadComponentOne 2
+    pop temp 0
+    push constant 8
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 3
+    call GeneratorTiles.loadComponentOne 2
+    pop temp 0
+    push constant 6
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 4
+    call GeneratorTiles.loadComponentOne 2
+    pop temp 0
+    push constant 8
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 1
+    call GeneratorTiles.loadComponentTwo 2
+    pop temp 0
+    push constant 10
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 2
+    call GeneratorTiles.loadComponentTwo 2
+    pop temp 0
+    push constant 12
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 3
+    call GeneratorTiles.loadComponentTwo 2
+    pop temp 0
+    push constant 10
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    push constant 4
+    call GeneratorTiles.loadComponentTwo 2
+    pop temp 0
+    push constant 12
+    push constant 10
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push static 0
+    call GeneratorTiles.loadWires 1
+    pop temp 0
+    push constant 2
+    push constant 16
+    push constant 12
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 6
+    push constant 12
+    call Tiles.eraseTile 2
+    pop temp 0
+    push constant 12
+    push constant 12
+    call Tiles.eraseTile 2
+    pop temp 0
+    push static 0
+    call GeneratorTiles.loadCircleBottom 1
+    pop temp 0
+    push constant 6
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 12
+    push constant 12
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawWaterAreaOne 0
+    push argument 0
+    not
+    if-goto LevelTwo_63
+    push static 0
+    call Tiles.loadWaterTile 1
+    pop temp 0
+    goto LevelTwo_62
+label LevelTwo_63
+    push static 0
+    call Tiles.loadBlankTile 1
+    pop temp 0
+label LevelTwo_62
+    push constant 38
+    push constant 42
+    push constant 4
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 32
+    push constant 42
+    push constant 6
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 32
+    push constant 44
+    push constant 8
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 48
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 50
+    push constant 8
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 32
+    push constant 50
+    push constant 10
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 38
+    push constant 48
+    push constant 12
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 38
+    push constant 42
+    push constant 14
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 46
+    push constant 50
+    push constant 14
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 38
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 40
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawWaterAreaTwo 0
+    push argument 0
+    not
+    if-goto LevelTwo_65
+    push static 0
+    call Tiles.loadWaterTile 1
+    pop temp 0
+    goto LevelTwo_64
+label LevelTwo_65
+    push static 0
+    call Tiles.loadBlankTile 1
+    pop temp 0
+label LevelTwo_64
+    push constant 54
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 56
+    push constant 14
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 54
+    push constant 16
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 46
+    push constant 56
+    push constant 18
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 46
+    push constant 56
+    push constant 20
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 48
+    push constant 62
+    push constant 22
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 48
+    push constant 24
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 50
+    push constant 24
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 54
+    push constant 62
+    push constant 24
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.drawWaterAreaThree 0
+    push argument 0
+    not
+    if-goto LevelTwo_67
+    push static 0
+    call Tiles.loadWaterTile 1
+    pop temp 0
+    goto LevelTwo_66
+label LevelTwo_67
+    push static 0
+    call Tiles.loadBlankTile 1
+    pop temp 0
+label LevelTwo_66
+    push constant 52
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 46
+    push constant 52
+    push constant 4
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 10
+    push constant 54
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 10
+    push constant 56
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 10
+    push constant 58
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 18
+    push constant 60
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 18
+    push constant 62
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return
+function LevelTwo.updateMap 0
+    push constant 0
+    push constant 14
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 0
+    push constant 18
+    push constant 12
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 18
+    push constant 14
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 20
+    push constant 24
+    push constant 10
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 22
+    push constant 12
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 26
+    push constant 34
+    push constant 4
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 4
+    push constant 8
+    push constant 24
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 0
+    push constant 4
+    push constant 36
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 38
+    push constant 0
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 40
+    push constant 0
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 40
+    push constant 50
+    push constant 2
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 50
+    push constant 62
+    push constant 0
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 6
+    push constant 12
+    push constant 30
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 28
+    push constant 10
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 32
+    push constant 36
+    push constant 12
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 14
+    push constant 18
+    push constant 36
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 34
+    push constant 16
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 38
+    push constant 42
+    push constant 18
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 42
+    push constant 52
+    push constant 16
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 44
+    push constant 14
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 18
+    push constant 22
+    push constant 44
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 46
+    push constant 22
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 46
+    push constant 24
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 44
+    push constant 52
+    push constant 6
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 44
+    push constant 4
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 46
+    push constant 8
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 8
+    push constant 14
+    push constant 52
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 50
+    push constant 12
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 54
+    push constant 58
+    push constant 12
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 14
+    push constant 18
+    push constant 58
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 58
+    push constant 62
+    push constant 20
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 56
+    push constant 16
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 0
+    return

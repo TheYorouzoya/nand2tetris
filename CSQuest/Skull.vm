@@ -1,0 +1,624 @@
+function Skull.new 0
+    push constant 9
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 2
+    push constant 0
+    pop this 3
+    push constant 0
+    pop this 6
+    push constant 16
+    call Array.new 1
+    pop this 7
+    push pointer 0
+    call Skull.loadSkullClose 1
+    pop temp 0
+    push pointer 0
+    call Skull.drawSkull 1
+    pop temp 0
+    push pointer 0
+    push argument 3
+    call Skull.initializeFireball 2
+    pop temp 0
+    push pointer 0
+    call Skull.attack 1
+    pop temp 0
+    push pointer 0
+    return
+function Skull.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 8
+    call Item.dispose 1
+    pop temp 0
+    push this 7
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Skull.initializeFireball 2
+    push argument 0
+    pop pointer 0
+    push this 0
+    pop this 4
+    push this 1
+    pop this 5
+    push this 0
+    pop local 0
+    push this 1
+    pop local 1
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Skull_1
+    push this 1
+    push constant 2
+    sub
+    pop local 1
+    push argument 1
+    pop this 5
+    goto Skull_0
+label Skull_1
+label Skull_0
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Skull_3
+    push this 1
+    push constant 2
+    add
+    pop local 1
+    push argument 1
+    pop this 5
+    goto Skull_2
+label Skull_3
+label Skull_2
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Skull_5
+    push this 0
+    push constant 2
+    sub
+    pop local 0
+    push argument 1
+    pop this 4
+    goto Skull_4
+label Skull_5
+label Skull_4
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Skull_7
+    push this 0
+    push constant 2
+    add
+    pop local 0
+    push argument 1
+    pop this 4
+    goto Skull_6
+label Skull_7
+label Skull_6
+    push local 0
+    push local 1
+    push constant 7
+    push this 2
+    push constant 0
+    push constant 3
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop this 8
+    push constant 0
+    return
+function Skull.tick 0
+    push argument 0
+    pop pointer 0
+    push this 6
+    push constant 4
+    eq
+    not
+    if-goto Skull_9
+    push pointer 0
+    call Skull.loadSkullClose 1
+    pop temp 0
+    push pointer 0
+    call Skull.drawSkull 1
+    pop temp 0
+    goto Skull_8
+label Skull_9
+label Skull_8
+    push this 3
+    not
+    if-goto Skull_11
+    push this 8
+    call Item.moveItem 1
+    pop temp 0
+    push this 8
+    push argument 1
+    push argument 2
+    call Item.collidesWith 3
+    not
+    if-goto Skull_13
+    push argument 3
+    call Player.takeDamage 1
+    pop temp 0
+    push this 8
+    call Item.erase 1
+    pop temp 0
+    push constant 0
+    pop this 3
+    push argument 3
+    call Player.respawn 1
+    pop temp 0
+    goto Skull_12
+label Skull_13
+label Skull_12
+    push this 8
+    push this 4
+    push this 5
+    call Item.collidesWith 3
+    not
+    if-goto Skull_15
+    push this 8
+    call Item.erase 1
+    pop temp 0
+    push this 6
+    push constant 25
+    gt
+    not
+    if-goto Skull_17
+    push pointer 0
+    call Skull.attack 1
+    pop temp 0
+    goto Skull_16
+label Skull_17
+    push constant 0
+    pop this 3
+label Skull_16
+    goto Skull_14
+label Skull_15
+label Skull_14
+    goto Skull_10
+label Skull_11
+label Skull_10
+    push this 3
+    not
+    push this 6
+    push constant 25
+    gt
+    and
+    not
+    if-goto Skull_19
+    push pointer 0
+    call Skull.attack 1
+    pop temp 0
+    goto Skull_18
+label Skull_19
+label Skull_18
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push constant 0
+    return
+function Skull.drawSkull 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push this 1
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function Skull.attack 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop this 6
+    push pointer 0
+    call Skull.loadSkullOpen 1
+    pop temp 0
+    push pointer 0
+    call Skull.drawSkull 1
+    pop temp 0
+    push pointer 0
+    call Skull.spawnFireball 1
+    pop temp 0
+    push constant 0
+    return
+function Skull.spawnFireball 0
+    push argument 0
+    pop pointer 0
+    push constant 1
+    neg
+    pop this 3
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Skull_21
+    push this 8
+    push this 0
+    push this 1
+    push constant 2
+    sub
+    call Item.setPosition 3
+    pop temp 0
+    goto Skull_20
+label Skull_21
+label Skull_20
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Skull_23
+    push this 8
+    push this 0
+    push this 1
+    push constant 2
+    add
+    call Item.setPosition 3
+    pop temp 0
+    goto Skull_22
+label Skull_23
+label Skull_22
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Skull_25
+    push this 8
+    push this 0
+    push constant 2
+    sub
+    push this 1
+    call Item.setPosition 3
+    pop temp 0
+    goto Skull_24
+label Skull_25
+label Skull_24
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Skull_27
+    push this 8
+    push this 0
+    push constant 2
+    add
+    push this 1
+    call Item.setPosition 3
+    pop temp 0
+    goto Skull_26
+label Skull_27
+label Skull_26
+    push this 8
+    call Item.draw 1
+    pop temp 0
+    push constant 0
+    return
+function Skull.moveFireball 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Skull_29
+    push this 8
+    call Item.moveUp 1
+    pop temp 0
+    goto Skull_28
+label Skull_29
+label Skull_28
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Skull_31
+    push this 8
+    call Item.moveDown 1
+    pop temp 0
+    goto Skull_30
+label Skull_31
+label Skull_30
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Skull_33
+    push this 8
+    call Item.moveLeft 1
+    pop temp 0
+    goto Skull_32
+label Skull_33
+label Skull_32
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Skull_35
+    push this 8
+    call Item.moveRight 1
+    pop temp 0
+    goto Skull_34
+label Skull_35
+label Skull_34
+    push constant 0
+    return
+function Skull.loadSkullClose 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Skull_37
+    push this 7
+    push constant 8129
+    neg
+    push constant 16353
+    neg
+    push constant 32753
+    neg
+    push constant 455
+    push constant 551
+    push constant 615
+    push constant 551
+    push constant 459
+    push constant 1
+    push constant 27029
+    neg
+    push constant 5227
+    neg
+    push constant 3073
+    neg
+    push constant 3659
+    neg
+    push constant 1973
+    neg
+    push constant 1017
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Skull_36
+label Skull_37
+label Skull_36
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Skull_39
+    push this 7
+    push constant 1017
+    neg
+    push constant 2045
+    neg
+    push constant 4095
+    neg
+    push constant 7296
+    neg
+    push constant 7104
+    neg
+    push constant 6592
+    neg
+    push constant 7104
+    neg
+    push constant 11392
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 10647
+    neg
+    push constant 22057
+    neg
+    push constant 49
+    neg
+    push constant 21105
+    neg
+    push constant 11745
+    neg
+    push constant 8129
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Skull_38
+label Skull_39
+label Skull_38
+    push constant 0
+    return
+function Skull.loadSkullOpen 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto Skull_41
+    push this 7
+    push constant 8129
+    neg
+    push constant 16353
+    neg
+    push constant 32753
+    neg
+    push constant 455
+    push constant 551
+    push constant 615
+    push constant 551
+    push constant 459
+    push constant 1
+    push constant 27029
+    neg
+    push constant 5227
+    neg
+    push constant 6145
+    neg
+    push constant 6145
+    neg
+    push constant 3329
+    neg
+    push constant 3585
+    neg
+    push constant 1857
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Skull_40
+label Skull_41
+label Skull_40
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto Skull_43
+    push this 7
+    push constant 1017
+    neg
+    push constant 2045
+    neg
+    push constant 4095
+    neg
+    push constant 7296
+    neg
+    push constant 7104
+    neg
+    push constant 6592
+    neg
+    push constant 7104
+    neg
+    push constant 11392
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 10647
+    neg
+    push constant 22057
+    neg
+    push constant 25
+    neg
+    push constant 25
+    neg
+    push constant 177
+    neg
+    push constant 113
+    neg
+    push constant 737
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Skull_42
+label Skull_43
+label Skull_42
+    push constant 0
+    return
+function Skull.loadFireball 0
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Skull_45
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 249
+    neg
+    push constant 773
+    neg
+    push constant 3187
+    neg
+    push constant 14539
+    neg
+    push constant 3893
+    push constant 14587
+    neg
+    push constant 3187
+    neg
+    push constant 773
+    neg
+    push constant 249
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Skull_44
+label Skull_45
+label Skull_44
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Skull_47
+    push argument 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 7937
+    neg
+    push constant 8385
+    neg
+    push constant 20017
+    neg
+    push constant 21277
+    neg
+    push constant 21264
+    neg
+    push constant 24349
+    neg
+    push constant 20017
+    neg
+    push constant 8385
+    neg
+    push constant 7937
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Skull_46
+label Skull_47
+label Skull_46
+    push constant 0
+    return

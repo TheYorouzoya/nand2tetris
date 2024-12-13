@@ -151,16 +151,16 @@ With that, our compilation process is complete.
 
 # CSQuest
 
-CSQuest is a small puzzle/adventure game written in Jack. The game can be run on the VM emulator provided [here](https://drive.google.com/file/d/1IkIR8Pwq3PY49QgXpUJOkUUVht-TKIET/view).
+CSQuest is a small puzzle/adventure game written in Jack. The game can be run on the VM emulator provided [here](https://drive.google.com/file/d/1xZzcMIUETv3u3sdpM_oTJSTetpVee3KZ/view).
 
 > *The artwork assets for the game are taken from the free assets put on itch.io by [PiiiXL](https://piiixl.itch.io/) and [Kenney](https://kenney.itch.io/), and then converted to bitmaps to work with the Hack CPU architecture.*
 
 ![image showing the game's home screen with the game running inside the VM emulator](./docimages/game-home.png)
 
 > [!NOTE]
-> While Nand2Tetris now uses their web-based IDE for emulation, since this project was written for the legacy Java software package linked above, it is recommended you run it there. The tick rate for the new web-based IDE's CPU is too fast which makes the game's tile animations and movement too jarring. Plus, there are numerous graphics bugs when running the game on it.
+> *While Nand2Tetris now uses their web-based IDE for emulation, since this project was written for the legacy Java software package linked above, it is recommended you run it there. The tick rate for the new web-based IDE's CPU is too fast which makes the game's tile animations and movement too jarring. Plus, there are numerous graphics bugs when running the game on it.*
 
-Since our Hack CPU comes with a screen and a keyboard which is mapped onto the RAM (memory-mapped I/O), I decided to make a game that runs on this hardware. The screen is 512 pixels wide and 256 pixels tall, with each pixel mapped onto an idividual bit inside the RAM starting from location 0x4000 (16384). The screen polls the RAM and updates itself 60 times a second. All the graphics for the game are drawn by the game engine by writing the appropriate 16-bit words in memory.
+Since our Hack CPU comes with a screen and a keyboard which are mapped onto the RAM (memory-mapped I/O), I decided to make a game that runs on this hardware. The screen is 512 pixels wide and 256 pixels tall, with each pixel mapped onto an idividual bit inside the RAM starting from location 0x4000 (16384). The screen polls the RAM and updates itself 60 times a second. All the graphics for the game are drawn by the game engine by writing the appropriate 16-bit words in memory.
 
 The keyboard, on the other hand, is mapped on RAM location 0x6000 (24576). Any keyboard input updates this word in the RAM accordingly, which is then processed by the game engine to update the game's current state.
 

@@ -1,0 +1,434 @@
+function Pipe.new 0
+    push constant 4
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 3
+    push constant 16
+    call Array.new 1
+    pop this 2
+    push pointer 0
+    push this 3
+    call Pipe.loadTile 2
+    pop temp 0
+    push this 0
+    push this 1
+    push this 2
+    call Tiles.drawTile 3
+    pop temp 0
+    push pointer 0
+    return
+function Pipe.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Pipe.draw 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push this 1
+    push this 2
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function Pipe.rotate 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    push constant 1
+    add
+    pop this 3
+    push this 3
+    push constant 5
+    eq
+    not
+    if-goto Pipe_1
+    push constant 1
+    pop this 3
+    goto Pipe_0
+label Pipe_1
+label Pipe_0
+    push pointer 0
+    push this 3
+    call Pipe.loadTile 2
+    pop temp 0
+    push this 0
+    push this 1
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 0
+    push this 1
+    push this 2
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function Pipe.loadTile 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Pipe_3
+    push this 2
+    push constant 1
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    goto Pipe_2
+label Pipe_3
+label Pipe_2
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Pipe_5
+    push this 2
+    push constant 3
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    goto Pipe_4
+label Pipe_5
+label Pipe_4
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Pipe_7
+    push this 2
+    push constant 9
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    goto Pipe_6
+label Pipe_7
+label Pipe_6
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Pipe_9
+    push this 2
+    push constant 7
+    call Pipe.loadPipeTile 2
+    pop temp 0
+    goto Pipe_8
+label Pipe_9
+label Pipe_8
+    push constant 0
+    return
+function Pipe.getOrientation 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    return
+function Pipe.loadPipeTile 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Pipe_11
+    push argument 0
+    push constant 1
+    neg
+    push constant 16383
+    push constant 16129
+    neg
+    push constant 24383
+    push constant 16607
+    push constant 16431
+    push constant 16407
+    push constant 16407
+    push constant 16395
+    push constant 16395
+    push constant 16395
+    push constant 16395
+    push constant 28683
+    push constant 4085
+    neg
+    push constant 16381
+    push constant 24571
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_10
+label Pipe_11
+label Pipe_10
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Pipe_13
+    push argument 0
+    push constant 1
+    neg
+    push constant 16380
+    push constant 16381
+    neg
+    push constant 32766
+    push constant 16386
+    push constant 16386
+    push constant 16386
+    push constant 16386
+    push constant 16386
+    push constant 16386
+    push constant 16386
+    push constant 16386
+    push constant 32766
+    push constant 16381
+    neg
+    push constant 16380
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_12
+label Pipe_13
+label Pipe_12
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Pipe_15
+    push argument 0
+    push constant 1
+    neg
+    push constant 4
+    neg
+    push constant 253
+    neg
+    push constant 770
+    neg
+    push constant 1278
+    neg
+    push constant 3070
+    neg
+    push constant 6142
+    neg
+    push constant 6142
+    neg
+    push constant 12286
+    neg
+    push constant 12286
+    neg
+    push constant 12286
+    neg
+    push constant 12286
+    neg
+    push constant 12274
+    neg
+    push constant 16369
+    neg
+    push constant 16388
+    neg
+    push constant 24571
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_14
+label Pipe_15
+label Pipe_14
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Pipe_17
+    push argument 0
+    push constant 24571
+    neg
+    push constant 16387
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 16387
+    neg
+    push constant 24571
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_16
+label Pipe_17
+label Pipe_16
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto Pipe_19
+    push argument 0
+    push constant 24571
+    neg
+    push constant 16387
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 10213
+    neg
+    push constant 10213
+    neg
+    push constant 12277
+    neg
+    push constant 9557
+    neg
+    push constant 10917
+    neg
+    push constant 12277
+    neg
+    push constant 10213
+    neg
+    push constant 10213
+    neg
+    push constant 12277
+    neg
+    push constant 12277
+    neg
+    push constant 16387
+    neg
+    push constant 24571
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_18
+label Pipe_19
+label Pipe_18
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto Pipe_21
+    push argument 0
+    push constant 24571
+    neg
+    push constant 16381
+    push constant 4093
+    neg
+    push constant 28683
+    push constant 16395
+    push constant 16395
+    push constant 16395
+    push constant 16395
+    push constant 16407
+    push constant 16407
+    push constant 16431
+    push constant 16607
+    push constant 32575
+    push constant 16129
+    neg
+    push constant 16383
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_20
+label Pipe_21
+label Pipe_20
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto Pipe_23
+    push argument 0
+    push constant 1
+    neg
+    push constant 16380
+    push constant 16381
+    neg
+    push constant 32766
+    push constant 19634
+    push constant 16642
+    push constant 16514
+    push constant 16642
+    push constant 16514
+    push constant 16642
+    push constant 16514
+    push constant 19762
+    push constant 32766
+    push constant 16381
+    neg
+    push constant 16380
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_22
+label Pipe_23
+label Pipe_22
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto Pipe_25
+    push argument 0
+    push constant 24571
+    neg
+    push constant 16388
+    neg
+    push constant 12273
+    neg
+    push constant 12274
+    neg
+    push constant 12286
+    neg
+    push constant 12286
+    neg
+    push constant 12286
+    neg
+    push constant 12286
+    neg
+    push constant 6142
+    neg
+    push constant 6142
+    neg
+    push constant 3070
+    neg
+    push constant 1278
+    neg
+    push constant 774
+    neg
+    push constant 253
+    neg
+    push constant 4
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Pipe_24
+label Pipe_25
+label Pipe_24
+    push constant 0
+    return

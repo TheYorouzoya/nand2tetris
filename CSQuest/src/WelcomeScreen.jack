@@ -1,0 +1,205 @@
+/* 
+The Welcome Screen when the game first loads i.e., level zero 
+The level contains two sections to write text on. The player character is present
+and free to move about the screen.
+*/
+class WelcomeScreen {
+    static Array tile, map, twoToThe, items;
+    static int itemCount;
+    static Player player;
+    static Gear left, right;
+    static boolean end;
+
+    function void init(Array Atile, Array Amap, Array AtwoToThe, Array Aitems, Player Aplr) {
+        let tile = Atile;
+        let map = Amap;
+        let twoToThe = AtwoToThe;
+        let items = Aitems;
+        let player = Aplr;
+        let itemCount = 0;
+        let end = false;
+
+        let left = Gear.new(20, 6, 1, 1, true);
+        let right = Gear.new(40, 6, 1, 1, true);
+
+        return;
+    }
+
+    function void dispose() {
+        do left.dispose();
+        do right.dispose();
+        return;
+    }
+
+    function void loadLevel() {
+        var String s;
+
+        do player.setPosition(36, 6);
+
+        do WelcomeScreen.drawFences();
+        do WelcomeScreen.drawTopBox();
+        do WelcomeScreen.drawBottomBox();
+        do WelcomeScreen.updateMap();
+
+
+        do Tiles.loadEngineer(tile);
+        do Tiles.drawTile(26, 6, tile);
+
+        do Tiles.loadDoorKeeper(tile);
+        do Tiles.drawTile(28, 6, tile);
+
+        let s = "Welcome to CSQuest!";
+        do Output.moveCursor(8, 23);
+        do Output.printString(s);
+        do s.dispose();
+
+        let s = "Arrow keys to move";
+        do Output.moveCursor(10, 23);
+        do Output.printString(s);
+        do s.dispose();
+
+        let s = "[Enter] to start";
+        do Output.moveCursor(11, 24);
+        do Output.printString(s);
+        do s.dispose();
+
+        let s = "Art by PiiiXL and";
+        do Output.moveCursor(17, 23);
+        do Output.printString(s);
+        do s.dispose();
+
+        let s = "Kenney @itch.io";
+        do Output.moveCursor(18, 24);
+        do Output.printString(s);
+        do s.dispose();
+
+        return;
+    }
+
+    function void animateTiles() {
+        do left.draw();
+        do right.draw();
+        return;
+    }
+
+    function boolean winCondition() {
+        return end;
+    }
+
+    function void processEvents(int key) {
+        if (key = 128) {
+            let end = true;
+        }
+        return;
+    }
+
+    function void processKeyCollision(Item item) {
+        return;
+    }
+
+    function int getItemCount() {
+        return itemCount;
+    }
+
+    function void updateMap() {
+        do LevelManager.resetMap();
+        do LevelManager.updateMap(20, 6);
+        do LevelManager.updateMap(22, 6);
+        do LevelManager.updateMap(26, 6);
+        do LevelManager.updateMap(28, 6);
+        do LevelManager.updateMap(40, 6);
+        do LevelManager.updateMap(42, 6);
+
+        do LevelManager.updateMapBulk(18, 44, 8, true);
+        do LevelManager.updateMapBulk(10, 14, 18, false);
+        do LevelManager.updateMapBulk(10, 14, 44, false);
+        do LevelManager.updateMapBulk(0, 62, 16, true);
+
+        return;
+    }
+
+    function void drawFences() {
+        do Tiles.loadQuadWallTile(tile);
+        do Tiles.buildTiles(0, 62, 16, true, tile);
+
+        do Tiles.loadFenceTile(tile);
+        do Tiles.buildTiles(0, 62, 18, true, tile);
+        do Tiles.buildTiles(0, 62, 20, true, tile);
+        do Tiles.buildTiles(0, 62, 22, true, tile);
+        do Tiles.buildTiles(0, 62, 24, true, tile);
+        do Tiles.buildTiles(0, 62, 26, true, tile);
+        do Tiles.buildTiles(0, 62, 28, true, tile);
+        do Tiles.buildTiles(0, 62, 30, true, tile);
+
+        return;
+    }
+
+    function void drawTopBox() {
+        do DungeonTiles.loadWallTile(tile, 1);
+        do Tiles.drawTile(18, 8, tile);
+
+        do DungeonTiles.loadWallTile(tile, 2);
+        do Tiles.buildTiles(20, 42, 8, true, tile);
+
+        do DungeonTiles.loadWallTile(tile, 3);
+        do Tiles.drawTile(44, 8, tile);
+
+        do DungeonTiles.loadWallTile(tile, 4);
+        do Tiles.buildTiles(10, 16, 18, false, tile);
+
+        do DungeonTiles.loadWallTile(tile, 6);
+        do Tiles.buildTiles(10, 16, 44, false, tile);
+
+        do DungeonTiles.loadWallTile(tile, 7);
+        do Tiles.drawTile(18, 18, tile);
+
+        do DungeonTiles.loadWallTile(tile, 8);
+        do Tiles.buildTiles(20, 42, 18, true, tile);
+
+        do DungeonTiles.loadWallTile(tile, 9);
+        do Tiles.drawTile(44, 18, tile);
+
+        do Tiles.loadWhiteTile(tile);
+        do Tiles.buildTiles(20, 42, 10, true, tile);
+        do Tiles.buildTiles(20, 42, 12, true, tile);
+        do Tiles.buildTiles(20, 42, 14, true, tile);
+        do Tiles.buildTiles(20, 42, 16, true, tile);
+
+        return;
+    }
+
+    function void drawBottomBox() {
+        do Tiles.loadChainTile(tile);
+        do Tiles.drawTile(22, 20, tile);
+        do Tiles.drawTile(40, 20, tile);
+
+        do Tiles.loadDialogueBox(tile, 1);
+        do Tiles.drawTile(20, 22, tile);
+
+        do Tiles.loadDialogueBox(tile, 2);
+        do Tiles.buildTiles(22, 40, 22, true, tile);
+
+        do Tiles.loadDialogueBox(tile, 3);
+        do Tiles.drawTile(42, 22, tile);
+
+        do Tiles.loadDialogueBox(tile, 4);
+        do Tiles.drawTile(20, 24, tile);
+
+        do Tiles.loadDialogueBox(tile, 6);
+        do Tiles.drawTile(42, 24, tile);
+
+        do Tiles.loadDialogueBox(tile, 7);
+        do Tiles.drawTile(20, 26, tile);
+
+        do Tiles.loadDialogueBox(tile, 8);
+        do Tiles.buildTiles(22, 40, 26, true, tile);
+
+        do Tiles.loadDialogueBox(tile, 9);
+        do Tiles.drawTile(42, 26, tile);
+
+        do Tiles.loadWhiteTile(tile);
+        do Tiles.buildTiles(22, 40, 24, true, tile);
+
+        return;
+    }
+}

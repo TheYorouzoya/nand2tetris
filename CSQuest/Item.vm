@@ -1,0 +1,539 @@
+function Item.new 0
+    push constant 12
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 2
+    push argument 1
+    pop this 3
+    push argument 2
+    pop this 1
+    push argument 5
+    pop this 0
+    push argument 6
+    pop this 8
+    push constant 16
+    call Array.new 1
+    pop this 7
+    push argument 3
+    pop this 4
+    push argument 4
+    pop this 5
+    push constant 0
+    pop this 6
+    push constant 0
+    pop this 11
+    push pointer 0
+    push argument 7
+    call Item.loadAnimationData 2
+    pop temp 0
+    push this 7
+    call Tiles.loadBlankTile 1
+    pop temp 0
+    push pointer 0
+    call Item.loadTile 1
+    pop temp 0
+    push this 0
+    push constant 3
+    eq
+    not
+    not
+    if-goto Item_1
+    push pointer 0
+    call Item.draw 1
+    pop temp 0
+    goto Item_0
+label Item_1
+label Item_0
+    push pointer 0
+    return
+function Item.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 7
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Item.loadAnimationData 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 3
+    eq
+    not
+    if-goto Item_3
+    push constant 30
+    pop this 9
+    goto Item_2
+label Item_3
+label Item_2
+    push this 1
+    push constant 4
+    eq
+    not
+    if-goto Item_5
+    push constant 30
+    pop this 9
+    goto Item_4
+label Item_5
+label Item_4
+    push this 1
+    push constant 5
+    eq
+    not
+    if-goto Item_7
+    push constant 4
+    pop this 9
+    goto Item_6
+label Item_7
+label Item_6
+    push argument 1
+    pop this 10
+    push constant 0
+    return
+function Item.loadTile 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 4
+    eq
+    not
+    if-goto Item_9
+    push this 7
+    push this 10
+    call Tiles.loadSpikeTwo 2
+    pop temp 0
+    goto Item_8
+label Item_9
+label Item_8
+    push this 1
+    push constant 5
+    eq
+    not
+    if-goto Item_11
+    push this 7
+    push this 10
+    call Tiles.loadSmallFan 2
+    pop temp 0
+    goto Item_10
+label Item_11
+label Item_10
+    push this 1
+    push constant 6
+    eq
+    not
+    if-goto Item_13
+    push this 7
+    call GeneratorTiles.loadEnergyOrb 1
+    pop temp 0
+    goto Item_12
+label Item_13
+label Item_12
+    push this 1
+    push constant 7
+    eq
+    not
+    if-goto Item_15
+    push this 7
+    push this 4
+    call Skull.loadFireball 2
+    pop temp 0
+    goto Item_14
+label Item_15
+label Item_14
+    push this 1
+    push constant 8
+    eq
+    not
+    if-goto Item_17
+    push this 7
+    call Tiles.loadHeartTile 1
+    pop temp 0
+    goto Item_16
+label Item_17
+label Item_16
+    push this 1
+    push constant 9
+    eq
+    not
+    if-goto Item_19
+    push this 7
+    call Tiles.loadDoorKeeper 1
+    pop temp 0
+    goto Item_18
+label Item_19
+label Item_18
+    push this 1
+    push constant 10
+    eq
+    not
+    if-goto Item_21
+    push this 7
+    call Tiles.loadEngineer 1
+    pop temp 0
+    goto Item_20
+label Item_21
+label Item_20
+    push constant 0
+    return
+function Item.draw 0
+    push argument 0
+    pop pointer 0
+    push this 8
+    not
+    if-goto Item_23
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 10
+    push constant 1
+    add
+    pop this 10
+    push pointer 0
+    call Item.loadTile 1
+    pop temp 0
+    push this 10
+    push this 9
+    eq
+    not
+    if-goto Item_25
+    push constant 0
+    pop this 10
+    goto Item_24
+label Item_25
+label Item_24
+    goto Item_22
+label Item_23
+label Item_22
+    push this 2
+    push this 3
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function Item.erase 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push constant 0
+    return
+function Item.collidesWith 1
+    push argument 0
+    pop pointer 0
+    push this 2
+    push argument 1
+    push constant 2
+    add
+    lt
+    push this 2
+    push constant 2
+    add
+    push argument 1
+    gt
+    and
+    push this 3
+    push argument 2
+    push constant 2
+    add
+    lt
+    and
+    push this 3
+    push constant 2
+    add
+    push argument 2
+    gt
+    and
+    pop local 0
+    push local 0
+    return
+function Item.moveItem 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    push constant 1
+    eq
+    not
+    if-goto Item_27
+    push pointer 0
+    call Item.moveUp 1
+    pop temp 0
+    goto Item_26
+label Item_27
+label Item_26
+    push this 4
+    push constant 2
+    eq
+    not
+    if-goto Item_29
+    push pointer 0
+    call Item.moveDown 1
+    pop temp 0
+    goto Item_28
+label Item_29
+label Item_28
+    push this 4
+    push constant 3
+    eq
+    not
+    if-goto Item_31
+    push pointer 0
+    call Item.moveLeft 1
+    pop temp 0
+    goto Item_30
+label Item_31
+label Item_30
+    push this 4
+    push constant 4
+    eq
+    not
+    if-goto Item_33
+    push pointer 0
+    call Item.moveRight 1
+    pop temp 0
+    goto Item_32
+label Item_33
+label Item_32
+    push constant 0
+    return
+function Item.moveUp 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 3
+    push constant 1
+    sub
+    pop this 3
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push this 2
+    push this 3
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 6
+    push this 5
+    eq
+    not
+    if-goto Item_35
+    push constant 0
+    pop this 6
+    push constant 2
+    pop this 4
+    goto Item_34
+label Item_35
+label Item_34
+    push constant 0
+    return
+function Item.moveDown 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 3
+    push constant 1
+    add
+    pop this 3
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push this 2
+    push this 3
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 6
+    push this 5
+    eq
+    not
+    if-goto Item_37
+    push constant 0
+    pop this 6
+    push constant 1
+    pop this 4
+    goto Item_36
+label Item_37
+label Item_36
+    push constant 0
+    return
+function Item.moveLeft 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 2
+    push constant 1
+    sub
+    pop this 2
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push this 2
+    push this 3
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 6
+    push this 5
+    eq
+    not
+    if-goto Item_39
+    push constant 0
+    pop this 6
+    push constant 4
+    pop this 4
+    goto Item_38
+label Item_39
+label Item_38
+    push constant 0
+    return
+function Item.moveRight 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push this 3
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 2
+    push constant 1
+    add
+    pop this 2
+    push this 6
+    push constant 1
+    add
+    pop this 6
+    push this 2
+    push this 3
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 6
+    push this 5
+    eq
+    not
+    if-goto Item_41
+    push constant 0
+    pop this 6
+    push constant 3
+    pop this 4
+    goto Item_40
+label Item_41
+label Item_40
+    push constant 0
+    return
+function Item.getX 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function Item.setPosition 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 2
+    push argument 2
+    pop this 3
+    push constant 0
+    return
+function Item.getY 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    return
+function Item.getType 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Item.getDirection 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    return
+function Item.isAnimated 0
+    push argument 0
+    pop pointer 0
+    push this 8
+    return
+function Item.setActive 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 11
+    push constant 0
+    return
+function Item.isActive 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 4
+    eq
+    push this 10
+    push constant 12
+    gt
+    and
+    not
+    if-goto Item_43
+    push constant 0
+    return
+    goto Item_42
+label Item_43
+label Item_42
+    push this 1
+    push constant 3
+    eq
+    push this 10
+    push constant 10
+    gt
+    and
+    not
+    if-goto Item_45
+    push constant 0
+    return
+    goto Item_44
+label Item_45
+label Item_44
+    push this 1
+    push constant 7
+    eq
+    not
+    if-goto Item_47
+    push this 11
+    return
+    goto Item_46
+label Item_47
+label Item_46
+    push constant 1
+    neg
+    return
+function Item.setAnimated 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 8
+    push constant 0
+    return
+function Item.getTile 0
+    push argument 0
+    pop pointer 0
+    push this 7
+    return

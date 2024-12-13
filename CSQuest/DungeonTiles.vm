@@ -1,0 +1,447 @@
+function DungeonTiles.loadWallTile 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto DungeonTiles_1
+    push argument 0
+    push constant 1537
+    neg
+    push constant 63
+    push constant 49
+    neg
+    push constant 1591
+    push constant 11
+    push constant 395
+    push constant 133
+    push constant 53
+    push constant 789
+    push constant 261
+    push constant 12
+    push constant 12
+    push constant 5
+    push constant 5
+    push constant 5
+    push constant 5
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_0
+label DungeonTiles_1
+label DungeonTiles_0
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto DungeonTiles_3
+    push argument 0
+    push constant 409
+    neg
+    push constant 0
+    push constant 1
+    neg
+    push constant 408
+    push constant 2048
+    push constant 5120
+    push constant 4
+    push constant 8202
+    push constant 20480
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_2
+label DungeonTiles_3
+label DungeonTiles_2
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto DungeonTiles_5
+    push argument 0
+    push constant 13
+    neg
+    push constant 1024
+    neg
+    push constant 3073
+    neg
+    push constant 5108
+    neg
+    push constant 12288
+    neg
+    push constant 12240
+    neg
+    push constant 24544
+    neg
+    push constant 21504
+    neg
+    push constant 22528
+    neg
+    push constant 23808
+    neg
+    push constant 12800
+    push constant 12288
+    push constant 24576
+    neg
+    push constant 24576
+    neg
+    push constant 24576
+    neg
+    push constant 24576
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_4
+label DungeonTiles_5
+label DungeonTiles_4
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto DungeonTiles_7
+    push argument 0
+    push constant 5
+    push constant 133
+    push constant 69
+    push constant 133
+    push constant 5
+    push constant 5
+    push constant 5
+    push constant 12
+    push constant 12
+    push constant 5
+    push constant 37
+    push constant 21
+    push constant 293
+    push constant 133
+    push constant 261
+    push constant 5
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_6
+label DungeonTiles_7
+label DungeonTiles_6
+    push argument 1
+    push constant 5
+    eq
+    not
+    if-goto DungeonTiles_9
+    push argument 0
+    push constant 0
+    push constant 6
+    push constant 98
+    push constant 96
+    push constant 0
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 8192
+    push constant 12288
+    push constant 0
+    push constant 1536
+    push constant 17920
+    push constant 24576
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_8
+label DungeonTiles_9
+label DungeonTiles_8
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto DungeonTiles_11
+    push argument 0
+    push constant 24576
+    neg
+    push constant 24320
+    neg
+    push constant 24064
+    neg
+    push constant 12544
+    push constant 12288
+    push constant 24576
+    neg
+    push constant 24064
+    neg
+    push constant 23552
+    neg
+    push constant 24064
+    neg
+    push constant 24576
+    neg
+    push constant 24576
+    neg
+    push constant 24576
+    neg
+    push constant 24448
+    neg
+    push constant 24320
+    neg
+    push constant 24448
+    neg
+    push constant 24576
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_10
+label DungeonTiles_11
+label DungeonTiles_10
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto DungeonTiles_13
+    push argument 0
+    push constant 5
+    push constant 5
+    push constant 5
+    push constant 5
+    push constant 12
+    push constant 12
+    push constant 5
+    push constant 261
+    push constant 789
+    push constant 53
+    push constant 11
+    push constant 11
+    push constant 12343
+    push constant 49
+    neg
+    push constant 63
+    push constant 12289
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_12
+label DungeonTiles_13
+label DungeonTiles_12
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto DungeonTiles_15
+    push argument 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 0
+    push constant 20480
+    push constant 8202
+    push constant 4
+    push constant 5120
+    push constant 2048
+    push constant 408
+    push constant 1
+    neg
+    push constant 0
+    push constant 409
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_14
+label DungeonTiles_15
+label DungeonTiles_14
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto DungeonTiles_17
+    push argument 0
+    push constant 24576
+    neg
+    push constant 24576
+    neg
+    push constant 12288
+    push constant 12288
+    push constant 24576
+    neg
+    push constant 22528
+    neg
+    push constant 21376
+    neg
+    push constant 24384
+    neg
+    push constant 24576
+    neg
+    push constant 24320
+    neg
+    push constant 11904
+    neg
+    push constant 12288
+    neg
+    push constant 5024
+    neg
+    push constant 3073
+    neg
+    push constant 1024
+    neg
+    push constant 97
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto DungeonTiles_16
+label DungeonTiles_17
+label DungeonTiles_16
+    push constant 0
+    return
+function DungeonTiles.loadLeftGateClosed 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 3
+    push constant 1
+    push constant 7
+    neg
+    push constant 7
+    neg
+    push constant 32759
+    neg
+    push constant 16407
+    neg
+    push constant 24535
+    neg
+    push constant 32727
+    neg
+    push constant 20439
+    neg
+    push constant 18391
+    neg
+    push constant 20439
+    neg
+    push constant 32727
+    neg
+    push constant 24535
+    neg
+    push constant 16407
+    neg
+    push constant 32759
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function DungeonTiles.loadLeftGateOpen 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 3
+    push constant 1
+    push constant 7
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 119
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 55
+    neg
+    push constant 21815
+    neg
+    push constant 21833
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function DungeonTiles.loadRightGateClosed 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 16384
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 24577
+    neg
+    push constant 24577
+    neg
+    push constant 28671
+    neg
+    push constant 26627
+    neg
+    push constant 27643
+    neg
+    push constant 27647
+    neg
+    push constant 27635
+    neg
+    push constant 27619
+    neg
+    push constant 27635
+    neg
+    push constant 27647
+    neg
+    push constant 27643
+    neg
+    push constant 26627
+    neg
+    push constant 28671
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function DungeonTiles.loadRightGateOpen 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 16384
+    neg
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 24577
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 28161
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 27649
+    neg
+    push constant 27819
+    neg
+    push constant 27990
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return

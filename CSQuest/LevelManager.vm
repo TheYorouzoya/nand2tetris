@@ -1,0 +1,1588 @@
+function LevelManager.init 0
+    push argument 0
+    pop static 4
+    push constant 104
+    call Array.new 1
+    pop static 1
+    push constant 20
+    call Array.new 1
+    pop static 3
+    push constant 16
+    call Array.new 1
+    pop static 0
+    push argument 1
+    pop static 2
+    push constant 0
+    pop static 5
+    push constant 0
+    pop static 7
+    push constant 0
+    return
+function LevelManager.dispose 0
+    push static 1
+    call Array.dispose 1
+    pop temp 0
+    push static 3
+    call Array.dispose 1
+    pop temp 0
+    push static 0
+    call Array.dispose 1
+    pop temp 0
+    push constant 0
+    return
+function LevelManager.setPlayer 0
+    push argument 0
+    pop static 6
+    push constant 0
+    return
+function LevelManager.getItems 0
+    push static 3
+    return
+function LevelManager.getMap 0
+    push static 1
+    return
+function LevelManager.getTile 0
+    push static 0
+    return
+function LevelManager.gameOver 0
+    push static 7
+    return
+function LevelManager.endGame 0
+    push constant 1
+    neg
+    pop static 7
+    push constant 0
+    return
+function LevelManager.loadWelcomeScreen 0
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call WelcomeScreen.init 5
+    pop temp 0
+    call WelcomeScreen.loadLevel 0
+    pop temp 0
+    push constant 0
+    return
+function LevelManager.loadNextLevel 0
+    call DialogueManager.clearDialogueBox 0
+    pop temp 0
+    call LevelManager.resetMap 0
+    pop temp 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_1
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call LevelOne.init 5
+    pop temp 0
+    call LevelOne.loadLevel 0
+    pop temp 0
+    goto LevelManager_0
+label LevelManager_1
+label LevelManager_0
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_3
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call LevelTwo.init 5
+    pop temp 0
+    call LevelTwo.loadLevel 0
+    pop temp 0
+    goto LevelManager_2
+label LevelManager_3
+label LevelManager_2
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_5
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call LevelThree.init 5
+    pop temp 0
+    call LevelThree.loadLevel 0
+    pop temp 0
+    goto LevelManager_4
+label LevelManager_5
+label LevelManager_4
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_7
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call LevelOne.init 5
+    pop temp 0
+    call LevelOne.loadLevelCompleted 0
+    pop temp 0
+    goto LevelManager_6
+label LevelManager_7
+label LevelManager_6
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_9
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call LevelFour.init 5
+    pop temp 0
+    call LevelFour.loadLevel 0
+    pop temp 0
+    goto LevelManager_8
+label LevelManager_9
+label LevelManager_8
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_11
+    push static 0
+    push static 1
+    push static 2
+    push static 3
+    push static 6
+    call LevelFive.init 5
+    pop temp 0
+    call LevelFive.loadLevel 0
+    pop temp 0
+    goto LevelManager_10
+label LevelManager_11
+label LevelManager_10
+    push static 4
+    push constant 1
+    add
+    pop static 4
+    push constant 0
+    return
+function LevelManager.getItemCount 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_13
+    call WelcomeScreen.getItemCount 0
+    return
+    goto LevelManager_12
+label LevelManager_13
+label LevelManager_12
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_15
+    call LevelOne.getItemCount 0
+    return
+    goto LevelManager_14
+label LevelManager_15
+label LevelManager_14
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_17
+    call LevelTwo.getItemCount 0
+    return
+    goto LevelManager_16
+label LevelManager_17
+label LevelManager_16
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_19
+    call LevelThree.getItemCount 0
+    return
+    goto LevelManager_18
+label LevelManager_19
+label LevelManager_18
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_21
+    call LevelOne.getItemCount 0
+    return
+    goto LevelManager_20
+label LevelManager_21
+label LevelManager_20
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_23
+    call LevelFour.getItemCount 0
+    return
+    goto LevelManager_22
+label LevelManager_23
+label LevelManager_22
+    push static 4
+    push constant 6
+    eq
+    not
+    if-goto LevelManager_25
+    call LevelFive.getItemCount 0
+    return
+    goto LevelManager_24
+label LevelManager_25
+label LevelManager_24
+    push constant 0
+    return
+function LevelManager.disposeCurrentLevel 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_27
+    call WelcomeScreen.dispose 0
+    pop temp 0
+    goto LevelManager_26
+label LevelManager_27
+label LevelManager_26
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_29
+    call LevelOne.dispose 0
+    pop temp 0
+    goto LevelManager_28
+label LevelManager_29
+label LevelManager_28
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_31
+    call LevelTwo.dispose 0
+    pop temp 0
+    goto LevelManager_30
+label LevelManager_31
+label LevelManager_30
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_33
+    call LevelThree.dispose 0
+    pop temp 0
+    goto LevelManager_32
+label LevelManager_33
+label LevelManager_32
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_35
+    call LevelOne.dispose 0
+    pop temp 0
+    goto LevelManager_34
+label LevelManager_35
+label LevelManager_34
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_37
+    call LevelFour.dispose 0
+    pop temp 0
+    goto LevelManager_36
+label LevelManager_37
+label LevelManager_36
+    push static 4
+    push constant 6
+    eq
+    not
+    if-goto LevelManager_39
+    call LevelFive.dispose 0
+    pop temp 0
+    goto LevelManager_38
+label LevelManager_39
+label LevelManager_38
+    push constant 0
+    return
+function LevelManager.animateTiles 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_41
+    call WelcomeScreen.animateTiles 0
+    pop temp 0
+    goto LevelManager_40
+label LevelManager_41
+label LevelManager_40
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_43
+    call LevelOne.animateTiles 0
+    pop temp 0
+    goto LevelManager_42
+label LevelManager_43
+label LevelManager_42
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_45
+    call LevelTwo.animateTiles 0
+    pop temp 0
+    goto LevelManager_44
+label LevelManager_45
+label LevelManager_44
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_47
+    call LevelThree.animateTiles 0
+    pop temp 0
+    goto LevelManager_46
+label LevelManager_47
+label LevelManager_46
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_49
+    call LevelOne.animateTiles 0
+    pop temp 0
+    goto LevelManager_48
+label LevelManager_49
+label LevelManager_48
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_51
+    call LevelFour.animateTiles 0
+    pop temp 0
+    goto LevelManager_50
+label LevelManager_51
+label LevelManager_50
+    push static 4
+    push constant 6
+    eq
+    not
+    if-goto LevelManager_53
+    call LevelFive.animateTiles 0
+    pop temp 0
+    goto LevelManager_52
+label LevelManager_53
+label LevelManager_52
+    push constant 0
+    return
+function LevelManager.processEvents 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_55
+    push argument 0
+    call WelcomeScreen.processEvents 1
+    pop temp 0
+    goto LevelManager_54
+label LevelManager_55
+label LevelManager_54
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_57
+    push argument 0
+    call LevelOne.processEvents 1
+    pop temp 0
+    goto LevelManager_56
+label LevelManager_57
+label LevelManager_56
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_59
+    push argument 0
+    call LevelTwo.processEvents 1
+    pop temp 0
+    goto LevelManager_58
+label LevelManager_59
+label LevelManager_58
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_61
+    push argument 0
+    call LevelThree.processEvents 1
+    pop temp 0
+    goto LevelManager_60
+label LevelManager_61
+label LevelManager_60
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_63
+    push argument 0
+    call LevelOne.processEvents 1
+    pop temp 0
+    goto LevelManager_62
+label LevelManager_63
+label LevelManager_62
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_65
+    push argument 0
+    call LevelFour.processEvents 1
+    pop temp 0
+    goto LevelManager_64
+label LevelManager_65
+label LevelManager_64
+    push static 4
+    push constant 6
+    eq
+    not
+    if-goto LevelManager_67
+    push argument 0
+    call LevelFive.processEvents 1
+    pop temp 0
+    goto LevelManager_66
+label LevelManager_67
+label LevelManager_66
+    push constant 0
+    return
+function LevelManager.processKeyCollision 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_69
+    push argument 0
+    call WelcomeScreen.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_68
+label LevelManager_69
+label LevelManager_68
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_71
+    push argument 0
+    call LevelOne.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_70
+label LevelManager_71
+label LevelManager_70
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_73
+    push argument 0
+    call LevelTwo.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_72
+label LevelManager_73
+label LevelManager_72
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_75
+    push argument 0
+    call LevelThree.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_74
+label LevelManager_75
+label LevelManager_74
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_77
+    push argument 0
+    call LevelOne.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_76
+label LevelManager_77
+label LevelManager_76
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_79
+    push argument 0
+    call LevelFour.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_78
+label LevelManager_79
+label LevelManager_78
+    push static 4
+    push constant 6
+    eq
+    not
+    if-goto LevelManager_81
+    push argument 0
+    call LevelFive.processKeyCollision 1
+    pop temp 0
+    goto LevelManager_80
+label LevelManager_81
+label LevelManager_80
+    push constant 0
+    return
+function LevelManager.winCondition 0
+    push static 4
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_83
+    call WelcomeScreen.winCondition 0
+    return
+    goto LevelManager_82
+label LevelManager_83
+label LevelManager_82
+    push static 4
+    push constant 1
+    eq
+    not
+    if-goto LevelManager_85
+    call LevelOne.winCondition 0
+    return
+    goto LevelManager_84
+label LevelManager_85
+label LevelManager_84
+    push static 4
+    push constant 2
+    eq
+    not
+    if-goto LevelManager_87
+    call LevelTwo.winCondition 0
+    return
+    goto LevelManager_86
+label LevelManager_87
+label LevelManager_86
+    push static 4
+    push constant 3
+    eq
+    not
+    if-goto LevelManager_89
+    call LevelThree.winCondition 0
+    return
+    goto LevelManager_88
+label LevelManager_89
+label LevelManager_88
+    push static 4
+    push constant 4
+    eq
+    not
+    if-goto LevelManager_91
+    call LevelOne.newWinCondition 0
+    return
+    goto LevelManager_90
+label LevelManager_91
+label LevelManager_90
+    push static 4
+    push constant 5
+    eq
+    not
+    if-goto LevelManager_93
+    call LevelFour.winCondition 0
+    return
+    goto LevelManager_92
+label LevelManager_93
+label LevelManager_92
+    push static 4
+    push constant 6
+    eq
+    not
+    if-goto LevelManager_95
+    call LevelFive.winCondition 0
+    return
+    goto LevelManager_94
+label LevelManager_95
+label LevelManager_94
+    push constant 0
+    return
+function LevelManager.updateMap 3
+    push argument 0
+    push constant 16
+    call Math.divide 2
+    pop local 2
+    push argument 0
+    push local 2
+    push constant 16
+    call Math.multiply 2
+    sub
+    pop local 1
+    push local 2
+    push argument 1
+    push constant 4
+    call Math.multiply 2
+    add
+    pop local 0
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push argument 0
+    push constant 0
+    gt
+    push argument 1
+    push constant 0
+    gt
+    and
+    not
+    if-goto LevelManager_97
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 1
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_99
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 1
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 15
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 5
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 5
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 15
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 3
+    add
+    push static 1
+    add
+    push local 0
+    push constant 3
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 15
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto LevelManager_98
+label LevelManager_99
+    push local 1
+    push constant 15
+    eq
+    not
+    if-goto LevelManager_101
+    push local 0
+    push constant 1
+    add
+    push static 1
+    add
+    push local 0
+    push constant 1
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 3
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 3
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 5
+    add
+    push static 1
+    add
+    push local 0
+    push constant 5
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto LevelManager_100
+label LevelManager_101
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label LevelManager_100
+label LevelManager_98
+    goto LevelManager_96
+label LevelManager_97
+label LevelManager_96
+    push argument 0
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_103
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push argument 1
+    push constant 0
+    gt
+    not
+    if-goto LevelManager_105
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 4
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto LevelManager_104
+label LevelManager_105
+label LevelManager_104
+    push local 1
+    push constant 15
+    eq
+    not
+    if-goto LevelManager_107
+    push local 0
+    push constant 1
+    add
+    push static 1
+    add
+    push local 0
+    push constant 1
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 5
+    add
+    push static 1
+    add
+    push local 0
+    push constant 5
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto LevelManager_106
+label LevelManager_107
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label LevelManager_106
+    goto LevelManager_102
+label LevelManager_103
+label LevelManager_102
+    push argument 1
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_109
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 1
+    push constant 15
+    eq
+    not
+    if-goto LevelManager_111
+    push local 0
+    push constant 1
+    add
+    push static 1
+    add
+    push local 0
+    push constant 1
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 5
+    add
+    push static 1
+    add
+    push local 0
+    push constant 5
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto LevelManager_110
+label LevelManager_111
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    add
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label LevelManager_110
+    push argument 0
+    push constant 0
+    gt
+    not
+    if-goto LevelManager_113
+    push local 1
+    push constant 0
+    eq
+    not
+    if-goto LevelManager_115
+    push local 0
+    push constant 1
+    sub
+    push static 1
+    add
+    push local 0
+    push constant 1
+    sub
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 15
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 3
+    add
+    push static 1
+    add
+    push local 0
+    push constant 3
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push constant 15
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto LevelManager_114
+label LevelManager_115
+    push local 0
+    push static 1
+    add
+    push local 0
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    push local 0
+    push constant 4
+    add
+    push static 1
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push constant 1
+    sub
+    push static 2
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label LevelManager_114
+    goto LevelManager_112
+label LevelManager_113
+label LevelManager_112
+    goto LevelManager_108
+label LevelManager_109
+label LevelManager_108
+    push constant 0
+    return
+function LevelManager.updateMapBulk 1
+    push argument 0
+    pop local 0
+label LevelManager_116
+    push local 0
+    push argument 1
+    gt
+    not
+    not
+    if-goto LevelManager_117
+    push argument 3
+    not
+    if-goto LevelManager_119
+    push local 0
+    push argument 2
+    call LevelManager.updateMap 2
+    pop temp 0
+    goto LevelManager_118
+label LevelManager_119
+    push argument 2
+    push local 0
+    call LevelManager.updateMap 2
+    pop temp 0
+label LevelManager_118
+    push local 0
+    push constant 2
+    add
+    pop local 0
+    goto LevelManager_116
+label LevelManager_117
+    push constant 0
+    return
+function LevelManager.resetMap 1
+    push constant 0
+    pop local 0
+label LevelManager_120
+    push local 0
+    push constant 104
+    lt
+    not
+    if-goto LevelManager_121
+    push local 0
+    push static 1
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto LevelManager_120
+label LevelManager_121
+    push constant 0
+    return

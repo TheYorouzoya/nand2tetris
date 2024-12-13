@@ -1,0 +1,724 @@
+function LevelFour.init 0
+    push argument 0
+    pop static 0
+    push argument 1
+    pop static 1
+    push argument 2
+    pop static 2
+    push argument 3
+    pop static 3
+    push argument 4
+    pop static 6
+    push constant 0
+    pop static 5
+    push constant 0
+    pop static 7
+    push constant 5
+    call Array.new 1
+    pop static 4
+    push constant 0
+    return
+function LevelFour.dispose 3
+    push constant 0
+    pop local 0
+label LevelFour_0
+    push local 0
+    push constant 3
+    lt
+    not
+    if-goto LevelFour_1
+    push local 0
+    push static 4
+    add
+    pop pointer 1
+    push that 0
+    pop local 2
+    push local 2
+    call Skull.dispose 1
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto LevelFour_0
+label LevelFour_1
+    push constant 0
+    pop local 0
+label LevelFour_2
+    push local 0
+    push constant 17
+    lt
+    not
+    if-goto LevelFour_3
+    push local 0
+    push static 3
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    call Item.dispose 1
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto LevelFour_2
+label LevelFour_3
+    push constant 0
+    return
+function LevelFour.loadLevel 2
+    call LevelFour.loadWalls 0
+    pop temp 0
+    call LevelFour.loadSkulls 0
+    pop temp 0
+    call LevelFour.loadSpikes 0
+    pop temp 0
+    call LevelFour.updateMap 0
+    pop temp 0
+    push static 0
+    call Tiles.loadOpenDoorTile 1
+    pop temp 0
+    push constant 4
+    push constant 0
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 16
+    push static 3
+    add
+    push constant 4
+    push constant 6
+    push constant 8
+    push constant 0
+    push constant 0
+    push constant 2
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push static 5
+    push constant 1
+    add
+    pop static 5
+    push constant 16
+    push static 3
+    add
+    pop pointer 1
+    push that 0
+    pop local 0
+    push local 0
+    call Item.draw 1
+    pop temp 0
+    push static 0
+    call Tiles.loadTorchTile 1
+    pop temp 0
+    push constant 2
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 6
+    push constant 2
+    push static 0
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 2
+    push constant 2
+    call LevelManager.updateMap 2
+    pop temp 0
+    push constant 6
+    push constant 2
+    call LevelManager.updateMap 2
+    pop temp 0
+    push static 6
+    push constant 30
+    push constant 24
+    call Player.setPosition 3
+    pop temp 0
+    push static 6
+    push constant 30
+    push constant 24
+    call Player.setSpawn 3
+    pop temp 0
+    push constant 35
+    call String.new 1
+    push constant 71
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 109
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 114
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 110
+    call String.appendChar 2
+    push constant 100
+    call String.appendChar 2
+    push constant 46
+    call String.appendChar 2
+    pop local 1
+    push local 1
+    call DialogueManager.printDialogueLineOne 1
+    pop temp 0
+    push local 1
+    call String.dispose 1
+    pop temp 0
+    push constant 0
+    return
+function LevelFour.animateTiles 0
+    push constant 0
+    return
+function LevelFour.winCondition 0
+    push static 7
+    return
+function LevelFour.processEvents 4
+    push static 6
+    call Player.getX 1
+    pop local 2
+    push static 6
+    call Player.getY 1
+    pop local 3
+    push constant 0
+    pop local 0
+label LevelFour_4
+    push local 0
+    push constant 3
+    lt
+    not
+    if-goto LevelFour_5
+    push local 0
+    push static 4
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    push local 2
+    push local 3
+    push static 6
+    call Skull.tick 4
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto LevelFour_4
+label LevelFour_5
+    push local 2
+    push constant 4
+    eq
+    push local 3
+    push constant 2
+    eq
+    and
+    not
+    if-goto LevelFour_7
+    push constant 1
+    neg
+    pop static 7
+    goto LevelFour_6
+label LevelFour_7
+label LevelFour_6
+    push constant 0
+    return
+function LevelFour.processKeyCollision 0
+    push constant 0
+    return
+function LevelFour.getItemCount 0
+    push static 5
+    return
+function LevelFour.loadWalls 0
+    push static 0
+    call Tiles.loadBrickTile 1
+    pop temp 0
+    push constant 0
+    push constant 62
+    push constant 0
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 20
+    push constant 10
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 20
+    push constant 12
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 2
+    push constant 24
+    push constant 62
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 24
+    push constant 50
+    push constant 12
+    push constant 1
+    neg
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 14
+    push constant 24
+    push constant 24
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 20
+    push constant 24
+    push constant 38
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 14
+    push constant 20
+    push constant 50
+    push constant 0
+    push static 0
+    call Tiles.buildTiles 5
+    pop temp 0
+    push constant 0
+    return
+function LevelFour.loadSkulls 0
+    push constant 0
+    push static 4
+    add
+    push constant 62
+    push constant 18
+    push constant 3
+    push constant 51
+    call Skull.new 4
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push static 4
+    add
+    push constant 12
+    push constant 4
+    push constant 4
+    push constant 61
+    call Skull.new 4
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push static 4
+    add
+    push constant 12
+    push constant 8
+    push constant 4
+    push constant 61
+    call Skull.new 4
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function LevelFour.loadSpikes 0
+    push constant 0
+    push static 3
+    add
+    push constant 52
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push static 3
+    add
+    push constant 54
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 15
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push static 3
+    add
+    push constant 56
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push static 3
+    add
+    push constant 58
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 15
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push static 3
+    add
+    push constant 60
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push static 3
+    add
+    push constant 38
+    push constant 14
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 5
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push static 3
+    add
+    push constant 38
+    push constant 16
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 5
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push static 3
+    add
+    push constant 38
+    push constant 18
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 5
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push static 3
+    add
+    push constant 38
+    push constant 2
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 12
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push static 3
+    add
+    push constant 38
+    push constant 6
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 12
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 10
+    push static 3
+    add
+    push constant 38
+    push constant 10
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 12
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 11
+    push static 3
+    add
+    push constant 14
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 10
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 12
+    push static 3
+    add
+    push constant 16
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 13
+    push static 3
+    add
+    push constant 18
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 10
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 14
+    push static 3
+    add
+    push constant 20
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 15
+    push static 3
+    add
+    push constant 22
+    push constant 12
+    push constant 4
+    push constant 0
+    push constant 0
+    push constant 3
+    push constant 1
+    neg
+    push constant 10
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push static 5
+    push constant 16
+    add
+    pop static 5
+    push constant 0
+    return
+function LevelFour.updateMap 0
+    push constant 0
+    push constant 62
+    push constant 0
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 2
+    push constant 20
+    push constant 10
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 2
+    push constant 20
+    push constant 12
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 2
+    push constant 24
+    push constant 62
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 24
+    push constant 50
+    push constant 12
+    push constant 1
+    neg
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 14
+    push constant 24
+    push constant 24
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 14
+    push constant 20
+    push constant 50
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 20
+    push constant 24
+    push constant 38
+    push constant 0
+    call LevelManager.updateMapBulk 4
+    pop temp 0
+    push constant 0
+    return

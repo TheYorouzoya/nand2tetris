@@ -1,0 +1,1184 @@
+function Player.new 0
+    push constant 12
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push argument 2
+    pop this 9
+    push argument 3
+    pop this 10
+    push constant 16384
+    pop this 8
+    push constant 256
+    neg
+    pop this 5
+    push constant 255
+    pop this 6
+    push constant 1
+    neg
+    pop this 11
+    push constant 2
+    pop this 2
+    push pointer 0
+    return
+function Player.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Player.takeDamage 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    sub
+    pop this 2
+    push this 2
+    push constant 0
+    eq
+    not
+    if-goto Player_1
+    push constant 0
+    pop this 11
+    goto Player_0
+label Player_1
+label Player_0
+    push this 2
+    call DialogueManager.updateStatusBox 1
+    pop temp 0
+    push constant 0
+    return
+function Player.heal 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    add
+    pop this 2
+    push this 2
+    push constant 3
+    gt
+    not
+    if-goto Player_3
+    push constant 3
+    pop this 2
+    goto Player_2
+label Player_3
+label Player_2
+    push this 2
+    call DialogueManager.updateStatusBox 1
+    pop temp 0
+    push constant 0
+    return
+function Player.setSpawn 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 3
+    push argument 2
+    pop this 4
+    push constant 0
+    return
+function Player.respawn 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Player.erase 1
+    pop temp 0
+    push pointer 0
+    push this 3
+    push this 4
+    call Player.setPosition 3
+    pop temp 0
+    push pointer 0
+    call Player.draw 1
+    pop temp 0
+    push constant 0
+    return
+function Player.isAlive 0
+    push argument 0
+    pop pointer 0
+    push this 11
+    return
+function Player.getX 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Player.getY 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Player.getHP 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function Player.setPosition 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 0
+    push argument 2
+    pop this 1
+    push constant 0
+    return
+function Player.draw 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 2
+    call Math.divide 2
+    push this 1
+    push constant 256
+    call Math.multiply 2
+    add
+    pop this 7
+    push this 0
+    push constant 1
+    and
+    push constant 1
+    eq
+    not
+    if-goto Player_5
+    push this 7
+    push this 8
+    add
+    push this 7
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 32
+    add
+    push this 8
+    add
+    push this 7
+    push constant 32
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 2047
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 64
+    add
+    push this 8
+    add
+    push this 7
+    push constant 64
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1023
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 96
+    add
+    push this 8
+    add
+    push this 7
+    push constant 96
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 511
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 128
+    add
+    push this 8
+    add
+    push this 7
+    push constant 128
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 7681
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 160
+    add
+    push this 8
+    add
+    push this 7
+    push constant 160
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 4607
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 192
+    add
+    push this 8
+    add
+    push this 7
+    push constant 192
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 23039
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 224
+    add
+    push this 8
+    add
+    push this 7
+    push constant 224
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 23039
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 256
+    add
+    push this 8
+    add
+    push this 7
+    push constant 256
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 5119
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 288
+    add
+    push this 8
+    add
+    push this 7
+    push constant 288
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 320
+    add
+    push this 8
+    add
+    push this 7
+    push constant 320
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 20479
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 352
+    add
+    push this 8
+    add
+    push this 7
+    push constant 352
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 14337
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 384
+    add
+    push this 8
+    add
+    push this 7
+    push constant 384
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 10239
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 416
+    add
+    push this 8
+    add
+    push this 7
+    push constant 416
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 8191
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 448
+    add
+    push this 8
+    add
+    push this 7
+    push constant 448
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 8193
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 480
+    add
+    push this 8
+    add
+    push this 7
+    push constant 480
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 1
+    add
+    push this 8
+    add
+    push this 7
+    push constant 1
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 33
+    add
+    push this 8
+    add
+    push this 7
+    push constant 33
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 32
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 65
+    add
+    push this 8
+    add
+    push this 7
+    push constant 65
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 64
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 97
+    add
+    push this 8
+    add
+    push this 7
+    push constant 97
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 128
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 129
+    add
+    push this 8
+    add
+    push this 7
+    push constant 129
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 121
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 161
+    add
+    push this 8
+    add
+    push this 7
+    push constant 161
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 120
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 193
+    add
+    push this 8
+    add
+    push this 7
+    push constant 193
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 102
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 225
+    add
+    push this 8
+    add
+    push this 7
+    push constant 225
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 102
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 257
+    add
+    push this 8
+    add
+    push this 7
+    push constant 257
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 56
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 289
+    add
+    push this 8
+    add
+    push this 7
+    push constant 289
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 321
+    add
+    push this 8
+    add
+    push this 7
+    push constant 321
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 14
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 353
+    add
+    push this 8
+    add
+    push this 7
+    push constant 353
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 29
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 385
+    add
+    push this 8
+    add
+    push this 7
+    push constant 385
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 28
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 417
+    add
+    push this 8
+    add
+    push this 7
+    push constant 417
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 8
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 449
+    add
+    push this 8
+    add
+    push this 7
+    push constant 449
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 5
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 481
+    add
+    push this 8
+    add
+    push this 7
+    push constant 481
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    neg
+    and
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Player_4
+label Player_5
+    push this 7
+    push this 8
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 32
+    add
+    push this 8
+    add
+    push constant 8185
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 64
+    add
+    push this 8
+    add
+    push constant 16381
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 96
+    add
+    push this 8
+    add
+    push constant 32767
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 128
+    add
+    push this 8
+    add
+    push constant 30751
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 160
+    add
+    push this 8
+    add
+    push constant 30703
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 192
+    add
+    push this 8
+    add
+    push constant 26023
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 224
+    add
+    push this 8
+    add
+    push constant 26023
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 256
+    add
+    push this 8
+    add
+    push constant 14317
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 288
+    add
+    push this 8
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 320
+    add
+    push this 8
+    add
+    push constant 3505
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 352
+    add
+    push this 8
+    add
+    push constant 7225
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 384
+    add
+    push this 8
+    add
+    push constant 7129
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 416
+    add
+    push this 8
+    add
+    push constant 2017
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 448
+    add
+    push this 8
+    add
+    push constant 1633
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push constant 480
+    add
+    push this 8
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label Player_4
+    push constant 0
+    return
+function Player.erase 2
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 1
+    and
+    push constant 1
+    eq
+    not
+    if-goto Player_7
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 1
+label Player_8
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Player_9
+    push this 7
+    push local 1
+    add
+    push this 8
+    add
+    push this 7
+    push local 1
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push this 5
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 7
+    push local 1
+    add
+    push constant 1
+    add
+    push this 8
+    add
+    push this 7
+    push local 1
+    add
+    push constant 1
+    add
+    push this 8
+    add
+    pop pointer 1
+    push that 0
+    push this 6
+    or
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 32
+    add
+    pop local 1
+    goto Player_8
+label Player_9
+    goto Player_6
+label Player_7
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 1
+label Player_10
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Player_11
+    push this 7
+    push local 1
+    add
+    push this 8
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 32
+    add
+    pop local 1
+    goto Player_10
+label Player_11
+label Player_6
+    push constant 0
+    return
+function Player.moveUp 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 0
+    gt
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 1
+    sub
+    call Player.validatePosition 3
+    and
+    not
+    if-goto Player_13
+    push pointer 0
+    call Player.erase 1
+    pop temp 0
+    push this 1
+    push constant 1
+    sub
+    pop this 1
+    push pointer 0
+    call Player.draw 1
+    pop temp 0
+    goto Player_12
+label Player_13
+label Player_12
+    push constant 0
+    return
+function Player.moveDown 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 24
+    lt
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 1
+    add
+    call Player.validatePosition 3
+    and
+    not
+    if-goto Player_15
+    push pointer 0
+    call Player.erase 1
+    pop temp 0
+    push this 1
+    push constant 1
+    add
+    pop this 1
+    push pointer 0
+    call Player.draw 1
+    pop temp 0
+    goto Player_14
+label Player_15
+label Player_14
+    push constant 0
+    return
+function Player.moveLeft 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 0
+    gt
+    push pointer 0
+    push this 0
+    push constant 1
+    sub
+    push this 1
+    call Player.validatePosition 3
+    and
+    not
+    if-goto Player_17
+    push pointer 0
+    call Player.erase 1
+    pop temp 0
+    push this 0
+    push constant 1
+    sub
+    pop this 0
+    push pointer 0
+    call Player.draw 1
+    pop temp 0
+    goto Player_16
+label Player_17
+label Player_16
+    push constant 0
+    return
+function Player.moveRight 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 62
+    lt
+    push pointer 0
+    push this 0
+    push constant 1
+    add
+    push this 1
+    call Player.validatePosition 3
+    and
+    not
+    if-goto Player_19
+    push pointer 0
+    call Player.erase 1
+    pop temp 0
+    push this 0
+    push constant 1
+    add
+    pop this 0
+    push pointer 0
+    call Player.draw 1
+    pop temp 0
+    goto Player_18
+label Player_19
+label Player_18
+    push constant 0
+    return
+function Player.validatePosition 4
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 16
+    call Math.divide 2
+    pop local 2
+    push argument 1
+    push local 2
+    push constant 16
+    call Math.multiply 2
+    sub
+    pop local 1
+    push local 2
+    push argument 2
+    push constant 4
+    call Math.multiply 2
+    add
+    pop local 0
+    push local 0
+    push this 10
+    add
+    pop pointer 1
+    push that 0
+    push local 1
+    push this 9
+    add
+    pop pointer 1
+    push that 0
+    and
+    push constant 0
+    eq
+    pop local 3
+    push local 3
+    return

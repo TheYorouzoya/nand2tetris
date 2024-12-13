@@ -1,0 +1,914 @@
+function Golem.new 0
+    push constant 9
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push constant 16
+    call Array.new 1
+    pop this 6
+    push argument 2
+    pop this 2
+    push argument 3
+    pop this 3
+    push constant 0
+    pop this 4
+    push constant 5
+    call Array.new 1
+    pop this 7
+    push constant 0
+    push this 7
+    add
+    push this 0
+    push constant 2
+    sub
+    push this 1
+    push constant 7
+    push constant 3
+    push constant 0
+    push constant 3
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push this 7
+    add
+    push this 0
+    push constant 2
+    sub
+    push this 1
+    push constant 2
+    add
+    push constant 7
+    push constant 3
+    push constant 0
+    push constant 3
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push this 7
+    add
+    push this 0
+    push constant 2
+    sub
+    push this 1
+    push constant 4
+    add
+    push constant 7
+    push constant 3
+    push constant 0
+    push constant 3
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push this 7
+    add
+    push this 0
+    push constant 2
+    sub
+    push this 1
+    push constant 4
+    add
+    push constant 7
+    push constant 3
+    push constant 0
+    push constant 3
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push this 7
+    add
+    push this 0
+    push constant 2
+    sub
+    push this 1
+    push constant 4
+    add
+    push constant 7
+    push constant 3
+    push constant 0
+    push constant 3
+    push constant 0
+    push constant 1
+    call Item.new 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    neg
+    pop this 8
+    push constant 0
+    pop this 5
+    push pointer 0
+    return
+function Golem.dispose 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label Golem_0
+    push local 0
+    push constant 5
+    lt
+    not
+    if-goto Golem_1
+    push local 0
+    push this 7
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    call Item.dispose 1
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Golem_0
+label Golem_1
+    push this 7
+    call Array.dispose 1
+    pop temp 0
+    push this 6
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Golem.tick 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push pointer 0
+    call Golem.move 1
+    pop temp 0
+label Golem_2
+    push local 0
+    push constant 5
+    lt
+    not
+    if-goto Golem_3
+    push local 0
+    push this 7
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    call Item.isActive 1
+    not
+    if-goto Golem_5
+    push local 1
+    call Item.moveLeft 1
+    pop temp 0
+    push local 1
+    push argument 1
+    push argument 2
+    call Item.collidesWith 3
+    not
+    if-goto Golem_7
+    push argument 3
+    call Player.takeDamage 1
+    pop temp 0
+    push local 1
+    call Item.erase 1
+    pop temp 0
+    push local 1
+    push constant 0
+    call Item.setActive 2
+    pop temp 0
+    push argument 3
+    call Player.respawn 1
+    pop temp 0
+    goto Golem_6
+label Golem_7
+label Golem_6
+    push local 1
+    call Item.getX 1
+    push constant 2
+    lt
+    not
+    if-goto Golem_9
+    push local 1
+    call Item.erase 1
+    pop temp 0
+    push local 1
+    push constant 0
+    call Item.setActive 2
+    pop temp 0
+    goto Golem_8
+label Golem_9
+label Golem_8
+    goto Golem_4
+label Golem_5
+label Golem_4
+    push local 1
+    call Item.isActive 1
+    not
+    push this 5
+    push constant 16
+    gt
+    and
+    not
+    if-goto Golem_11
+    push this 1
+    push argument 2
+    push constant 2
+    add
+    lt
+    push this 1
+    push constant 6
+    add
+    push argument 2
+    gt
+    and
+    not
+    if-goto Golem_13
+    push local 1
+    push this 0
+    push constant 2
+    sub
+    push argument 2
+    call Item.setPosition 3
+    pop temp 0
+    push local 1
+    push constant 1
+    neg
+    call Item.setActive 2
+    pop temp 0
+    push constant 0
+    pop this 5
+    goto Golem_12
+label Golem_13
+label Golem_12
+    goto Golem_10
+label Golem_11
+label Golem_10
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push this 5
+    push constant 1
+    add
+    pop this 5
+    goto Golem_2
+label Golem_3
+    push pointer 0
+    push argument 1
+    push argument 2
+    call Golem.collidesWith 3
+    not
+    if-goto Golem_15
+    push argument 3
+    call Player.takeDamage 1
+    pop temp 0
+    push argument 3
+    call Player.respawn 1
+    pop temp 0
+    goto Golem_14
+label Golem_15
+label Golem_14
+    push constant 0
+    return
+function Golem.isRunning 0
+    push argument 0
+    pop pointer 0
+    push this 8
+    return
+function Golem.stop 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 1
+label Golem_16
+    push local 1
+    push constant 5
+    lt
+    not
+    if-goto Golem_17
+    push local 1
+    push this 7
+    add
+    pop pointer 1
+    push that 0
+    pop local 0
+    push local 0
+    call Item.erase 1
+    pop temp 0
+    push local 0
+    push constant 0
+    call Item.setActive 2
+    pop temp 0
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto Golem_16
+label Golem_17
+    push constant 0
+    pop this 8
+    push constant 0
+    return
+function Golem.draw 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label Golem_18
+    push local 0
+    push constant 3
+    lt
+    not
+    if-goto Golem_19
+    push constant 0
+    pop local 1
+label Golem_20
+    push local 1
+    push constant 3
+    lt
+    not
+    if-goto Golem_21
+    push this 0
+    push local 1
+    push constant 2
+    call Math.multiply 2
+    add
+    push this 1
+    push local 0
+    push constant 2
+    call Math.multiply 2
+    add
+    call Tiles.eraseTile 2
+    pop temp 0
+    push pointer 0
+    push local 0
+    push constant 3
+    call Math.multiply 2
+    push local 1
+    add
+    push constant 1
+    add
+    call Golem.loadTile 2
+    pop temp 0
+    push this 0
+    push local 1
+    push constant 2
+    call Math.multiply 2
+    add
+    push this 1
+    push local 0
+    push constant 2
+    call Math.multiply 2
+    add
+    push this 6
+    call Tiles.drawTile 3
+    pop temp 0
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto Golem_20
+label Golem_21
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Golem_18
+label Golem_19
+    push constant 0
+    return
+function Golem.erase 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label Golem_22
+    push local 0
+    push constant 3
+    lt
+    not
+    if-goto Golem_23
+    push constant 0
+    pop local 1
+label Golem_24
+    push local 1
+    push constant 3
+    lt
+    not
+    if-goto Golem_25
+    push this 0
+    push local 1
+    push constant 2
+    call Math.multiply 2
+    add
+    push this 1
+    push local 0
+    push constant 2
+    call Math.multiply 2
+    add
+    call Tiles.eraseTile 2
+    pop temp 0
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto Golem_24
+label Golem_25
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Golem_22
+label Golem_23
+    push constant 0
+    return
+function Golem.collidesWith 1
+    push argument 0
+    pop pointer 0
+    push this 0
+    push argument 1
+    push constant 2
+    add
+    lt
+    push this 0
+    push constant 6
+    add
+    push argument 1
+    gt
+    and
+    push this 1
+    push argument 2
+    push constant 2
+    add
+    lt
+    and
+    push this 1
+    push constant 6
+    add
+    push argument 2
+    gt
+    and
+    pop local 0
+    push local 0
+    return
+function Golem.move 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Golem_27
+    push pointer 0
+    call Golem.moveUp 1
+    pop temp 0
+    goto Golem_26
+label Golem_27
+label Golem_26
+    push this 2
+    push constant 2
+    eq
+    not
+    if-goto Golem_29
+    push pointer 0
+    call Golem.moveDown 1
+    pop temp 0
+    goto Golem_28
+label Golem_29
+label Golem_28
+    push constant 0
+    return
+function Golem.moveUp 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Golem.erase 1
+    pop temp 0
+    push this 1
+    push constant 1
+    sub
+    pop this 1
+    push this 4
+    push constant 1
+    add
+    pop this 4
+    push pointer 0
+    call Golem.draw 1
+    pop temp 0
+    push this 4
+    push this 3
+    eq
+    not
+    if-goto Golem_31
+    push constant 0
+    pop this 4
+    push constant 2
+    pop this 2
+    goto Golem_30
+label Golem_31
+label Golem_30
+    push constant 0
+    return
+function Golem.moveDown 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Golem.erase 1
+    pop temp 0
+    push this 1
+    push constant 1
+    add
+    pop this 1
+    push this 4
+    push constant 1
+    add
+    pop this 4
+    push pointer 0
+    call Golem.draw 1
+    pop temp 0
+    push this 4
+    push this 3
+    eq
+    not
+    if-goto Golem_33
+    push constant 0
+    pop this 4
+    push constant 1
+    pop this 2
+    goto Golem_32
+label Golem_33
+label Golem_32
+    push constant 0
+    return
+function Golem.loadTile 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Golem_35
+    push this 6
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 3073
+    neg
+    push constant 4705
+    neg
+    push constant 29009
+    neg
+    push constant 18095
+    push constant 32081
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_34
+label Golem_35
+label Golem_34
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Golem_37
+    push this 6
+    push constant 1
+    neg
+    push constant 97
+    neg
+    push constant 241
+    neg
+    push constant 441
+    neg
+    push constant 985
+    neg
+    push constant 2029
+    neg
+    push constant 4079
+    neg
+    push constant 4080
+    neg
+    push constant 4040
+    neg
+    push constant 4028
+    neg
+    push constant 4028
+    neg
+    push constant 8124
+    neg
+    push constant 31688
+    neg
+    push constant 1040
+    push constant 1041
+    push constant 1042
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_36
+label Golem_37
+label Golem_36
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Golem_39
+    push this 6
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 8
+    neg
+    push constant 394
+    neg
+    push constant 652
+    neg
+    push constant 1176
+    neg
+    push constant 1456
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_38
+label Golem_39
+label Golem_38
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Golem_41
+    push this 6
+    push constant 4423
+    push constant 4231
+    push constant 4227
+    push constant 4227
+    push constant 4227
+    push constant 10369
+    push constant 26753
+    push constant 5823
+    neg
+    push constant 9505
+    push constant 784
+    push constant 8460
+    push constant 12802
+    push constant 30976
+    push constant 30978
+    push constant 1916
+    neg
+    push constant 1927
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_40
+label Golem_41
+label Golem_40
+    push argument 1
+    push constant 5
+    eq
+    not
+    if-goto Golem_43
+    push this 6
+    push constant 3588
+    push constant 4872
+    push constant 4816
+    push constant 4704
+    push constant 4752
+    push constant 4368
+    push constant 4624
+    push constant 5139
+    push constant 2076
+    push constant 28620
+    neg
+    push constant 24644
+    push constant 7304
+    push constant 904
+    push constant 31672
+    neg
+    push constant 17465
+    push constant 17417
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_42
+label Golem_43
+label Golem_42
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto Golem_45
+    push this 6
+    push constant 4030
+    neg
+    push constant 4030
+    neg
+    push constant 3966
+    neg
+    push constant 8062
+    neg
+    push constant 8062
+    neg
+    push constant 8058
+    neg
+    push constant 16052
+    neg
+    push constant 15798
+    neg
+    push constant 27607
+    neg
+    push constant 30703
+    neg
+    push constant 1554
+    push constant 262
+    push constant 1182
+    push constant 1118
+    push constant 1055
+    push constant 543
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_44
+label Golem_45
+label Golem_44
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto Golem_47
+    push this 6
+    push constant 1935
+    neg
+    push constant 1651
+    neg
+    push constant 1005
+    neg
+    push constant 1005
+    neg
+    push constant 621
+    neg
+    push constant 2031
+    neg
+    push constant 1534
+    neg
+    push constant 1366
+    neg
+    push constant 595
+    neg
+    push constant 81
+    neg
+    push constant 33
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_46
+label Golem_47
+label Golem_46
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto Golem_49
+    push this 6
+    push constant 32755
+    neg
+    push constant 8305
+    push constant 8578
+    push constant 8708
+    push constant 5128
+    push constant 14345
+    push constant 2065
+    push constant 30671
+    neg
+    push constant 15287
+    neg
+    push constant 15805
+    neg
+    push constant 7769
+    neg
+    push constant 4017
+    neg
+    push constant 1953
+    neg
+    push constant 961
+    neg
+    push constant 385
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_48
+label Golem_49
+label Golem_48
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto Golem_51
+    push this 6
+    push constant 95
+    push constant 24481
+    neg
+    push constant 26466
+    neg
+    push constant 30946
+    neg
+    push constant 29634
+    neg
+    push constant 12226
+    neg
+    push constant 16321
+    neg
+    push constant 32577
+    neg
+    push constant 24927
+    push constant 20831
+    push constant 21951
+    push constant 18945
+    neg
+    push constant 1025
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto Golem_50
+label Golem_51
+label Golem_50
+    push constant 0
+    return

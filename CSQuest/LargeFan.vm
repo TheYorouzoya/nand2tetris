@@ -1,0 +1,523 @@
+function LargeFan.new 0
+    push constant 8
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push constant 16
+    call Array.new 1
+    pop this 4
+    push constant 16
+    call Array.new 1
+    pop this 5
+    push constant 16
+    call Array.new 1
+    pop this 6
+    push constant 16
+    call Array.new 1
+    pop this 7
+    push argument 2
+    pop this 3
+    push constant 1
+    pop this 2
+    push pointer 0
+    push this 4
+    push constant 1
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    push this 5
+    push constant 2
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    push this 6
+    push constant 3
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    push this 7
+    push constant 4
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    return
+function LargeFan.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    call Array.dispose 1
+    pop temp 0
+    push this 5
+    call Array.dispose 1
+    pop temp 0
+    push this 6
+    call Array.dispose 1
+    pop temp 0
+    push this 7
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function LargeFan.draw 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    not
+    if-goto LargeFan_1
+    push this 0
+    push this 1
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 0
+    push constant 2
+    add
+    push this 1
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 0
+    push this 1
+    push constant 2
+    add
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 0
+    push constant 2
+    add
+    push this 1
+    push constant 2
+    add
+    call Tiles.eraseTile 2
+    pop temp 0
+    push this 2
+    push constant 1
+    add
+    pop this 2
+    push pointer 0
+    push this 4
+    push constant 1
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    push this 5
+    push constant 2
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    push this 6
+    push constant 3
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push pointer 0
+    push this 7
+    push constant 4
+    call LargeFan.loadFanTile 3
+    pop temp 0
+    push this 2
+    push constant 4
+    eq
+    not
+    if-goto LargeFan_3
+    push constant 0
+    pop this 2
+    goto LargeFan_2
+label LargeFan_3
+label LargeFan_2
+    goto LargeFan_0
+label LargeFan_1
+label LargeFan_0
+    push this 0
+    push this 1
+    push this 4
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 0
+    push constant 2
+    add
+    push this 1
+    push this 5
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 0
+    push this 1
+    push constant 2
+    add
+    push this 6
+    call Tiles.drawTile 3
+    pop temp 0
+    push this 0
+    push constant 2
+    add
+    push this 1
+    push constant 2
+    add
+    push this 7
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return
+function LargeFan.setAnimated 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 3
+    push constant 0
+    return
+function LargeFan.loadFanTile 0
+    push argument 0
+    pop pointer 0
+    push argument 2
+    push constant 1
+    eq
+    not
+    if-goto LargeFan_5
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto LargeFan_7
+    push argument 1
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 4095
+    push constant 3609
+    neg
+    push constant 3687
+    push constant 3649
+    neg
+    push constant 7775
+    push constant 1967
+    push constant 8111
+    push constant 8151
+    push constant 16343
+    push constant 16343
+    push constant 32555
+    push constant 31787
+    push constant 2043
+    neg
+    push constant 16427
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_6
+label LargeFan_7
+label LargeFan_6
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto LargeFan_9
+    push argument 1
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 4095
+    push constant 3609
+    neg
+    push constant 3687
+    push constant 3649
+    neg
+    push constant 417
+    neg
+    push constant 3665
+    neg
+    push constant 8017
+    neg
+    push constant 8105
+    neg
+    push constant 16297
+    neg
+    push constant 16297
+    neg
+    push constant 16149
+    neg
+    push constant 31765
+    neg
+    push constant 24597
+    neg
+    push constant 32747
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_8
+label LargeFan_9
+label LargeFan_8
+    goto LargeFan_4
+label LargeFan_5
+label LargeFan_4
+    push argument 2
+    push constant 2
+    eq
+    not
+    if-goto LargeFan_11
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto LargeFan_13
+    push argument 1
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 16
+    neg
+    push constant 6257
+    neg
+    push constant 6544
+    neg
+    push constant 625
+    neg
+    push constant 1424
+    neg
+    push constant 2576
+    neg
+    push constant 2568
+    neg
+    push constant 5128
+    neg
+    push constant 5124
+    neg
+    push constant 5380
+    neg
+    push constant 10498
+    neg
+    push constant 11202
+    neg
+    push constant 11251
+    neg
+    push constant 11262
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_12
+label LargeFan_13
+label LargeFan_12
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto LargeFan_15
+    push argument 1
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 16
+    neg
+    push constant 6257
+    neg
+    push constant 6544
+    neg
+    push constant 625
+    neg
+    push constant 1409
+    neg
+    push constant 2673
+    neg
+    push constant 2809
+    neg
+    push constant 5625
+    neg
+    push constant 5629
+    neg
+    push constant 5629
+    neg
+    push constant 10493
+    neg
+    push constant 10303
+    neg
+    push constant 10247
+    neg
+    push constant 10242
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_14
+label LargeFan_15
+label LargeFan_14
+    goto LargeFan_10
+label LargeFan_11
+label LargeFan_10
+    push argument 2
+    push constant 3
+    eq
+    not
+    if-goto LargeFan_17
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto LargeFan_19
+    push argument 1
+    push constant 16427
+    push constant 20437
+    neg
+    push constant 31787
+    push constant 32619
+    push constant 16215
+    push constant 16343
+    push constant 8151
+    push constant 8111
+    push constant 4015
+    push constant 3679
+    push constant 3649
+    neg
+    push constant 3687
+    push constant 3609
+    neg
+    push constant 4095
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_18
+label LargeFan_19
+label LargeFan_18
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto LargeFan_21
+    push argument 1
+    push constant 32747
+    push constant 24597
+    neg
+    push constant 31765
+    neg
+    push constant 16149
+    neg
+    push constant 16297
+    neg
+    push constant 16297
+    neg
+    push constant 8105
+    neg
+    push constant 8017
+    neg
+    push constant 3665
+    neg
+    push constant 417
+    neg
+    push constant 3649
+    neg
+    push constant 3687
+    push constant 3609
+    neg
+    push constant 4095
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_20
+label LargeFan_21
+label LargeFan_20
+    goto LargeFan_16
+label LargeFan_17
+label LargeFan_16
+    push argument 2
+    push constant 4
+    eq
+    not
+    if-goto LargeFan_23
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto LargeFan_25
+    push argument 1
+    push constant 11262
+    neg
+    push constant 11251
+    neg
+    push constant 11202
+    neg
+    push constant 11010
+    neg
+    push constant 5124
+    neg
+    push constant 5124
+    neg
+    push constant 5128
+    neg
+    push constant 2568
+    neg
+    push constant 2592
+    neg
+    push constant 1416
+    neg
+    push constant 625
+    neg
+    push constant 6544
+    neg
+    push constant 6257
+    neg
+    push constant 16
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_24
+label LargeFan_25
+label LargeFan_24
+    push this 2
+    push constant 3
+    eq
+    not
+    if-goto LargeFan_27
+    push argument 1
+    push constant 10242
+    neg
+    push constant 10247
+    neg
+    push constant 10303
+    neg
+    push constant 10493
+    neg
+    push constant 5629
+    neg
+    push constant 5629
+    neg
+    push constant 5625
+    neg
+    push constant 2809
+    neg
+    push constant 2673
+    neg
+    push constant 1409
+    neg
+    push constant 625
+    neg
+    push constant 6544
+    neg
+    push constant 6257
+    neg
+    push constant 16
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto LargeFan_26
+label LargeFan_27
+label LargeFan_26
+    goto LargeFan_22
+label LargeFan_23
+label LargeFan_22
+    push constant 0
+    return

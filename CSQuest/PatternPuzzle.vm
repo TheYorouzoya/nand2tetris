@@ -1,0 +1,740 @@
+function PatternPuzzle.new 0
+    push constant 7
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push constant 9
+    call Array.new 1
+    pop this 4
+    push constant 16
+    call Array.new 1
+    pop this 6
+    push argument 2
+    pop this 5
+    push pointer 0
+    return
+function PatternPuzzle.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    call Array.dispose 1
+    pop temp 0
+    push this 6
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.loadStageOne 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop this 3
+    push constant 4
+    pop this 2
+    push pointer 0
+    push constant 1
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 1
+    push constant 2
+    push constant 2
+    push constant 2
+    push constant 1
+    call PatternPuzzle.setGrid 10
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 6
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 12
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 12
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 12
+    add
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 24
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.loadStageTwo 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop this 3
+    push constant 3
+    pop this 2
+    push pointer 0
+    push constant 1
+    push constant 2
+    push constant 1
+    push constant 4
+    push constant 1
+    push constant 3
+    push constant 3
+    push constant 1
+    push constant 2
+    call PatternPuzzle.setGrid 10
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 6
+    add
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 3
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 12
+    add
+    push constant 3
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 12
+    add
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 12
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 24
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 3
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.loadStageThree 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop this 3
+    push constant 1
+    pop this 2
+    push pointer 0
+    push constant 4
+    push constant 4
+    push constant 4
+    push constant 2
+    push constant 2
+    push constant 4
+    push constant 2
+    push constant 4
+    push constant 4
+    call PatternPuzzle.setGrid 10
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 6
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push this 1
+    push constant 12
+    add
+    push constant 2
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 6
+    add
+    push this 1
+    push constant 12
+    add
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 12
+    add
+    push this 1
+    push constant 12
+    add
+    push constant 4
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push pointer 0
+    push this 0
+    push constant 24
+    add
+    push this 1
+    push constant 6
+    add
+    push constant 1
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.setGrid 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    push this 4
+    add
+    push argument 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push this 4
+    add
+    push argument 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push this 4
+    add
+    push argument 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push this 4
+    add
+    push argument 4
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push this 4
+    add
+    push argument 5
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push this 4
+    add
+    push argument 6
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push this 4
+    add
+    push argument 7
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push this 4
+    add
+    push argument 8
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push this 4
+    add
+    push argument 9
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    return
+function PatternPuzzle.isSolved 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    push constant 511
+    eq
+    return
+function PatternPuzzle.flipPatterns 3
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop local 2
+    push argument 1
+    push constant 3
+    lt
+    not
+    if-goto PatternPuzzle_1
+    push argument 1
+    push constant 6
+    add
+    pop local 2
+    goto PatternPuzzle_0
+label PatternPuzzle_1
+label PatternPuzzle_0
+    push argument 1
+    push constant 5
+    gt
+    not
+    if-goto PatternPuzzle_3
+    push argument 1
+    push constant 6
+    sub
+    pop local 2
+    goto PatternPuzzle_2
+label PatternPuzzle_3
+label PatternPuzzle_2
+    push local 2
+    push constant 3
+    call Math.divide 2
+    pop local 0
+    push local 2
+    push local 0
+    push constant 3
+    call Math.multiply 2
+    sub
+    pop local 1
+    push pointer 0
+    push constant 0
+    push local 0
+    call PatternPuzzle.flipPattern 3
+    pop temp 0
+    push pointer 0
+    push constant 1
+    push local 0
+    call PatternPuzzle.flipPattern 3
+    pop temp 0
+    push pointer 0
+    push constant 2
+    push local 0
+    call PatternPuzzle.flipPattern 3
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 0
+    call PatternPuzzle.flipPattern 3
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 1
+    call PatternPuzzle.flipPattern 3
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 2
+    call PatternPuzzle.flipPattern 3
+    pop temp 0
+    push pointer 0
+    push local 1
+    push local 0
+    call PatternPuzzle.rollBack 3
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.flipPattern 1
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 3
+    push argument 2
+    call Math.multiply 2
+    add
+    pop local 0
+    push local 0
+    push this 4
+    add
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    add
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    push constant 5
+    eq
+    not
+    if-goto PatternPuzzle_5
+    push local 0
+    push this 4
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto PatternPuzzle_4
+label PatternPuzzle_5
+label PatternPuzzle_4
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    push this 2
+    eq
+    not
+    if-goto PatternPuzzle_7
+    push this 3
+    push local 0
+    push this 5
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop this 3
+    goto PatternPuzzle_6
+label PatternPuzzle_7
+    push this 3
+    push local 0
+    push this 5
+    add
+    pop pointer 1
+    push that 0
+    not
+    and
+    pop this 3
+label PatternPuzzle_6
+    push pointer 0
+    push this 0
+    push constant 6
+    push argument 1
+    call Math.multiply 2
+    add
+    push this 1
+    push constant 6
+    push argument 2
+    call Math.multiply 2
+    add
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.rollBack 1
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 3
+    push argument 2
+    call Math.multiply 2
+    add
+    pop local 0
+    push local 0
+    push this 4
+    add
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    push constant 1
+    sub
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    push constant 0
+    eq
+    not
+    if-goto PatternPuzzle_9
+    push local 0
+    push this 4
+    add
+    push constant 4
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto PatternPuzzle_8
+label PatternPuzzle_9
+label PatternPuzzle_8
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    push this 2
+    eq
+    not
+    if-goto PatternPuzzle_11
+    push this 3
+    push local 0
+    push this 5
+    add
+    pop pointer 1
+    push that 0
+    or
+    pop this 3
+    goto PatternPuzzle_10
+label PatternPuzzle_11
+    push this 3
+    push local 0
+    push this 5
+    add
+    pop pointer 1
+    push that 0
+    not
+    and
+    pop this 3
+label PatternPuzzle_10
+    push pointer 0
+    push this 0
+    push constant 6
+    push argument 1
+    call Math.multiply 2
+    add
+    push this 1
+    push constant 6
+    push argument 2
+    call Math.multiply 2
+    add
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    call PatternPuzzle.drawPattern 4
+    pop temp 0
+    push constant 0
+    return
+function PatternPuzzle.drawPattern 0
+    push argument 0
+    pop pointer 0
+    push this 6
+    push argument 3
+    call GeneratorTiles.loadPatternTile 2
+    pop temp 0
+    push argument 1
+    push argument 2
+    push this 6
+    call Tiles.drawTile 3
+    pop temp 0
+    push argument 1
+    push constant 2
+    add
+    push argument 2
+    push this 6
+    call Tiles.drawTile 3
+    pop temp 0
+    push argument 1
+    push argument 2
+    push constant 2
+    add
+    push this 6
+    call Tiles.drawTile 3
+    pop temp 0
+    push argument 1
+    push constant 2
+    add
+    push argument 2
+    push constant 2
+    add
+    push this 6
+    call Tiles.drawTile 3
+    pop temp 0
+    push constant 0
+    return

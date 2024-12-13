@@ -1,0 +1,1325 @@
+function GeneratorTiles.loadPatternTile 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_1
+    push argument 0
+    push constant 14365
+    neg
+    push constant 29071
+    neg
+    push constant 7224
+    push constant 14364
+    push constant 29070
+    push constant 7225
+    neg
+    push constant 14749
+    neg
+    push constant 29647
+    neg
+    push constant 29647
+    neg
+    push constant 14749
+    neg
+    push constant 7225
+    neg
+    push constant 29070
+    push constant 14364
+    push constant 7224
+    push constant 29071
+    neg
+    push constant 14365
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_0
+label GeneratorTiles_1
+label GeneratorTiles_0
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_3
+    push argument 0
+    push constant 4105
+    neg
+    push constant 8197
+    neg
+    push constant 16771
+    neg
+    push constant 32190
+    push constant 1057
+    neg
+    push constant 2065
+    neg
+    push constant 4489
+    neg
+    push constant 9157
+    neg
+    push constant 9157
+    neg
+    push constant 4489
+    neg
+    push constant 2065
+    neg
+    push constant 1057
+    neg
+    push constant 32190
+    push constant 16771
+    neg
+    push constant 8197
+    neg
+    push constant 4105
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_2
+label GeneratorTiles_3
+label GeneratorTiles_2
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_5
+    push argument 0
+    push constant 19557
+    neg
+    push constant 9929
+    neg
+    push constant 5010
+    neg
+    push constant 30429
+    push constant 17477
+    neg
+    push constant 8842
+    neg
+    push constant 28396
+    push constant 14297
+    push constant 25677
+    neg
+    push constant 14297
+    push constant 28396
+    push constant 8842
+    neg
+    push constant 17477
+    neg
+    push constant 30429
+    push constant 5010
+    neg
+    push constant 9929
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_4
+label GeneratorTiles_5
+label GeneratorTiles_4
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto GeneratorTiles_7
+    push argument 0
+    push constant 2057
+    neg
+    push constant 5141
+    neg
+    push constant 10795
+    neg
+    push constant 21846
+    neg
+    push constant 10795
+    neg
+    push constant 5141
+    neg
+    push constant 2057
+    neg
+    push constant 1
+    neg
+    push constant 2057
+    neg
+    push constant 5141
+    neg
+    push constant 10795
+    neg
+    push constant 21846
+    neg
+    push constant 10795
+    neg
+    push constant 5141
+    neg
+    push constant 2057
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_6
+label GeneratorTiles_7
+label GeneratorTiles_6
+    push constant 0
+    return
+function GeneratorTiles.loadSmallWireTile 0
+    push argument 0
+    push constant 4113
+    neg
+    push constant 10280
+    push constant 4113
+    neg
+    push constant 4113
+    neg
+    push constant 40
+    push constant 17
+    neg
+    push constant 40
+    push constant 17
+    neg
+    push constant 17
+    neg
+    push constant 8177
+    neg
+    push constant 4097
+    neg
+    push constant 4097
+    neg
+    push constant 10248
+    push constant 4113
+    neg
+    push constant 10280
+    push constant 4113
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function GeneratorTiles.loadSquareBlockTile 0
+    push argument 0
+    push constant 0
+    push constant 1
+    push constant 4101
+    push constant 12301
+    push constant 1
+    push constant 1985
+    push constant 1025
+    push constant 1025
+    push constant 1025
+    push constant 1025
+    push constant 1
+    push constant 1
+    push constant 4101
+    push constant 12301
+    push constant 1
+    push constant 32767
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function GeneratorTiles.loadCautionWall 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_9
+    push argument 0
+    push constant 34
+    neg
+    push constant 50
+    neg
+    push constant 58
+    neg
+    push constant 62
+    neg
+    push constant 62
+    neg
+    push constant 46
+    neg
+    push constant 38
+    neg
+    push constant 34
+    neg
+    push constant 34
+    neg
+    push constant 50
+    neg
+    push constant 58
+    neg
+    push constant 62
+    neg
+    push constant 62
+    neg
+    push constant 46
+    neg
+    push constant 38
+    neg
+    push constant 34
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_8
+label GeneratorTiles_9
+label GeneratorTiles_8
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_11
+    push argument 0
+    push constant 0
+    push constant 1
+    neg
+    push constant 7711
+    neg
+    push constant 15421
+    neg
+    push constant 30841
+    neg
+    push constant 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_10
+label GeneratorTiles_11
+label GeneratorTiles_10
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_13
+    push argument 0
+    push constant 31743
+    push constant 23551
+    push constant 19455
+    push constant 17407
+    push constant 17407
+    push constant 25599
+    push constant 29695
+    push constant 31743
+    push constant 31743
+    push constant 23551
+    push constant 19455
+    push constant 17407
+    push constant 17407
+    push constant 25599
+    push constant 29695
+    push constant 31743
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_12
+label GeneratorTiles_13
+label GeneratorTiles_12
+    push constant 0
+    return
+function GeneratorTiles.loadSquareWallTile 0
+    push argument 0
+    push constant 32767
+    neg
+    push constant 16382
+    neg
+    push constant 4
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 8188
+    neg
+    push constant 4
+    neg
+    push constant 2
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function GeneratorTiles.loadComponentOne 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_15
+    push argument 0
+    push constant 16385
+    push constant 20485
+    push constant 20473
+    push constant 19657
+    push constant 18841
+    push constant 19257
+    push constant 20073
+    push constant 19657
+    push constant 18841
+    push constant 19257
+    push constant 20073
+    push constant 19657
+    push constant 18841
+    push constant 19241
+    push constant 12295
+    neg
+    push constant 20485
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_14
+label GeneratorTiles_15
+label GeneratorTiles_14
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_17
+    push argument 0
+    push constant 24576
+    neg
+    push constant 1
+    neg
+    push constant 24575
+    neg
+    push constant 22523
+    neg
+    push constant 22535
+    neg
+    push constant 23559
+    neg
+    push constant 24567
+    neg
+    push constant 22551
+    neg
+    push constant 23575
+    neg
+    push constant 24471
+    neg
+    push constant 24471
+    neg
+    push constant 24575
+    neg
+    push constant 22527
+    neg
+    push constant 24515
+    neg
+    push constant 16409
+    neg
+    push constant 32735
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_16
+label GeneratorTiles_17
+label GeneratorTiles_16
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_19
+    push argument 0
+    push constant 16383
+    neg
+    push constant 1
+    neg
+    push constant 14943
+    neg
+    push constant 385
+    neg
+    push constant 23805
+    neg
+    push constant 20477
+    neg
+    push constant 18429
+    neg
+    push constant 29
+    neg
+    push constant 26015
+    neg
+    push constant 26015
+    neg
+    push constant 1049
+    neg
+    push constant 18397
+    neg
+    push constant 16397
+    neg
+    push constant 16389
+    neg
+    push constant 16385
+    neg
+    push constant 32767
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_18
+label GeneratorTiles_19
+label GeneratorTiles_18
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto GeneratorTiles_21
+    push argument 0
+    push constant 25
+    neg
+    push constant 25
+    neg
+    push constant 3133
+    neg
+    push constant 28099
+    neg
+    push constant 25
+    neg
+    push constant 27709
+    neg
+    push constant 3523
+    neg
+    push constant 24601
+    neg
+    push constant 3133
+    neg
+    push constant 3523
+    neg
+    push constant 24601
+    neg
+    push constant 3133
+    neg
+    push constant 28099
+    neg
+    push constant 8217
+    neg
+    push constant 28057
+    neg
+    push constant 385
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_20
+label GeneratorTiles_21
+label GeneratorTiles_20
+    push constant 0
+    return
+function GeneratorTiles.loadComponentTwo 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_23
+    push argument 0
+    push constant 3968
+    push constant 446
+    push constant 15998
+    neg
+    push constant 410
+    push constant 3712
+    neg
+    push constant 12799
+    push constant 12698
+    push constant 3686
+    neg
+    push constant 4607
+    push constant 1648
+    neg
+    push constant 517
+    neg
+    push constant 32543
+    push constant 16880
+    push constant 170
+    neg
+    push constant 10514
+    push constant 14672
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_22
+label GeneratorTiles_23
+label GeneratorTiles_22
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_25
+    push argument 0
+    push constant 2
+    neg
+    push constant 337
+    push constant 440
+    push constant 14684
+    push constant 6655
+    push constant 10749
+    push constant 14685
+    push constant 6589
+    push constant 10588
+    push constant 14847
+    push constant 6655
+    push constant 10657
+    push constant 14783
+    push constant 6655
+    push constant 10530
+    push constant 14654
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_24
+label GeneratorTiles_25
+label GeneratorTiles_24
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_27
+    push argument 0
+    push constant 1
+    neg
+    push constant 3
+    push constant 5
+    push constant 15601
+    push constant 1041
+    push constant 13521
+    push constant 13393
+    push constant 1
+    push constant 1
+    push constant 15601
+    push constant 1041
+    push constant 13521
+    push constant 5329
+    push constant 5
+    push constant 3
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_26
+label GeneratorTiles_27
+label GeneratorTiles_26
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto GeneratorTiles_29
+    push argument 0
+    push constant 6655
+    push constant 10688
+    push constant 416
+    push constant 399
+    push constant 127
+    neg
+    push constant 115
+    neg
+    push constant 389
+    push constant 32384
+    neg
+    push constant 1664
+    neg
+    push constant 13937
+    neg
+    push constant 13951
+    neg
+    push constant 2445
+    push constant 2437
+    push constant 608
+    neg
+    push constant 28608
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_28
+label GeneratorTiles_29
+label GeneratorTiles_28
+    push constant 0
+    return
+function GeneratorTiles.loadWires 0
+    push argument 0
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    push constant 18469
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function GeneratorTiles.loadEnergyOrb 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 961
+    neg
+    push constant 3121
+    neg
+    push constant 4105
+    neg
+    push constant 8453
+    neg
+    push constant 8581
+    neg
+    push constant 16835
+    neg
+    push constant 16867
+    neg
+    push constant 18307
+    neg
+    push constant 17283
+    neg
+    push constant 8581
+    neg
+    push constant 8325
+    neg
+    push constant 4105
+    neg
+    push constant 3121
+    neg
+    push constant 961
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function GeneratorTiles.loadWallTile 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_31
+    push argument 0
+    push constant 1
+    push constant 0
+    push constant 8
+    neg
+    push constant 12
+    push constant 12
+    neg
+    push constant 76
+    neg
+    push constant 172
+    neg
+    push constant 588
+    neg
+    push constant 1804
+    neg
+    push constant 3980
+    neg
+    push constant 7948
+    neg
+    push constant 15884
+    neg
+    push constant 31756
+    neg
+    push constant 18420
+    push constant 12276
+    push constant 8180
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_30
+label GeneratorTiles_31
+label GeneratorTiles_30
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_33
+    push argument 0
+    push constant 0
+    push constant 0
+    push constant 1
+    neg
+    push constant 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 0
+    push constant 0
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_32
+label GeneratorTiles_33
+label GeneratorTiles_32
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_35
+    push argument 0
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    push constant 0
+    push constant 8191
+    push constant 12288
+    push constant 12287
+    push constant 11775
+    push constant 11007
+    push constant 11711
+    push constant 12063
+    push constant 11791
+    push constant 12039
+    push constant 12163
+    push constant 12225
+    push constant 12258
+    push constant 12276
+    push constant 12280
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_34
+label GeneratorTiles_35
+label GeneratorTiles_34
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto GeneratorTiles_37
+    push argument 0
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    push constant 24588
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_36
+label GeneratorTiles_37
+label GeneratorTiles_36
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto GeneratorTiles_39
+    push argument 0
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    push constant 12281
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_38
+label GeneratorTiles_39
+label GeneratorTiles_38
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto GeneratorTiles_41
+    push argument 0
+    push constant 8180
+    push constant 12276
+    push constant 18420
+    push constant 31756
+    neg
+    push constant 15884
+    neg
+    push constant 7948
+    neg
+    push constant 3980
+    neg
+    push constant 1804
+    neg
+    push constant 588
+    neg
+    push constant 172
+    neg
+    push constant 76
+    neg
+    push constant 12
+    neg
+    push constant 12
+    push constant 8
+    neg
+    push constant 0
+    push constant 1
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_40
+label GeneratorTiles_41
+label GeneratorTiles_40
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto GeneratorTiles_43
+    push argument 0
+    push constant 1
+    neg
+    push constant 0
+    push constant 0
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 0
+    push constant 1
+    neg
+    push constant 0
+    push constant 0
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_42
+label GeneratorTiles_43
+label GeneratorTiles_42
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto GeneratorTiles_45
+    push argument 0
+    push constant 12280
+    push constant 12276
+    push constant 12258
+    push constant 12225
+    push constant 12163
+    push constant 12039
+    push constant 11791
+    push constant 12063
+    push constant 11711
+    push constant 11007
+    push constant 11775
+    push constant 12287
+    push constant 12288
+    push constant 8191
+    push constant 0
+    push constant 32767
+    neg
+    push constant 1
+    sub
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_44
+label GeneratorTiles_45
+label GeneratorTiles_44
+    push constant 0
+    return
+function GeneratorTiles.loadTubeTile 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_47
+    push argument 0
+    push constant 1
+    neg
+    push constant 2017
+    neg
+    push constant 3601
+    neg
+    push constant 7305
+    neg
+    push constant 6665
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 16381
+    neg
+    push constant 16381
+    neg
+    push constant 1
+    neg
+    push constant 7305
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_46
+label GeneratorTiles_47
+label GeneratorTiles_46
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_49
+    push argument 0
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_48
+label GeneratorTiles_49
+label GeneratorTiles_48
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_51
+    push argument 0
+    push constant 6793
+    neg
+    push constant 16381
+    neg
+    push constant 16381
+    neg
+    push constant 1
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7305
+    neg
+    push constant 6793
+    neg
+    push constant 7177
+    neg
+    push constant 6793
+    neg
+    push constant 3089
+    neg
+    push constant 2017
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_50
+label GeneratorTiles_51
+label GeneratorTiles_50
+    push constant 0
+    return
+function GeneratorTiles.loadBeltTile 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto GeneratorTiles_53
+    push argument 0
+    push constant 26215
+    push constant 26213
+    neg
+    push constant 5
+    push constant 6
+    neg
+    push constant 13108
+    neg
+    push constant 30539
+    neg
+    push constant 4533
+    push constant 13260
+    push constant 6
+    neg
+    push constant 5
+    push constant 26213
+    neg
+    push constant 26215
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_52
+label GeneratorTiles_53
+label GeneratorTiles_52
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto GeneratorTiles_55
+    push argument 0
+    push constant 26214
+    push constant 26215
+    neg
+    push constant 0
+    push constant 1
+    neg
+    push constant 13108
+    neg
+    push constant 30584
+    neg
+    push constant 4369
+    push constant 13107
+    push constant 1
+    neg
+    push constant 0
+    push constant 26215
+    neg
+    push constant 26214
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_54
+label GeneratorTiles_55
+label GeneratorTiles_54
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto GeneratorTiles_57
+    push argument 0
+    push constant 6554
+    neg
+    push constant 9831
+    neg
+    push constant 24576
+    neg
+    push constant 24575
+    push constant 13260
+    push constant 21112
+    neg
+    push constant 21231
+    neg
+    push constant 13107
+    push constant 24575
+    push constant 24576
+    neg
+    push constant 9831
+    neg
+    push constant 6554
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    goto GeneratorTiles_56
+label GeneratorTiles_57
+label GeneratorTiles_56
+    push constant 0
+    return
+function GeneratorTiles.loadCircleTop 0
+    push argument 0
+    push constant 1
+    neg
+    push constant 8057
+    neg
+    push constant 8221
+    neg
+    push constant 17519
+    neg
+    push constant 16439
+    neg
+    push constant 16731
+    neg
+    push constant 17515
+    neg
+    push constant 43
+    neg
+    push constant 21931
+    neg
+    push constant 22123
+    neg
+    push constant 23515
+    neg
+    push constant 27703
+    neg
+    push constant 30703
+    neg
+    push constant 14365
+    neg
+    push constant 8185
+    neg
+    push constant 1
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
+function GeneratorTiles.loadCircleBottom 0
+    push argument 0
+    push constant 2017
+    neg
+    push constant 6169
+    neg
+    push constant 8197
+    neg
+    push constant 16387
+    neg
+    push constant 16387
+    neg
+    push constant 31806
+    push constant 30750
+    push constant 30750
+    push constant 30750
+    push constant 30750
+    push constant 31806
+    push constant 16387
+    neg
+    push constant 16387
+    neg
+    push constant 8197
+    neg
+    push constant 6169
+    neg
+    push constant 2017
+    neg
+    call Tiles.loadTile 17
+    pop temp 0
+    push constant 0
+    return
