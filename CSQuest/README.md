@@ -38,7 +38,7 @@ If for some reason, nothing happens (because you clicked the stepper by mistake 
 
 ## Gameplay
 
-The player can use the `W, A, S, D` keys to move the main character around. When prompted, they can interact with certain game objects by pressing the `E` key.
+The player can use the arrow keys to move the main character around. When prompted, they can interact with certain game objects by pressing the `E` key.
 
 The game has 5 levels, with 3 of them containing puzzles and 1 combat encounter. In the first level, the player starts off in a village where the generator siphoning power from the dungeon has been shut down due to flooding. The player is asked to assist the engineer in repairing it.
 
@@ -144,8 +144,38 @@ Our game engine keeps a reference to a list of items. It passes it around to the
 
 Each item's frame data is stored inside the Tile class. The frame rate for the animation is managed on two fronts. The Item class has `frames` and `currentFrame` variables which describe the number of frames in the animation and the current animation frame. An item could only have two or three frames in a complete cycle, but cycling them on every tick would make the animation appear too fast. In order to have the correct pacing, we define offets in the stored frame data inside the Tiles class. When the value of `frame` crosses an offset value, we change to the next frame in the cycle. We tweak the value of this offset along with the `frames` variable to achieve a desired frame rate cycle with respect to the game's tick rate.
 
-## Dialoge Manager
+## Events
 
+The responsibilty of handing events in the game falls on the game engine as well as each individual level. One each tick, the game engine processes collision-related events and positional/key-press events separately. The game engine asks the Level Manager to process any events related to the player's current position and the currently pressed key on the keyboard. The Level Manager forwards the request to the currently active level and the level decides whether a key event can be triggered with the provided data and the current state of the level.
 
+In case of collision-related events, we process each one based on the type of the item. If it is an item that damages or heals the player, then it is handled right away. But if the item is a "key item", then the event is passed to the Level Manager. The idea was that different key items might interact with the player and the level in different ways. For example, picking up a power core in one level might unlock a locked gate while in another level, the player might require another item along with the power core to activate the gate (and they could pick them up in any order).
+
+Unfortunately, because of the instruction limitation, this collision-related event system was never fully utilized. Most of the levels simply do not have an implementation for handling the key collisions, and majority of the events in the game are of the positional/key-press type.
+
+## Dialogues and UI
+
+The game's UI is divided into two components: Dialoge UI and Player Status UI. The player status UI, located on the left side, keeps track of the player's current health. It shows each health point as a heart. The Dialogue UI on the right displays any dialogue text during the game. It can display 2 lines of text, each one being able to hold 40 characters.
+
+Just like printing everything else, printing text also involves updating values in the RAM's screen portion. Thankfully, the Jack OS's Output class does exactly that for us when it comes to printing text on the screen, so we don't have to worry about managing bitmaps and printing for the character set.
+
+Updating the player status as well as displaying any dialouges is the responsibility of the Dialogue Manager class. While processing events, the individual level can use the Dialogue Manager's interface to display dialogues.
 
 ## Game Engine
+
+We've already talked plenty about the game engine's responsibilities and role across all the aspects discussed so far, so I'm going to briefly list all the things the engine performs per tick.
+
+- Check and store the currently pressed key on the keyboard
+- If an arrow key was pressed, move the player in the proper direction
+- On every other tick, move any items (in the current level) which have pathing specified for them
+- Animate items in the current level by advancing them to the next animation frame
+- Animate any static objects in the current level (like fans and gears)
+- Detect any player-item collisions and process them accordingly
+- Process positional/key-press related events in the current level
+- Check if the current level is cleared. If it is, load the next level
+- Flip the slow bit (helps move items every other tick)
+- Detect if the player is alive
+- Detect if the player has finished the game
+
+Between each tick, the engine makes a `Sys.wait(100)` call which is supposed to set the tick rate to specific period. But becuase the way Jack OS's `Sys.wait()` is implemented, the waiting period is inconsistent across different machines.
+
+Once the player is dead or the game is finished, the engine gets out of the tick loop and displays a proper end game screen to the player before halting execution.

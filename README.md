@@ -168,7 +168,7 @@ The game's design details and documentation can be found in the project's own [r
 
 ## Gameplay
 
-The player can use the `W, A, S, D` keys to move the main character around. When prompted, they can interact with certain game objects by pressing the `E` key.
+The player can use the arrow keys to move the main character around. When prompted, they can interact with certain game objects by pressing the `E` key.
 
 The game has 5 levels, with 3 of them containing puzzles and 1 combat encounter. In the first level, the player starts off in a village where the generator siphoning power from the dungeon has been shut down due to flooding. The player is asked to assist the engineer in repairing it.
 

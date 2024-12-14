@@ -67,8 +67,10 @@ class Game {
         - Flip the slow bit
         - Detect if the player is alive
         - Detect if the player has finished the game
-    There is a 100ms delay (a Sys.wait(100) call) between each tick so that key presses
-    and player movement are more fluid and not "too instantaneous"
+    There is a Sys.wait(100) call between each tick so that key presses
+    and player movement are more fluid and not "too instantaneous", but since the
+    actual waiting period is dependent on the emulator implementation and the host
+    system, the resulting behavior might not be consistent.
 
     Once the player dies or finishes the game, we exit out of the tick loop and
     display a proper end game text window to the player.
