@@ -80,9 +80,9 @@ class Item {
 
     /* loads an item's animation parameters based on ID */
     method void loadAnimationData(int offset) {
-        if (id = 3) {
-            let frames = 30;
-        }
+        // if (id = 3) {
+        //     let frames = 30;
+        // }
         if (id = 4) {
             let frames = 30;
         }

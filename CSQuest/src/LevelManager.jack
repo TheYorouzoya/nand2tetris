@@ -104,7 +104,7 @@ class LevelManager {
     // map, then initializes and loads the next level
     function void loadNextLevel() {
         do DialogueManager.clearDialogueBox();
-        //do LevelManager.disposeCurrentLevel();
+        do LevelManager.disposeCurrentLevel();
         do LevelManager.resetMap();
         if (currentLevel = 0) {
             do LevelOne.init(tile, map, twoToThe, items, player);

@@ -22,7 +22,7 @@ You need to launch the `VMEmulator` (the batch file) from the `tools` folder (th
 
     There will be a prompt to load the built-in implementations of the OS functions, click Yes on it. Once all the files are loaded, you can see the instructions populated inside the Program tab.
 
-2. Locate the VM speed slider on top-middle portion and drag the slider all the way to the right toward "Fast".
+2. Locate the VM speed slider on the top-middle portion and drag the slider all the way to the right toward "Fast".
 
 3. Next to the slider are three dropdowns. In the `View` section, make sure `Screen` is selected. This makes sure that the Hack CPU's screen is displayed in the window below.
 
@@ -78,15 +78,16 @@ The Jack source files for the game can be found inside the [src](./src/) folder.
 
 At the heart of the Hack Computer lies a very simple CPU. We only have addition, subtraction, and the basic `&`, `|`, and `!` logic operations. There's no support for multiplication, division, bit shifts, etc. This isn't a huge problem for us because you can do a lot with just that. It is just going to take more instructions to do what we want. The main problem is the extremely limited amount of memory on our CPU.
 
-Since the Hack CPU is a 16-bit machine and we dedicate 1 bit to the op-code, this leaves us with only 15-bits of addressable memory. This gives us $2^{15}$ or $32,768$ possible memory locations to work with. Now, we also have to account for the memory mapped I/O devices, namely, the screen and the keyboard. The screen occupies $8,192$ words in memory, while the keyboard takes up a single word. Since the Keyboard and the Screen are separate memory modules in the architecture, in order to avoid any extra hassle with addressing these modules, the Hack CPU dedicates an extra bit to address these two modules.
+Since the Hack CPU is a 16-bit machine and we dedicate 1 bit to the op-code, this leaves us with only 15-bits of addressable memory. This gives us $2^{15}$ or $32,768$ possible memory locations to work with. Now, we also have to account for the memory mapped I/O devices, namely, the screen and the keyboard. The screen occupies $8,192$ words in memory, while the keyboard takes up a single word. Since the Keyboard and the Screen are separate memory modules in the architecture, in order to avoid any extra hassle with addressing these modules, the Hack CPU dedicates an extra bit in the instruction for addressing.
 
-This leaves us with only 14 bits for addressable memory space giving us a RAM with $2^{14}$ or $16,384$ words of memory to work with.
 
 ![image showing the Hack memory architecture](./../docimages/hack-memory.png)
 
+This leaves us with only 14 bits for addressable memory space giving us a RAM with $2^{14}$ or $16,384$ words to work with.
+
 So we have a very small RAM. We can still manage. We'll just have to re-allocate or recycle as much as we can and be frugal with our allocations. This means writing a little more code for this orchestration.
 
-But all this extra code also has an upper limit. Because we have no support for storage devices, we can't just shuffle code in and out of our instruction memory. In fact, if you remember the assembly specifications, our A-register is used to select both the data memory and the instruction memory at the same time. So we have a hard limit on $32,768$ CPU instructions for our game. Mind you, the Jack OS library also shares this instruction space.
+But all this extra code also has an upper limit. Because we have no support for storage devices, we can't just shuffle code in and out of our instruction memory. In fact, if you refer to the assembly specifications, our A-register is used to select both the data memory and the instruction memory at the same time. So we have a hard limit on $32,768$ CPU instructions for our game. Mind you, the Jack OS library also has to reside in this instruction space.
 
 Our one respite in this situation is that by running the code on the VM Emulator (and not the CPU emulator), we can force the emulator to load the built-in version of the Jack library, which, according to my interpretation, should trap into the Java side of the emulator and not the Hack side.
 
@@ -94,15 +95,57 @@ One solution would be to prune away all the OS functions we do not need by suppl
 
 ## Rendering Graphics
 
-Our screen is 512 pixels wide and 256 pixels tall where each individual pixel is mapped onto the RAM. With each RAM word being 16 bits wide, this gives us 8,192 words in a 32x256 grid arrangement. The screen section in the RAM starts off at location 0x4000 (or 16,384).
+Our screen is 512 pixels wide and 256 pixels tall where each individual pixel is mapped onto the RAM. With each RAM word being 16 bits wide, this gives us a 32x256 grid arrangement of words representing all the pixels in memory. If a bit is set to 1, the corresponding pixel on the screen turns black (it turns white for 0). The screen section in the RAM starts off at location 0x4000 (or 16,384).
 
 While the Jack OS API provides us with functions to draw pixels on the screen on a given (x, y) position (along with drawing lines and circles), it is simply too inefficient for us to go through the expensive overhead of making a function call to update a single pixel. Instead, we'll take a page from the OS's book and use the array indexing notation to write words directly into the RAM's screen section to update pixels on the screen:
 
 ```JavaScript
+/* This sets the first 16 pixels on the topmost row of the screen to black */
 var Array screen;
 let screen = 16384;
-let screen[0] = -1;
+let screen[0] = -1;     // Jack integers are in 2's complement notation
 ```
 > *This works thanks to how the compiler deals with the array notation as arrays in Jack are just any other object and not a primitive construct.*
 
-The game implements a Tile Renderer which divides this screen into a 64 by 32 unit grid composed of 8-pixel wide square blocks. The basic unit of this tile system, a tile, is 16 pixels wide. The renderer can "stamp" this tile on any particular place on the grid to draw it on the screen. This means that drawing each of the tile's rows will always correspond to editing either a full word or two half-words in memory.
+The game implements a Tile Renderer which divides this screen into a 64 by 32 unit grid composed of 8-pixel wide square blocks. The basic unit of this tile system, a tile, is 16 pixels wide. The renderer can "stamp" a tile on any particular place on the grid to draw it on the screen. This means that drawing each of the tile's rows will always correspond to editing either a full word or two half-words in memory. All the drawing in the game is done via this Tile Renderer (except for the player character).
+
+Each major component in the game has their own tile stamp. Whenever it has to draw itself on the screen, it loads the particular tile data into its stamp and asks the renderer to print it onto the given coordinate on the grid.
+
+## Layout and Movement
+
+The game divides the screen into two parts: the playable area and the dialogue UI area. The dialogue UI sits at the bottom of the screen, taking up the last 48 rows of pixels. The rest of the upper side of the screen is the playable area.
+
+The game uses the tile renderer's grid as a movement space for all the object movement as well. All objects in the game move 1 unit at a time (i.e., 8 pixels) on this grid. To prevent the player from running over the entire level, erasing every block they pass over, the game implements a *spatial hash map* for the playable area as follows:
+
+![image showing how the spatial hash map's mapping](./../docimages/layout-mapping.png)
+
+The map allocates each bit for a unit on the movement grid. This means 4 words in memory for each row. For 32 rows on screen, the hash map fits into 128 words in the RAM. Accounting for the UI area, we can shave off additional 24 words for the bottom 6 rows giving us a final size of 104 words.
+
+The game's Level Manager manages this hash map, zeroing it out before sending it to the current level upon initialization. Whenever a level prints out its tilemap on the screen, it simultaneously updates the corresponding set of bits in the hash map.
+
+Because our player takes up 2 units on the grid, it occupies a 2x2 area on this hash map. Furthermore, as the player's position is tied to the top-left corner of this block, we need to account for the rest of their body bleeding into a tile. Hence, we have to additionally update 5 more bits in our map for every tile placed on the screen.
+
+Whenever the player moves, the game polls the hash map to see if the player can be moved to the desired area. If even a single bit in the area is set to 1, the player cannot move there, and the movement request is rejected.
+
+## Collision Detection
+
+Since we only have a 2D plane to worry about, not much work needs to be done on collision detection. While the spatial hash map takes care of all the static objects -- and because we have a small number of moving objects in the game -- we can get away with the standard method of collision detection by simply checking the bounds of every currently moving object in the object list against the player's.
+
+![image showing how collision detection works in the game](./../docimages/collisions.png)
+
+As the number of moving objects per level is quite small (<10), we do not need to implement any special data structures (like a priority queue) to resolve collisions effectively.
+
+
+## Animation
+
+While Jack is a language with objects, it lacks the defining OOP feature of class inheritance. Otherwise, we could have declared a parent Item class and inherited it across a range of items in our game. Each item could've had its own implementaion of drawing itself, moving itself, or interacting with the player, etc. But since Jack doesn't have inheritance, we'll just bake all the code for every item into the `Item` class. We assign an `id` field on initialization to distinguish items from each other across methods.
+
+Our game engine keeps a reference to a list of items. It passes it around to the Level Manager which then passes it further to each individual Level. Each Level, upon initialization, fills this list with the references to all the animated items it creates. On every tick, the engine calls the `draw()` function for each item, which is configured to automatically load the next frame's tile into the tile stamp, erase the current tile on the screen, and print the new tile.
+
+Each item's frame data is stored inside the Tile class. The frame rate for the animation is managed on two fronts. The Item class has `frames` and `currentFrame` variables which describe the number of frames in the animation and the current animation frame. An item could only have two or three frames in a complete cycle, but cycling them on every tick would make the animation appear too fast. In order to have the correct pacing, we define offets in the stored frame data inside the Tiles class. When the value of `frame` crosses an offset value, we change to the next frame in the cycle. We tweak the value of this offset along with the `frames` variable to achieve a desired frame rate cycle with respect to the game's tick rate.
+
+## Dialoge Manager
+
+
+
+## Game Engine
