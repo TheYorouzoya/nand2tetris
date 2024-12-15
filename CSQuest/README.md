@@ -42,27 +42,27 @@ The player can use the arrow keys to move the main character around. When prompt
 
 The game has 5 levels, with 3 of them containing puzzles and 1 combat encounter. In the first level, the player starts off in a village where the generator siphoning power from the dungeon has been shut down due to flooding. The player is asked to assist the engineer in repairing it.
 
-![image showing game's first level](./../docimages/game-level-1.png)
+![image showing game's first level](./../docimages/game-level-1.gif)
 
 Talking to the engineer opens the gate to the second level. Here, they must assist the engineer by fixing the misaligned pipes to drain out the flood water and retrieve the power cores. Once the player returns the core to their respective slots, the water pumps start working and the player can access the next level.
 
-![image showing game's second level](./../docimages/game-level-2.png)
+![image showing game's second level](./../docimages/game-level-2.gif)
 
 The third level takes the player to the generator's main reactor room. Due to the flooding, the system modules have been scrambled. The player must make sure to restart the reactor by aligning all the modules (the patterns displayed in the center) with the one displayed on the console in three separate phases. Each pattern slot on the grid corresponds to a number on the keyboard's numpad. Pressing a key will cycle all the patterns in that row and column to the next cycle. The player must figure out the right combination of keys to press in order to turn all the patterns to the one displayed on the console to the right.
 
-![image showing game's third level](./../docimages/game-level-3.png)
+![image showing game's third level](./../docimages/game-level-3.gif)
 
 Once the player finishes all three puzzle phases, the reactor finally boots up and the player is taken back to the beginning of the game. This time, the generator is fully operational and running. The engineer now tells the player to go into the dungeon and disable the golem (who has now woken up due to a security measure in the dungeon). The player must head inside and reboot the control device to disable the golem so that power can be redirected to the village.
 
-![image showing game's first level when revisited](./../docimages/game-level-1-revisited.png)
+![image showing game's first level when revisited](./../docimages/game-level-1-revisited.gif)
 
 Before the player can get to the golem, they must make their way past the dungeon's security systems. If the player steps on the spikes or gets hit by a fireball, they lose one of their lives.
 
-![image showing game's fourth level](./../docimages/game-level-4.png)
+![image showing game's fourth level](./../docimages/game-level-4.gif)
 
 Once the player reaches the end of the corridor, they can enter the door and face their final opponent: the security golem. The player needs to dodge all the fireballs and interact with the console behind the boss to deactivate it.
 
-![image showing the game's final boss level](./../docimages/game-level-5.png)
+![image showing the game's final boss level](./../docimages/game-level-5.gif)
 
 Once the player does that, game is over.
 
