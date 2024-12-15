@@ -36,6 +36,12 @@ Here's an image showing what the steps are:
 
 If for some reason, nothing happens (because you clicked the stepper by mistake or ran the program without selecting the "No Animation" option), click the Reset Button `<<` to reset the program counter, make sure all settings are configured as specified, and click Run `>>` again.
 
+The images shown here are what the expected speed of the game is supposed to look like (I cannot control it due to the reasons described later). If your game is too fast in comparison, you can try tweaking with the speed slider in the VM panel. If it is too slow, you'll have to edit the VM code as follows:
+
+- open the `Game.vm` file in a text-editor.
+- goto line 291 and edit the `100` in the `push constant 100` to a smaller value
+- try running reloading the game in the emulator and run again
+
 ## Gameplay
 
 The player can use the arrow keys to move the main character around. When prompted, they can interact with certain game objects by pressing the `E` key.
