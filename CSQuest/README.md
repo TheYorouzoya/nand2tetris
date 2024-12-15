@@ -40,7 +40,7 @@ The images shown here are what the expected speed of the game is supposed to loo
 
 - open the `Game.vm` file in a text-editor.
 - goto line 291 and edit the `100` in the `push constant 100` to a smaller value
-- try running reloading the game in the emulator and run again
+- reload the game in the emulator and run again
 
 ## Gameplay
 
