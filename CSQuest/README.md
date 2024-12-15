@@ -4,7 +4,7 @@ CSQuest is a small puzzle/adventure game written in Jack. The game can be run on
 
 > *The artwork assets for the game are taken from the free assets put on itch.io by [PiiiXL](https://piiixl.itch.io/) and [Kenney](https://kenney.itch.io/), and then converted to bitmaps to work with the Hack CPU architecture.*
 
-![image showing the game's home screen with the game running inside the VM emulator](./../docimages/game-home.png)
+![image showing the game's home screen with the game running inside the VM emulator](./../docimages/game-home.gif)
 
 
 ## How to Run

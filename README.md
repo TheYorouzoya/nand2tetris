@@ -155,7 +155,7 @@ CSQuest is a small puzzle/adventure game written in Jack. The game can be run on
 
 > *The artwork assets for the game are taken from the free assets put on itch.io by [PiiiXL](https://piiixl.itch.io/) and [Kenney](https://kenney.itch.io/), and then converted to bitmaps to work with the Hack CPU architecture.*
 
-![image showing the game's home screen with the game running inside the VM emulator](./docimages/game-home.png)
+![image showing the game's home screen with the game running inside the VM emulator](./docimages/game-home.gif)
 
 > [!NOTE]
 > *While Nand2Tetris now uses their web-based IDE for emulation, since this project was written for the legacy Java software package linked above, it is recommended you run it there. The tick rate for the new web-based IDE's CPU is too fast which makes the game's tile animations and movement too jarring. Plus, there are numerous graphics bugs when running the game on it.*
