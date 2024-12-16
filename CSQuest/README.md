@@ -108,8 +108,8 @@ While the Jack OS API provides us with functions to draw pixels on the screen on
 ```JavaScript
 /* This sets the first 16 pixels on the topmost row of the screen to black */
 var Array screen;
-let screen = 16384;
-let screen[0] = -1;     // Jack integers are in 2's complement notation
+let screen = 16384;     // this acts as the base address
+let screen[0] = -1;     // goes to word at address 16384 and sets all the bits to 1
 ```
 > *This works thanks to how the compiler deals with the array notation as arrays in Jack are just any other object and not a primitive construct.*
 
