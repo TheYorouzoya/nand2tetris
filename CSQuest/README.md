@@ -20,7 +20,7 @@ You need to launch the `VMEmulator` (the batch file) from the `tools` folder (th
 
 1. load the VM files by clicking the `Load Program` button or through the File>Load Porgram dropdown menu. In the dialogue box, navigate to this repo's `CSQuest` folder and click Load Program. You don't need to select a particular file, the emulator will load all the VM files from the directory on its own.
 
-    There will be a prompt to load the built-in implementations of the OS functions, click Yes on it. Once all the files are loaded, you can see the instructions populated inside the Program tab.
+    There will be a prompt to load the built-in implementations of the OS functions, click Yes on it. Once all the files are loaded, you should see the instructions populated inside the Program tab.
 
 2. Locate the VM speed slider on the top-middle portion and drag the slider all the way to the right toward "Fast".
 
@@ -116,6 +116,8 @@ let screen[0] = -1;     // Jack integers are in 2's complement notation
 The game implements a Tile Renderer which divides this screen into a 64 by 32 unit grid composed of 8-pixel wide square blocks. The basic unit of this tile system, a tile, is 16 pixels wide. The renderer can "stamp" a tile on any particular place on the grid to draw it on the screen. This means that drawing each of the tile's rows will always correspond to editing either a full word or two half-words in memory. All the drawing in the game is done via this Tile Renderer (except for the player character).
 
 Each major component in the game has their own tile stamp. Whenever it has to draw itself on the screen, it loads the particular tile data into its stamp and asks the renderer to print it onto the given coordinate on the grid.
+
+As for the tiles themselves, every tile in the game is stored as a bitmap. Since each tile is a 16 pixel wide square block, we can store a single tile's bitmap as 16 integers (or 16 words in memory). While I've used the word "store" here, since there is no file I/O, the only way to input these bitmaps into the program is to write them in the code. This means that each tile in the game also competes for the very limited instruction space in our program. While the game's engine is setup so that adding more levels won't be a problem, we simply do not have enough instruction space to add them.
 
 ## Layout and Movement
 
