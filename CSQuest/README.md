@@ -184,6 +184,6 @@ We've already talked plenty about the game engine's responsibilities and role ac
 - Detect if the player is alive
 - Detect if the player has finished the game
 
-Between each tick, the engine makes a `Sys.wait(100)` call which is supposed to set the tick rate to specific period. But becuase the way Jack OS's `Sys.wait()` is implemented, the waiting period is inconsistent across different machines.
+Between each tick, the engine makes a `Sys.wait(100)` call which is supposed to set the tick rate to specific period. But becuase the way Jack OS's `Sys.wait()` is implemented, the waiting period is inconsistent across different machines. So for the faster machines, we can tweak the VM slider to go slower, but for the slower machines, this value needs to be updated directly in the VM files as described in the "How to Run" section above.
 
-Once the player is dead or the game is finished, the engine gets out of the tick loop and displays a proper end game screen to the player before halting execution.
+Once the player is dead or the game is finished, the engine gets out of the tick loop and displays a proper end game screen (failure or success) to the player before halting execution.
